@@ -1,0 +1,190 @@
+%% \iffalse
+%%  Local Variables:
+%%  mode: doctex
+%%  TeX-master: t
+%%  End:
+%% \fi
+%% \iffalse meta-comment
+%% ----------------------------------------------------------------------
+%%
+%% Filename: xdthesis.dtx
+%% Author: Fred Qi@Unknown
+%% Created: 2008-06-25 09:52:52(+0800)
+%% Version: $Id$
+%%
+%% ----------------------------------------------------------------------
+%% COMMENTARY
+%% ----------------------------------------------------------------------
+%%
+%% Copyright (C) 2008 by Fei Qi <fred.qi@gmail.com>
+%%
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3a
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in:
+%%
+%% http://www.latex-project.org/lppl.txt
+%%
+%% and version 1.3a or later is part of all distributions of LaTeX
+%% version 2004/10/01 or later.
+%%
+%% ----------------------------------------------------------------------
+%% CHANGE LOG
+%% ----------------------------------------------------------------------
+%% Last-Updated: 2008-06-25 11:32:44(+0800) [by Fred Qi@Unknown]
+%%     Update #: 135
+%% ----------------------------------------------------------------------
+%% 
+%% 
+%% 
+%% ----------------------------------------------------------------------
+%% ----------------------------------------------------------------------
+%% \fi
+
+% \iffalse
+%<*driver>
+\ProvidesFile{xdthesis.dtx}[2008/06/24 0.1 Xidian University Thesis Template]
+\documentclass[10pt]{ltxdoc}
+\usepackage{zhspacing,xltxtra}
+\usepackage{indentfirst}
+\pagestyle{empty}
+\zhspacing
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{xdthesis.dtx}
+\clearpage
+\end{document}
+%</driver>
+% \fi
+%
+%
+% \GetFileInfo{xdthesis.dtx}
+% \MakeShortVerb{\|}
+%
+% \def\xdthesis{\textsc{XD}\-\textsc{Thesis}}
+% \def\pkg#1{\texttt{#1}}
+% \def\xdu{西安电子科技大学}
+%
+% \changes{v0.1}{2008/06/24}{Thesis template for the bachelor's degree starts.}
+%
+%
+% \DoNotIndex{\begin,\end,\begingroup,\endgroup}
+% \DoNotIndex{\ifx,\ifdim,\ifnum,\ifcase,\else,\or,\fi}
+% \DoNotIndex{\let,\def,\xdef,\newcommand,\renewcommand}
+% \DoNotIndex{\expandafter,\csname,\endcsname,\relax,\protect}
+% \DoNotIndex{\Huge,\huge,\LARGE,\Large,\large,\normalsize}
+% \DoNotIndex{\small,\footnotesize,\scriptsize,\tiny}
+% \DoNotIndex{\normalfont,\bfseries,\slshape,\interlinepenalty}
+% \DoNotIndex{\hfil,\par,\hskip,\vskip,\vspace,\quad}
+% \DoNotIndex{\centering,\raggedright}
+% \DoNotIndex{\c@secnumdepth,\@startsection,\@setfontsize}
+% \DoNotIndex{\ ,\@plus,\@minus,\p@,\z@,\@m,\@M,\@ne,\m@ne}
+% \DoNotIndex{\@@par,\DeclareOperation,\RequirePackage,\LoadClass}
+% \DoNotIndex{\AtBeginDocument,\AtEndDocument}
+%
+% \IndexPrologue{\section*{索引}%
+%    \addcontentsline{toc}{section}{索~~~~引}}
+% \GlossaryPrologue{\section*{修改记录}%
+%    \addcontentsline{toc}{section}{修改记录}}
+%
+% \title{\xdthesis：西安电子科技大学学位论文模板\thanks{Xidian University
+%     \XeLaTeX{} Thesis Template.}}
+% \author{齐飞\\[5pt]{西安电子科技大学电子工程学院}\\[5pt]
+%   \texttt{fred.qi@gmail.com}} \date{v\fileversion\ (\filedate)}
+% \maketitle\thispagestyle{empty}
+%
+% \begin{abstract}\noindent
+%   此宏包旨在建立一个简单易用的西安电子科技大学学位论文模板，包括本科毕业设计、
+%   硕士及博士学位论文。目前正在开发本科毕业设计的模板，对其它格式的支持会陆续加
+%   入。
+% \end{abstract}
+%
+% \vskip2cm 
+% \def\abstractname{免责声明}
+% \begin{abstract}
+% \noindent
+% \begin{enumerate}
+% \item 本模板的发布遵守~\LaTeX{} Project Public License，使用前请认真阅读协议内容。
+% \item 本模板为作者根据\xdu{}教务处颁发的《综合论文训练写作指南》和\xdu{}研究生
+%   院颁发的《研究生学位论文写作指南》编写而成，旨在供\xdu{}毕业生撰写学位论文使
+%   用。
+% \item \xdu{}大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授
+%   权第三方模板为官方模板，所以此模板仅为写作指南的参考实现，不保证格式审查老师
+%   不提意见。任何由于使用本模板而引起的论文格式审查问题均与本模板作者无关。
+% \item 任何个人或组织以本模板为基础进行修改、扩展而生成的新的专用模板，请严格遵
+%   守~\LaTeX{} Project Public License 协议。由于违犯协议而引起的任何纠纷争端均与
+%   本模板作者无关。
+% \end{enumerate}
+% \end{abstract}
+%
+%
+% \StopEventually{\PrintChanges\PrintIndex}
+% \clearpage
+%
+% \section{实现细节}
+%
+% \subsection{基本信息}
+%    \begin{macrocode}
+%<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<cls>\ProvidesClass{xdthesis}
+%<cfg>\ProvidesFile{xdthesis.cfg}
+%<cls|cfg>[2008/06/24 0.1 Xidian University Thesis Template]
+%    \end{macrocode}
+%
+% \subsection{定义选项}
+% \label{sec:defoption}
+%
+% 定义论文类型以及是否涉密
+%    \begin{macrocode}
+%<*cls>
+\hyphenation{XD-Thesis}
+\def\xdthesis{\textsc{XDThesis}}
+\def\version{0.1}
+\newif\ifxd@bachelor\xd@bachelorfalse
+\newif\ifxd@master\xd@masterfalse
+\newif\ifxd@doctor\xd@doctorfalse
+\newif\ifxd@secret\xd@secretfalse
+\DeclareOption{bachelor}{\xd@bachelortrue}
+\DeclareOption{master}{\xd@mastertrue}
+\DeclareOption{doctor}{\xd@doctortrue}
+\DeclareOption{secret}{\xd@secrettrue}
+\AtEndOfClass{%
+  \ifxd@bachelor\relax\else
+    \ifxd@master\relax\else
+      \ifxd@doctor\relax\else
+        \ClassError{xdthesis}%
+                   {You have to specify one of thesis options: bachelor, master or doctor.}{}
+      \fi
+    \fi
+  \fi}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\ExecuteOptions{arialtitle}
+\ProcessOptions
+\LoadClass[12pt, a4paper, openany]{book}
+%    \end{macrocode}
+%
+%
+% \subsection{装载宏包}
+% \label{sec:loadpackage}
+%
+%
+% 引用的宏包和相应的定义。
+% \pkg{hypernat} 让~\pkg{hyperref} 和~\pkg{natbib} 协调的工作。应该
+% 在~\pkg{natbib} 和~\pkg{hyperref} 之后加载，参看其文档。
+%    \begin{macrocode}
+\RequirePackage{hypernat}
+%</cls>
+%    \end{macrocode}
+% 本模板是基于\XeLaTeX{}的。
+%    \begin{macrocode}
+\RequirePackage{zhspacing}
+\zhspacing
+%    \end{macrocode}
+
+
+% \Finale
+\endinput
