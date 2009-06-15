@@ -5,16 +5,6 @@
 %%  End:
 %% \fi
 %% \iffalse meta-comment
-%% ----------------------------------------------------------------------
-%%
-%% Filename: xdthesis.dtx
-%% Author: Fred Qi@Unknown
-%% Created: 2008-06-25 09:52:52(+0800)
-%% Version: $Id$
-%%
-%% ----------------------------------------------------------------------
-%% COMMENTARY
-%% ----------------------------------------------------------------------
 %%
 %% Copyright (C) 2008 by Fei Qi <fred.qi@gmail.com>
 %%
@@ -28,22 +18,11 @@
 %% and version 1.3a or later is part of all distributions of LaTeX
 %% version 2004/10/01 or later.
 %%
-%% ----------------------------------------------------------------------
-%% CHANGE LOG
-%% ----------------------------------------------------------------------
-%% Last-Updated: 2008-06-25 11:32:44(+0800) [by Fred Qi@Unknown]
-%%     Update #: 135
-%% ----------------------------------------------------------------------
-%% 
-%% 
-%% 
-%% ----------------------------------------------------------------------
-%% ----------------------------------------------------------------------
 %% \fi
 
 % \iffalse
 %<*driver>
-\ProvidesFile{xdthesis.dtx}[2008/06/24 0.1 Xidian University Thesis Template]
+\ProvidesFile{xdthesis.dtx}[2009/06/06 0.2 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{zhspacing,xltxtra}
 \usepackage{indentfirst}
@@ -68,7 +47,8 @@
 % \def\xdu{西安电子科技大学}
 %
 % \changes{v0.1}{2008/06/24}{Thesis template for the bachelor's degree starts.}
-%
+% \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and
+% floats formats.}
 %
 % \DoNotIndex{\begin,\end,\begingroup,\endgroup}
 % \DoNotIndex{\ifx,\ifdim,\ifnum,\ifcase,\else,\or,\fi}
@@ -130,7 +110,7 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{xdthesis}
 %<cfg>\ProvidesFile{xdthesis.cfg}
-%<cls|cfg>[2008/06/24 0.1 Xidian University Thesis Template]
+%<cls|cfg>[2009/06/06 0.2 Xidian University Thesis Template]
 %    \end{macrocode}
 %
 % \subsection{定义选项}
@@ -166,25 +146,239 @@
 \ProcessOptions
 \LoadClass[12pt, a4paper, openany]{book}
 %    \end{macrocode}
-%
+%</cls>
 %
 % \subsection{装载宏包}
 % \label{sec:loadpackage}
 %
-%
+%<*cls>
 % 引用的宏包和相应的定义。
 % \pkg{hypernat} 让~\pkg{hyperref} 和~\pkg{natbib} 协调的工作。应该
 % 在~\pkg{natbib} 和~\pkg{hyperref} 之后加载，参看其文档。
 %    \begin{macrocode}
 \RequirePackage{hypernat}
-%</cls>
+%    \end{macrocode}
+%
+% 首行缩进。
+%    \begin{macrocode}
+\RequirePackage{indentfirst}
+%    \end{macrocode}
+%
+% AMS\LaTeX{} 宏包，用来排出更加漂亮的公式
+%    \begin{macrocode}
+\RequirePackage{amsmath, amssymb}
+%    \end{macrocode}
+%
+% 图形支持宏包。
+%    \begin{macrocode}
+\RequirePackage{graphicx}
+%    \end{macrocode}
+%
+% 并排图形。\pkg{subfigure} 已经不再推荐，用新的~\pkg{subfig}。加入~|config| 选项以便兼容
+% ~\pkg{subfigure} 的命令。
+% 浮动图形和表格标题样式。\pkg{caption2} 已经不推荐使用，采用新的~\pkg{caption}。它会自动被
+% ~\pkg{subfig} 装载进来。所以可以在后面看到~\cs{captionsetup} 的命令。
+%    \begin{macrocode}
+\RequirePackage{subfig}
+%    \end{macrocode}
+%
+
+% 载入标题格式宏包。
+%    \begin{macrocode}
+\RequirePackage{ifthen}
+\RequirePackage{titlesec}
 %    \end{macrocode}
 % 本模板是基于\XeLaTeX{}的。
 %    \begin{macrocode}
-\RequirePackage{zhspacing}
+\RequirePackage{fontspec,zhspacing}
+\newfontfamily\zhfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
+\newfontfamily\zhpunctfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
+\setmainfont[Mapping=tex-text]{Times New Roman}
+\setmonofont{Courier Std}
 \zhspacing
+%</cls>
+%    \end{macrocode}
+% \subsection{主文档格式}
+% \label{sec:mainbody}
+% \subsubsection{Three matters}
+%
+% \subsubsection{字体}
+% \label{sec:fonts}
+% Ref 2:
+% WORD 中的字号对应该关系如下:
+% \begin{verbatim}
+% 初号 = 42bp = 14.82mm = 42.1575pt
+% 小初 = 36bp = 12.70mm = 36.135 pt
+% 一号 = 26bp = 9.17mm = 26.0975pt
+% 小一 = 24bp = 8.47mm = 24.09pt
+% 二号 = 22bp = 7.76mm = 22.0825pt
+% 小二 = 18bp = 6.35mm = 18.0675pt
+% 三号 = 16bp = 5.64mm = 16.06pt
+% 小三 = 15bp = 5.29mm = 15.05625pt
+% 四号 = 14bp = 4.94mm = 14.0525pt
+% 小四 = 12bp = 4.23mm = 12.045pt
+% 五号 = 10.5bp = 3.70mm = 10.59375pt
+% 小五 = 9bp = 3.18mm = 9.03375pt
+% 六号 = 7.5bp = 2.56mm
+% 小六 = 6.5bp = 2.29mm
+% 七号 = 5.5bp = 1.94mm
+% 八号 = 5bp = 1.76mm
+%
+% 1bp = 72.27/72 pt
+% \end{verbatim}
+%
+%<*cls>
+%    \begin{macrocode}
+\newlength\xd@linespace
+\newcommand{\xd@choosefont}[2]{%
+   \setlength{\xd@linespace}{#2*\real{#1}}%
+   \fontsize{#2}{\xd@linespace}\selectfont}
+\def\xd@define@fontsize#1#2{%
+  \expandafter\newcommand\csname #1\endcsname[1][\baselinestretch]{%
+    \xd@choosefont{##1}{#2}}}
+\xd@define@fontsize{chuhao}{42bp}
+\xd@define@fontsize{xiaochu}{36bp}
+\xd@define@fontsize{yihao}{26bp}
+\xd@define@fontsize{xiaoyi}{24bp}
+\xd@define@fontsize{erhao}{22bp}
+\xd@define@fontsize{xiaoer}{18bp}
+\xd@define@fontsize{sanhao}{16bp}
+\xd@define@fontsize{xiaosan}{15bp}
+\xd@define@fontsize{sihao}{14bp}
+\xd@define@fontsize{banxiaosi}{13bp}
+\xd@define@fontsize{xiaosi}{12bp}
+\xd@define@fontsize{dawu}{11bp}
+\xd@define@fontsize{wuhao}{10.5bp}
+\xd@define@fontsize{xiaowu}{9bp}
+\xd@define@fontsize{liuhao}{7.5bp}
+\xd@define@fontsize{xiaoliu}{6.5bp}
+\xd@define@fontsize{qihao}{5.5bp}
+\xd@define@fontsize{bahao}{5bp}
+%    \end{macrocode}
+%
+% 定义行距
+% 正文小四号（12pt）字，行距为固定值20磅，大约是20/12=1.6667倍行间
+%    \begin{macrocode}
+\renewcommand\normalsize{%
+  \@setfontsize\normalsize{12bp}{20bp}
+  \abovedisplayskip=10bp \@plus 2bp \@minus 2bp
+  \abovedisplayshortskip=10bp \@plus 2bp \@minus 2bp
+  \belowdisplayskip=\abovedisplayskip
+  \belowdisplayshortskip=\abovedisplayshortskip}
+%</cls>
+%    \end{macrocode}
+%
+% \subsubsection{页面设置}
+% \label{sec:layout}
+%
+% \subsubsection{页眉页脚}
+% \label{sec:headerfooter}
+%
+% \subsubsection{段落}
+% \label{sec:paragraph}
+%
+%    \begin{macrocode}
+%<*cls>
+%</cls>
+%    \end{macrocode}
+%
+% \subsubsection{中文标题定义}
+% \label{sec:theor}
+% \changes{v0.2}{2006/05/19}{加入中文标题的定义。}
+%    \begin{macrocode}
+%<*cfg>
+\renewcommand\contentsname{目\hspace{1em}录}
+\renewcommand\listfigurename{插图索引}
+\renewcommand\listtablename{表格索引}
+\newcommand\listequationname{公式索引}
+\newcommand\equationname{公式}
+\renewcommand\bibname{参考文献}
+\renewcommand\indexname{索引}
+\renewcommand\figurename{图}
+\renewcommand\tablename{表}
+\newcommand\CJKprepartname{第}
+\newcommand\CJKpartname{部分}
+\newcommand\CJKthepart{\CJKnumber{\@arabic\c@part}}
+\def\xd@CJKnumber#1{\ifcase#1{零}\or%
+                    {一}\or{二}\or{三}\or{四}\or{五}\or%
+                    {六}\or{七}\or{八}\or{九}\or{十}\or%
+                    {十一}\or{十二}\or{十三}\or{十四}\or{十五}\or%
+                    {十六}\or{十七}\or{十八}\or{十九}\or{二十}\fi}
+\newcommand\CJKprechaptername{第}
+\newcommand\CJKchaptername{章}
+\ifxd@bachelor
+  \newcommand\CJKthechapter{\xd@CJKnumber{\@arabic\c@chapter}}
+\else
+  \newcommand\CJKthechapter{\@arabic\c@chapter}
+\fi
+\renewcommand\chaptername{\CJKprechaptername~\CJKthechapter~\CJKchaptername}
+%</cfg>
 %    \end{macrocode}
 
+% \subsubsection{章节标题}
+% \label{sec:titleandtoc}
+%    \begin{macrocode}
+%<*cls>
+\titleformat{\chapter}[block]%
+            {\sanhao\bfseries}{\chaptername}%
+            {1ex}{\sanhao\bfseries\filcenter}
+%    \end{macrocode}
+% \begin{macro}{\section}
+% 一级节标题，例如：2.1  实验装置与实验方法
+% 节标题序号与标题名之间空一个汉字符（下同）。
+% 采用宋体四号（14pt）字居中书写。
+%    \begin{macrocode}
+\titleformat{\section}[block]%
+            {\sihao[1.429]}{\thesection}%
+            {1ex}{\sihao[1.429]\filcenter}
+%    \end{macrocode}
+% \end{macro}
+% 二级节标题，例如：2.1.1  实验方法
+% 节标题序号与标题名之间空一个汉字符（下同）。
+% 采用宋体小四号（12pt）字居左书写。
+%    \begin{macrocode}
+\titleformat{\subsection}[block]%
+            {\xiaosi}{\thesubsection}%
+            {1ex}{\xiaosi}
+%    \end{macrocode}
+% \end{macro}
+%
+%\subsubsection{数学相关}
+%\label{sec:maths}
+%
+%    \begin{macrocode}
+\renewcommand\theequation{\ifnum \c@chapter>\z@ \thechapter-\fi\@arabic\c@equation}
+%    \end{macrocode}
+%
+% \subsubsection{浮动对象以及表格}
+% \label{sec:float}
+%
+% 设置浮动对象和文字之间的距离
+% \changes{v0.2}{2009/06/06}{增加~\cs{subfloat}}
+%    \begin{macrocode}
+\let\old@tabular\@tabular
+\def\xd@tabular{\dawu[1.5]\old@tabular}
+\DeclareCaptionLabelFormat{xd@cap}{{\dawu[1.5] #1~\rmfamily #2}}
+\DeclareCaptionLabelSeparator{xd@sep}{\hspace{1em}}
+\DeclareCaptionFont{xd@capfont}{\dawu[1.5]}
+\captionsetup{labelformat=xd@cap,labelsep=xd@sep,font=xd@capfont}
+\captionsetup[table]{position=top,belowskip={12bp-\intextsep},aboveskip=3bp} 
+\captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=-2bp}
+\captionsetup[subfloat]{font=xd@capfont,captionskip=6bp,nearskip=6bp,farskip=0bp,topadjust=0bp}
+ %\renewcommand{\thesubfigure}{\thefigure--(\arabic{subfigure})}
+ % \renewcommand{\p@subfigure}{:}
+%    \end{macrocode}
+
+%    \begin{macrocode}
+\AtEndOfClass{\input{xdthesis.cfg}}%
+%</cls>
+%    \end{macrocode}
+
+%    \begin{macrocode}
+%<*cls>
+% \def\AtBeginDocument{\zhspacing}
+%</cls>
+%    \end{macrocode}
 
 % \Finale
 \endinput
