@@ -87,18 +87,15 @@
 % \noindent
 % \begin{enumerate}
 % \item 本模板的发布遵守~\LaTeX{} Project Public License，使用前请认真阅读协议内容。
-% \item 本模板为作者根据\xdu{}教务处颁发的《综合论文训练写作指南》和\xdu{}研究生
-%   院颁发的《研究生学位论文写作指南》编写而成，旨在供\xdu{}毕业生撰写学位论文使
-%   用。
-% \item \xdu{}大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授
-%   权第三方模板为官方模板，所以此模板仅为写作指南的参考实现，不保证格式审查老师
-%   不提意见。任何由于使用本模板而引起的论文格式审查问题均与本模板作者无关。
+% \item 本模板为作者根据\xdu{}教务处颁发的《本科生毕业设计（论文）工作手册》编写
+%   而成，旨在供\xdu{}毕业生撰写学位论文使用。
+% \item 此模板仅为写作指南的参考实现，不保证格式审查老师不提意见。任何由于使用本
+%   模板而引起的论文格式审查问题均与本模板作者无关。
 % \item 任何个人或组织以本模板为基础进行修改、扩展而生成的新的专用模板，请严格遵
 %   守~\LaTeX{} Project Public License 协议。由于违犯协议而引起的任何纠纷争端均与
 %   本模板作者无关。
 % \end{enumerate}
 % \end{abstract}
-%
 %
 % \StopEventually{\PrintChanges\PrintIndex}
 % \clearpage
@@ -126,6 +123,8 @@
 \newif\ifxd@master\xd@masterfalse
 \newif\ifxd@doctor\xd@doctorfalse
 \newif\ifxd@secret\xd@secretfalse
+\newif\ifxd@mkabstract\xd@mkabstractfalse
+\newif\ifxd@numbered\xd@numberedtrue
 \DeclareOption{bachelor}{\xd@bachelortrue}
 \DeclareOption{master}{\xd@mastertrue}
 \DeclareOption{doctor}{\xd@doctortrue}
@@ -152,11 +151,20 @@
 % \label{sec:loadpackage}
 %
 %<*cls>
+% 参考文献引用宏包。
+%    \begin{macrocode}
+\RequirePackage[numbers,super,sort&compress]{natbib}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+% \RequirePackage{hyperref}
+%    \end{macrocode}
+%
 % 引用的宏包和相应的定义。
 % \pkg{hypernat} 让~\pkg{hyperref} 和~\pkg{natbib} 协调的工作。应该
 % 在~\pkg{natbib} 和~\pkg{hyperref} 之后加载，参看其文档。
 %    \begin{macrocode}
-\RequirePackage{hypernat}
+% \RequirePackage{hypernat}
 %    \end{macrocode}
 %
 % 首行缩进。
@@ -195,11 +203,22 @@
 %    \end{macrocode}
 % 本模板是基于\XeLaTeX{}的。
 %    \begin{macrocode}
-\RequirePackage{fontspec,zhspacing}
-\newfontfamily\zhfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
-\newfontfamily\zhpunctfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
-\setmainfont[Mapping=tex-text]{Times New Roman}
-\zhspacing
+  \RequirePackage{xunicode,xltxtra}
+  \RequirePackage[CJKnumber,CJKtextspaces,CJKmathspaces]{xeCJK}
+  \def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
+  \defaultfontfeatures{Mapping=tex-text} % after fontspec
+  \setCJKmainfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
+  \setCJKsansfont{Adobe Heiti Std}
+  % \setCJKmonofont{Adobe Kaiti Std}
+  \setCJKfamilyfont{song}{Adobe Song Std}
+  \setCJKfamilyfont{hei}{Adobe Heiti Std}
+  % \setCJKfamilyfont{fs}{Adobe Fangsong Std}
+  % \setCJKfamilyfont{kai}{Adobe Kaiti Std}
+  % \setCJKfamilyfont{li}{Adobe Kaiti Std} % todo: 用隶书字体代替
+  % \setCJKfamilyfont{you}{Adobe Kaiti Std} % todo: 用幼圆字体代替
+  \setmainfont{Times New Roman}
+  % \setsansfont{Arial}
+  \setmonofont{Courier Std}
 %</cls>
 %    \end{macrocode}
 % \subsection{主文档格式}
@@ -211,7 +230,7 @@
 \renewcommand\frontmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
   \@mainmatterfalse
-  \pagenumbering{Roman}
+  \pagenumbering{roman}
   \pagestyle{xd@headings}}
 \renewcommand\mainmatter{%
   \cleardoublepage
@@ -247,6 +266,12 @@
 % \end{verbatim}
 %
 %<*cls>
+%    \begin{macrocode}
+\newcommand{\song}{\CJKfamily{song}} % 宋体
+\def\songti{\song}
+\newcommand{\hei}{\CJKfamily{hei}} % 黑体
+\def\heiti{\hei}
+%    \end{macrocode}
 %    \begin{macrocode}
 \newlength\xd@linespace
 \newcommand{\xd@choosefont}[2]{%
@@ -353,8 +378,12 @@
   \let\@oddfoot\@empty%
   \let\@evenfoot\@empty}
 \def\ps@xd@plain{% 
-  \let\@oddhead\@empty%
-  \let\@evenhead\@empty%
+  \def\@oddhead{\vbox{\hbox to\textwidth{%
+                \hfil{\wuhao\leftmark}\hfil}%
+                \vskip1pt\rule{\textwidth}{0.75pt}}}%
+  \def\@evenhead{\vbox{\hbox to\textwidth{%
+                \hfil{\wuhao\rightmark}\hfil}%
+                \vskip1pt\rule{\textwidth}{0.75pt}}}%
   \let\@oddfoot\@empty%
   \let\@evenfoot\@empty}
 \def\ps@xd@headings{% 
@@ -416,6 +445,10 @@
               \CJKprechaptername~\xd@CJKnumber{\@arabic#1}~\CJKchaptername~~}
 \fi
 \renewcommand\chaptername{\CJKprechaptername~\CJKthechapter~\CJKchaptername}
+\newcommand{\cabstractname}{摘\hspace{1em}要}
+\newcommand{\eabstractname}{ABSTRACT}
+\newcommand{\xd@ackname}{致\hspace{1em}谢}
+\newcommand{\xd@ckeywords@title}{关键词：}
 %</cfg>
 %    \end{macrocode}
 
@@ -424,8 +457,9 @@
 %    \begin{macrocode}
 %<*cls>
 \titleformat{\chapter}[block]%
-            {\sanhao\fontspec{Adobe Song Std}\bfseries}{\chaptername}%
-            {1ex}{\sanhao\bfseries\filcenter}[\thispagestyle{xd@headings}]
+            {\sanhao\bfseries}{\chaptername}%
+            {1ex}{\sanhao\bfseries\filcenter}%
+            [\ifxd@mkabstract\thispagestyle{xd@plain}\else\thispagestyle{xd@headings}\fi]
 %    \end{macrocode}
 % \begin{macro}{\section}
 % 一级节标题，例如：2.1  实验装置与实验方法
@@ -446,6 +480,7 @@
 \titleformat{\subsection}[block]%
             {\xiaosi}{\thesubsection}%
             {1ex}{\xiaosi}
+%</cls>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -457,11 +492,10 @@
 %<*cls>
 \let\xd@orgtoc\tableofcontents
 \renewcommand\tableofcontents{\xd@orgtoc\markright{\contentsname}}
-\titlecontents{chapter}%
-              [0pt]%
-              {}%
-              {\xiaosi\bfseries\CJKthechaptername\thecontentslabel}%
-              {0.5em}%
+\titlecontents{chapter}[0pt]{}%
+              {\xiaosi\song\bfseries%
+               \ifxd@numbered\CJKthechaptername\thecontentslabel\else%
+               \thecontentslabel\fi}{}%
               {\titlerule*[.6pc]{.}\contentspage}
 %</cls>
 %    \end{macrocode}
@@ -470,8 +504,10 @@
 %\label{sec:maths}
 %
 %    \begin{macrocode}
+%<*cls>
 \renewcommand\theequation{\ifnum \c@chapter>\z@ \thechapter%
                           -\fi\@arabic\c@equation}
+%</cls>
 %    \end{macrocode}
 %
 % \subsubsection{浮动对象以及表格}
@@ -480,6 +516,7 @@
 % 设置浮动对象和文字之间的距离
 % \changes{v0.2}{2009/06/06}{增加~\cs{subfloat}}
 %    \begin{macrocode}
+%<*cls>
 \let\old@tabular\@tabular
 \def\xd@tabular{\dawu[1.5]\old@tabular}
 \DeclareCaptionLabelFormat{xd@cap}{{\dawu[1.5] #1~\rmfamily #2}}
@@ -492,16 +529,136 @@
                         nearskip=6bp,farskip=0bp,topadjust=0bp}
  % \renewcommand{\thesubfigure}{\thefigure--(\arabic{subfigure})}
  % \renewcommand{\p@subfigure}{:}
-%    \end{macrocode}
-
-%    \begin{macrocode}
-\AtEndOfClass{\input{xdthesis.cfg}}%
 %</cls>
 %    \end{macrocode}
 
+% \subsubsection{摘要格式}
+% \label{sec:abstractformat}
+%
+% \begin{macro}{\xd@makeabstract}
+% 中文摘要部分的标题为"摘要"，用黑体三号字。
 %    \begin{macrocode}
 %<*cls>
+\long\@xp\def\@xp\collect@@body\@xp#\@xp1\@xp\end\@xp#\@xp2\@xp{%
+  \collect@@body{#1}\end{#2}}
+\long\@xp\def\@xp\push@begins\@xp#\@xp1\@xp\begin\@xp#\@xp2\@xp{%
+  \push@begins{#1}\begin{#2}}
+\long\@xp\def\@xp\addto@envbody\@xp#\@xp1\@xp{%
+  \addto@envbody{#1}}
+\newcommand{\xd@@cabstract}[1]{\long\gdef\xd@cabstract{#1}}
+\newenvironment{cabstract}{\collect@body\xd@@cabstract}{}
+\newcommand{\xd@@eabstract}[1]{\long\gdef\xd@eabstract{#1}}
+\newenvironment{eabstract}{\collect@body\xd@@eabstract}{}
+\newcommand{\xd@@ckeywords}[1]{\long\gdef\xd@ckeywords{#1}}
+\newenvironment{ckeywords}{\collect@body\xd@@ckeywords}{}
+\newcommand{\xd@@ekeywords}[1]{\long\gdef\xd@ekeywords{#1}}
+\newenvironment{ekeywords}{\collect@body\xd@@ekeywords}{}
+\newcommand{\xd@makeabstract}{%
+  \cleardoublepage\xd@mkabstracttrue%
+  \let\xd@temp@cleardoublepage\cleardoublepage%
+  \let\cleardoublepage\clearpage%
+  \markboth{\cabstractname}{\eabstractname}
+% 摘要内容用小四号字书写，两端对齐，汉字用宋体，外文字用~Times New Roman 体，标点
+% 符号一律用中文输入状态下的标点符号
+  \chapter*{\cabstractname}%
+  \normalsize\xd@cabstract\vskip12bp%
+% 关键词为悬挂缩进
+  \setbox0=\hbox{\bfseries\xd@ckeywords@title\hspace{1em}}%
+  \ifxd@bachelor\noindent\hangindent\wd0\hangafter1\fi
+  \box0\xd@ckeywords%
+% 英文摘要部分的标题为“ABSTRACT”，用~Times New Roman 体三号字。
+  \chapter*{\eabstractname}%
+  \normalsize\xd@eabstract\vskip12bp%
+% 关键词为悬挂缩进
+  \setbox0=\hbox{\bfseries Keywords:\hspace{1em}}%
+  \ifxd@bachelor\noindent\hangindent\wd0\hangafter1\fi
+  \box0\xd@ekeywords%
+  \xd@mkabstractfalse%
+  \let\cleardoublepage\xd@temp@cleardoublepage
+}
 %</cls>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\makecover}
+%    \begin{macrocode}
+%<cls>\newcommand\makecover{\xd@makeabstract}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{致谢}
+% \label{sec:ack}
+%
+%    \begin{macrocode}
+%<*cls>
+\newenvironment{ack}{%
+  \xd@numberedfalse%
+  \chapter*{\xd@ackname}%
+  \addcontentsline{toc}{chapter}{\xd@ackname}%
+  \markboth{\xd@ackname}{}%
+  \xd@numberedtrue}%
+  {}
+%</cls>
+%    \end{macrocode}
+%
+% \subsubsection{参考文献}
+% \label{sec:ref}
+%
+% \begin{macro}{\onlinecite}
+% 正文引用模式。依赖于~\pkg{natbib}~宏包，修改其中的命令。
+%    \begin{macrocode}
+%<*cls>
+\bibpunct{[}{]}{,}{s}{}{,}
+\renewcommand\NAT@citesuper[3]{\ifNAT@swa
+\unskip\kern\p@\textsuperscript{\NAT@@open #1\NAT@@close}%
+   \if*#3*\else\ (#3)\fi\else #1\fi\endgroup}
+\DeclareRobustCommand\onlinecite{\@onlinecite}
+\def\@onlinecite#1{\begingroup\let\@cite\NAT@citenum\citep{#1}\endgroup}
+%    \end{macrocode}
+% \end{macro}
+%
+% 参考文献的正文部分用五号字。
+% 行距采用固定值~16 磅，段前空~3 磅，段后空~0 磅。
+%
+% \begin{environment}{thebibliography}
+% 修改默认的~thebibliography 环境，增加一些调整代码。
+% \changes{v2.4}{2006/04/15}{参考文献间距调小一点，label~长度增加一点，以便让超过
+% ~100~的参考文献更好地对齐。}
+% \changes{v2.5}{2006/05/13}{参考文献序号靠左，而不是靠右。}
+% \changes{v2.6.4}{2006/10/23}{调整参考文献标签宽度，使得条目增多时仍能对齐。}
+%    \begin{macrocode}
+\renewenvironment{thebibliography}[1]{%    
+  \xd@numberedfalse
+  \chapter*{\bibname}%
+  \addcontentsline{toc}{chapter}{\bibname}%
+  \markboth{\bibname}{\xd@title}%
+  \xd@numberedtrue%
+  \wuhao[1.5]
+  \list{\@biblabel{\@arabic\c@enumiv}}%
+  {\renewcommand{\makelabel}[1]{##1\hfill}
+    \settowidth\labelwidth{1.1cm}
+    \setlength{\labelsep}{0.6em}
+    \setlength{\itemindent}{0pt}
+    \setlength{\leftmargin}{\labelwidth+\labelsep}
+    \addtolength{\itemsep}{-0.7em}
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+  \sloppy
+  \clubpenalty4000
+  \@clubpenalty \clubpenalty
+  \widowpenalty4000%
+  \interlinepenalty4000%
+  \sfcode`\.\@m}
+{\def\@noitemerr
+  {\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist}
+%</cls>
+%    \end{macrocode}
+% \end{environment}
+%
+%    \begin{macrocode}
+%<cls>\AtEndOfClass{\input{xdthesis.cfg}}%
 %    \end{macrocode}
 
 % \Finale
