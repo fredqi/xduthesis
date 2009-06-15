@@ -20,9 +20,11 @@
 %%
 %% \fi
 %
+% \CheckSum{714}
+%
 % \iffalse
 %<*driver>
-\ProvidesFile{xdthesis.dtx}[2009/06/10 0.9 Xidian University Thesis Template]
+\ProvidesFile{xdthesis.dtx}[2009/06/15 0.9.1 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
 \usepackage{zhspacing,xltxtra}
@@ -111,6 +113,7 @@
 % \GetFileInfo{xdthesis.dtx}
 % \MakeShortVerb{\|}
 %
+% \changes{v0.9.1}{2009/06/15}{Template for Bachelor's thesis release candidate.}
 % \changes{v0.9}{2009/06/10}{Template realy works for Bachelor's thesis.}
 % \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and
 %   floats formats.}
@@ -230,7 +233,7 @@
     \ifxd@master\relax\else
       \ifxd@doctor\relax\else
         \ClassError{xdthesis}%
-                   {You have to specify one of thesis options: bachelor, master or doctor.}{}
+                   {Please specify a thesis option: bachelor, master or doctor.}{}
       \fi
     \fi
   \fi}
@@ -265,6 +268,12 @@
 % 首行缩进。
 %    \begin{macrocode}
 \RequirePackage{indentfirst}
+%    \end{macrocode}
+%
+% \changes{v0.9.1}{2009/06/15}{引用\pkg{paralist}，缩小列表环境的行距。}
+% 更好的列表环境。
+%    \begin{macrocode}
+\RequirePackage[neverdecrease]{paralist}
 %    \end{macrocode}
 %
 % 页眉页脚。
@@ -487,13 +496,38 @@
 %</cls>
 %    \end{macrocode}
 %
+% \changes{v0.9.1}{2009/06/15}{增加首行按照两个中文字符缩进。}
 % \subsubsection{段落}
 % \label{sec:paragraph}
 %
+% 用于中文段落缩进和正文版式
 %    \begin{macrocode}
 %<*cls>
+\newlength\CJK@twochars
+\def\CJK@spaceChar{\Unicode{48}{7}}
+\def\CJKindent{%
+  \settowidth\CJK@twochars{\CJK@spaceChar\CJK@spaceChar}%
+  \parindent\CJK@twochars}
+%    \end{macrocode}
+%
+% 段落之间的竖直距离
+%    \begin{macrocode}
+\setlength{\parskip}{0pt \@plus2pt \@minus0pt}
+%    \end{macrocode}
+%
+% 调整默认列表环境间的距离，以符合中文习惯。
+% \begin{macro}{xd@item@space}
+%    \begin{macrocode}
+\def\xd@item@space{%
+  \let\itemize\compactitem
+  \let\enditemize\endcompactitem
+  \let\enumerate\compactenum
+  \let\endenumerate\endcompactenum
+  \let\description\compactdesc
+  \let\enddescription\endcompactdesc}
 %</cls>
 %    \end{macrocode}
+% \end{macro}
 %
 % \subsubsection{中文标题定义}
 % \label{sec:theor}
@@ -737,6 +771,15 @@
 %    \begin{macrocode}
 %<cls>\AtEndOfClass{\input{xdthesis.cfg}}%
 %    \end{macrocode}
-
+%
+% 把 CJK 环境放到合适的位置，以免导致其它宏包的命令位于 CJK 环境中而出现问题（比
+% 如 natbib 的``Multiple-defined labels''，同时自动开启 CJK。
+%    \begin{macrocode}
+%<*cls>
+\AtBeginDocument{\CJKindent}
+\AtEndOfClass{\sloppy\xd@item@space}
+%</cls>
+%    \end{macrocode}
+%
 % \Finale
 \endinput
