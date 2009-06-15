@@ -19,13 +19,85 @@
 %% version 2004/10/01 or later.
 %%
 %% \fi
-
+%
+% \CheckSum{680}
+%
 % \iffalse
 %<*driver>
-\ProvidesFile{xdthesis.dtx}[2009/06/06 0.2 Xidian University Thesis Template]
+\ProvidesFile{xdthesis.dtx}[2009/06/10 0.9 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
+\usepackage{url}
 \usepackage{zhspacing,xltxtra}
+\newfontfamily\zhfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
+\newfontfamily\zhpunctfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
 \usepackage{indentfirst}
+\setlength{\parskip}{4pt plus1pt minus0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\parindent}{20pt}
+\addtolength{\oddsidemargin}{-1cm}
+\advance\textwidth 1.5cm
+\addtolength{\topmargin}{-1cm}
+\addtolength{\headsep}{0.3cm}
+\addtolength{\textheight}{2.3cm}
+\renewcommand{\baselinestretch}{1.3}
+% \DefineVerbatimEnvironment{example}{Verbatim}%
+%   {frame=single, framerule=0.3mm, rulecolor=\color{red!75!green!50!blue}, 
+%    fillcolor=\color{red!75!green!50!blue!15},framesep=2mm, baselinestretch=1.2,
+%    fontsize=\small, gobble=1}
+% \DefineVerbatimEnvironment{shell}{Verbatim}%
+%   {frame=single, framerule=0.3mm, rulecolor=\color{red!85!green!60}, 
+%    fillcolor=\color{red!85!green!10},framesep=2mm,fontsize=\small, gobble=1}
+\makeatletter
+\def\DescribeOption#1{\SpecialOptionIndex{#1}}
+\def\tableofcontents{\renewcommand{\baselinestretch}{1.0}\@starttoc{toc}}
+\def\DescribeMacro{\Describe@Macro}
+\def\Describe@Macro#1{\PrintDescribeMacro{#1}\SpecialUsageIndex{#1}}
+\def\PrintDescribeMacro#1{{\color{-red!75!green!50!blue!55}\MacroFont \string #1\hskip1em }}
+\def\ps@headings{%
+  \let\@oddfoot\@empty
+  \def\@oddhead{\vbox{\hbox
+    to\textwidth{\llap{\fbox{\rightmark\rule[-2pt]{0pt}{13pt}}}\hfil\thepage}\vskip-0.7pt
+      \hbox to \textwidth{\hrulefill}}}%
+  \let\@evenfoot\@oddfoot
+  \let\@evenhead\@oddhead
+  \let\@mkboth\markboth
+  \def\sectionmark##1{%
+    \markright{\ifnum \c@secnumdepth >\m@ne
+      \thesection\quad
+      \fi
+      ##1}}
+  \def\subsectionmark##1{%
+    \markright{\ifnum \c@secnumdepth >\m@ne
+      \thesubsection\quad
+      \fi
+      ##1}}
+  \def\subsubsectionmark##1{%
+    \markright{\ifnum \c@secnumdepth >\m@ne
+      \thesubsubsection\quad
+      \fi
+      ##1}}}
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\Large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\large\bfseries}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                    {3.25ex \@plus1ex \@minus.2ex}%
+                                    {-1em}%
+                                    {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                       {3.25ex \@plus1ex \@minus .2ex}%
+                                       {-1em}%
+                                      {\normalfont\normalsize\bfseries}}
+\makeatother
 \pagestyle{empty}
 \zhspacing
 \EnableCrossrefs
@@ -38,17 +110,18 @@
 %</driver>
 % \fi
 %
-%
 % \GetFileInfo{xdthesis.dtx}
 % \MakeShortVerb{\|}
+%
+% \changes{v0.9}{2009/06/10}{Template realy works for Bachelor's thesis.}
+% \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and
+%   floats formats.}
+% \changes{v0.1}{2008/06/24}{The \XeLaTeX\ template for writing thesis of Xidian
+%   starts.}
 %
 % \def\xdthesis{\textsc{XD}\-\textsc{Thesis}}
 % \def\pkg#1{\texttt{#1}}
 % \def\xdu{西安电子科技大学}
-%
-% \changes{v0.1}{2008/06/24}{Thesis template for the bachelor's degree starts.}
-% \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and
-% floats formats.}
 %
 % \DoNotIndex{\begin,\end,\begingroup,\endgroup}
 % \DoNotIndex{\ifx,\ifdim,\ifnum,\ifcase,\else,\or,\fi}
@@ -69,9 +142,12 @@
 % \GlossaryPrologue{\section*{修改记录}%
 %    \addcontentsline{toc}{section}{修改记录}}
 %
-% \title{\xdthesis：西安电子科技大学学位论文模板\thanks{Xidian University
-%     \XeLaTeX{} Thesis Template.}}
-% \author{齐飞\\[5pt]{西安电子科技大学电子工程学院}\\[5pt]
+% \renewcommand{\abstractname}{摘~~要}
+% \renewcommand{\contentsname}{目~~录}
+%
+% \title{\xdthesis：\xdu{}学位论文模板\thanks{Xidian University \XeLaTeX{}
+%     Thesis Template.}}
+% \author{齐飞\\[5pt]{\xdu{}电子工程学院}\\[5pt]
 %   \texttt{fred.qi@gmail.com}} \date{v\fileversion\ (\filedate)}
 % \maketitle\thispagestyle{empty}
 %
@@ -96,6 +172,28 @@
 %   本模板作者无关。
 % \end{enumerate}
 % \end{abstract}
+%
+% \clearpage
+% \begin{multicols}{2}[
+% \section*{\contentsname}
+% \setlength{\columnseprule}{.4pt}
+% \setlength{\columnsep}{18pt}]
+%  \tableofcontents
+% \end{multicols}
+%
+% \clearpage
+% \pagenumbering{arabic}
+% \pagestyle{headings}
+% \section{模板介绍}
+%
+% \section{安装}
+% \label{sec:installation}
+%
+% \subsection{下载}
+% \xdthesis{} 的主页是：  \url{http://code.google.com/p/xdthesis/}。
+%
+%\section{致谢}
+%\label{sec:thanks}
 %
 % \StopEventually{\PrintChanges\PrintIndex}
 % \clearpage
@@ -144,22 +242,21 @@
 \ExecuteOptions{arialtitle}
 \ProcessOptions
 \LoadClass[12pt, a4paper, openright]{book}
-%    \end{macrocode}
 %</cls>
+%    \end{macrocode}
 %
 % \subsection{装载宏包}
 % \label{sec:loadpackage}
 %
-%<*cls>
 % 参考文献引用宏包。
 %    \begin{macrocode}
+%<*cls>
 \RequirePackage[numbers,super,sort&compress]{natbib}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
 % \RequirePackage{hyperref}
 %    \end{macrocode}
-%
 % 引用的宏包和相应的定义。
 % \pkg{hypernat} 让~\pkg{hyperref} 和~\pkg{natbib} 协调的工作。应该
 % 在~\pkg{natbib} 和~\pkg{hyperref} 之后加载，参看其文档。
@@ -204,10 +301,10 @@
 % 本模板是基于\XeLaTeX{}的。
 %    \begin{macrocode}
   \RequirePackage{xunicode,xltxtra}
-  \RequirePackage[CJKnumber,CJKtextspaces,CJKmathspaces]{xeCJK}
+  \RequirePackage[CJKnumber,CJKtextspaces,CJKmathspaces,BoldFont]{xeCJK}
   \def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
   \defaultfontfeatures{Mapping=tex-text} % after fontspec
-  \setCJKmainfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
+  \setCJKmainfont{Adobe Song Std}
   \setCJKsansfont{Adobe Heiti Std}
   % \setCJKmonofont{Adobe Kaiti Std}
   \setCJKfamilyfont{song}{Adobe Song Std}
@@ -265,8 +362,8 @@
 % 1bp = 72.27/72 pt
 % \end{verbatim}
 %
-%<*cls>
 %    \begin{macrocode}
+%<*cls>
 \newcommand{\song}{\CJKfamily{song}} % 宋体
 \def\songti{\song}
 \newcommand{\hei}{\CJKfamily{hei}} % 黑体
@@ -300,15 +397,10 @@
 \xd@define@fontsize{bahao}{5bp}
 %    \end{macrocode}
 %
-% 定义行距
-% 正文小四号（12pt）字，行距为固定值20磅，大约是20/12=1.6667倍行间
+% 定义行距，正文小四号（12pt）字，行距为1.5倍行距
 %    \begin{macrocode}
-\renewcommand\normalsize{%
-  \@setfontsize\normalsize{12bp}{20bp}
-  \abovedisplayskip=10bp \@plus 2bp \@minus 2bp
-  \abovedisplayshortskip=10bp \@plus 2bp \@minus 2bp
-  \belowdisplayskip=\abovedisplayskip
-  \belowdisplayshortskip=\abovedisplayshortskip}
+\renewcommand\normalsize{\@setfontsize\normalsize{12bp}{18bp}}
+\renewcommand\baselinestretch{1.3}
 %</cls>
 %    \end{macrocode}
 %
@@ -317,30 +409,20 @@
 %
 %    \begin{macrocode}
 %<*cls>
-\AtBeginDvi{\special{papersize=\the\paperwidth,\the\paperheight}}
-\AtBeginDvi{\special{!%
-      \@percentchar\@percentchar BeginPaperSize: a4
-      ^^Ja4^^J\@percentchar\@percentchar EndPaperSize}}
 \setlength{\textwidth}{\paperwidth}
 \setlength{\textheight}{\paperheight}
 \setlength\marginparwidth{0cm} 
 \setlength\marginparsep{0cm}
-\addtolength{\textwidth}{-6.4cm}
-\setlength{\oddsidemargin}{3.2cm-1in}
-\setlength{\evensidemargin}{\oddsidemargin}
+\addtolength{\textwidth}{-6cm}
+\setlength{\oddsidemargin}{4cm-1in}
+\setlength{\evensidemargin}{2cm-1in}
+\setlength{\topmargin}{1.85cm-1in} 
 \setlength{\headheight}{20pt}
+\setlength{\headsep}{0.6cm}
 \setlength{\topskip}{0pt}
 \setlength{\skip\footins}{15pt} 
-\setlength{\topmargin}{2.8cm-1in} 
-\ifxd@bachelor
-  \setlength{\footskip}{1.3cm}
-  \setlength{\headsep}{0.6cm}
-  \addtolength{\textheight}{-7.8cm}  
-% \else
-%   \setlength{\footskip}{1.5cm}
-%   \setlength{\headsep}{0.5cm}
-%   \addtolength{\textheight}{-8.6cm}
-\fi
+\setlength{\footskip}{1.3cm}
+\addtolength{\textheight}{-5.5cm}  
 %</cls>
 %    \end{macrocode}
 %
@@ -417,7 +499,9 @@
 %
 % \subsubsection{中文标题定义}
 % \label{sec:theor}
-% \changes{v0.2}{2006/05/19}{加入中文标题的定义。}
+%
+% \changes{v0.2}{2009/06/06}{加入中文标题的定义。}
+%
 %    \begin{macrocode}
 %<*cfg>
 \renewcommand\contentsname{目\hspace{1em}录}
@@ -457,9 +541,10 @@
 %    \begin{macrocode}
 %<*cls>
 \titleformat{\chapter}[block]%
-            {\sanhao\bfseries}{\chaptername}%
-            {1ex}{\sanhao\bfseries\filcenter}%
+            {\sanhao\hei}{\chaptername}%
+            {1ex}{\sanhao\hei\filcenter}%
             [\ifxd@mkabstract\thispagestyle{xd@plain}\else\thispagestyle{xd@headings}\fi]
+\titlespacing*{\chapter}{0pt}{4ex}{3ex}[0pt]
 %    \end{macrocode}
 % \begin{macro}{\section}
 % 一级节标题，例如：2.1  实验装置与实验方法
@@ -493,9 +578,9 @@
 \let\xd@orgtoc\tableofcontents
 \renewcommand\tableofcontents{\xd@orgtoc\markright{\contentsname}}
 \titlecontents{chapter}[0pt]{}%
-              {\xiaosi\song\bfseries%
-               \ifxd@numbered\CJKthechaptername\thecontentslabel\else%
-               \thecontentslabel\fi}{}%
+              {\xiaosi\bfseries\song%
+                \ifxd@numbered\CJKthechaptername\thecontentslabel\else%
+                \thecontentslabel\fi}{}%
               {\titlerule*[.6pc]{.}\contentspage}
 %</cls>
 %    \end{macrocode}
@@ -524,7 +609,7 @@
 \DeclareCaptionFont{xd@capfont}{\dawu[1.5]}
 \captionsetup{labelformat=xd@cap,labelsep=xd@sep,font=xd@capfont}
 \captionsetup[table]{position=top,belowskip={12bp-\intextsep},aboveskip=3bp} 
-\captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=-2bp}
+\captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=3bp}
 \captionsetup[subfloat]{font=xd@capfont,captionskip=6bp,%
                         nearskip=6bp,farskip=0bp,topadjust=0bp}
  % \renewcommand{\thesubfigure}{\thefigure--(\arabic{subfigure})}
@@ -563,16 +648,16 @@
   \chapter*{\cabstractname}%
   \normalsize\xd@cabstract\vskip12bp%
 % 关键词为悬挂缩进
-  \setbox0=\hbox{\bfseries\xd@ckeywords@title\hspace{1em}}%
+  \setbox0=\hbox{\hei\xd@ckeywords@title\hspace{1em}}%
   \ifxd@bachelor\noindent\hangindent\wd0\hangafter1\fi
-  \box0\xd@ckeywords%
+  \box0{\hei\xd@ckeywords}%
 % 英文摘要部分的标题为“ABSTRACT”，用~Times New Roman 体三号字。
-  \chapter*{\eabstractname}%
+  \chapter*{\bfseries\eabstractname}%
   \normalsize\xd@eabstract\vskip12bp%
 % 关键词为悬挂缩进
   \setbox0=\hbox{\bfseries Keywords:\hspace{1em}}%
   \ifxd@bachelor\noindent\hangindent\wd0\hangafter1\fi
-  \box0\xd@ekeywords%
+  \box0{\bfseries\xd@ekeywords}%
   \xd@mkabstractfalse%
   \let\cleardoublepage\xd@temp@cleardoublepage
 }
@@ -594,7 +679,7 @@
 \newenvironment{ack}{%
   \xd@numberedfalse%
   \chapter*{\xd@ackname}%
-  \addcontentsline{toc}{chapter}{\xd@ackname}%
+  \addcontentsline{toc}{chapter}{\bfseries\song\xd@ackname}%
   \markboth{\xd@ackname}{}%
   \xd@numberedtrue}%
   {}
@@ -622,15 +707,11 @@
 %
 % \begin{environment}{thebibliography}
 % 修改默认的~thebibliography 环境，增加一些调整代码。
-% \changes{v2.4}{2006/04/15}{参考文献间距调小一点，label~长度增加一点，以便让超过
-% ~100~的参考文献更好地对齐。}
-% \changes{v2.5}{2006/05/13}{参考文献序号靠左，而不是靠右。}
-% \changes{v2.6.4}{2006/10/23}{调整参考文献标签宽度，使得条目增多时仍能对齐。}
 %    \begin{macrocode}
 \renewenvironment{thebibliography}[1]{%    
   \xd@numberedfalse
   \chapter*{\bibname}%
-  \addcontentsline{toc}{chapter}{\bibname}%
+  \addcontentsline{toc}{chapter}{\bfseries\song\bibname}%
   \markboth{\bibname}{\xd@title}%
   \xd@numberedtrue%
   \wuhao[1.5]
