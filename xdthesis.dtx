@@ -144,7 +144,7 @@
 %    \begin{macrocode}
 \ExecuteOptions{arialtitle}
 \ProcessOptions
-\LoadClass[12pt, a4paper, openany]{book}
+\LoadClass[12pt, a4paper, openright]{book}
 %    \end{macrocode}
 %</cls>
 %
@@ -162,6 +162,11 @@
 % 首行缩进。
 %    \begin{macrocode}
 \RequirePackage{indentfirst}
+%    \end{macrocode}
+%
+% 页眉页脚。
+%    \begin{macrocode}
+% \RequirePackage{fancyhdr}
 %    \end{macrocode}
 %
 % AMS\LaTeX{} 宏包，用来排出更加漂亮的公式
@@ -186,7 +191,7 @@
 % 载入标题格式宏包。
 %    \begin{macrocode}
 \RequirePackage{ifthen}
-\RequirePackage{titlesec}
+\RequirePackage{titlesec,titletoc}
 %    \end{macrocode}
 % 本模板是基于\XeLaTeX{}的。
 %    \begin{macrocode}
@@ -194,13 +199,27 @@
 \newfontfamily\zhfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
 \newfontfamily\zhpunctfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
 \setmainfont[Mapping=tex-text]{Times New Roman}
-\setmonofont{Courier Std}
 \zhspacing
 %</cls>
 %    \end{macrocode}
 % \subsection{主文档格式}
 % \label{sec:mainbody}
 % \subsubsection{Three matters}
+%
+%    \begin{macrocode}
+%<*cls>
+\renewcommand\frontmatter{%
+  \if@openright\cleardoublepage\else\clearpage\fi
+  \@mainmatterfalse
+  \pagenumbering{Roman}
+  \pagestyle{xd@headings}}
+\renewcommand\mainmatter{%
+  \cleardoublepage
+  \@mainmattertrue
+  \pagenumbering{arabic}
+  \pagestyle{xd@headings}}
+%</cls>
+%    \end{macrocode}
 %
 % \subsubsection{字体}
 % \label{sec:fonts}
@@ -271,8 +290,93 @@
 % \subsubsection{页面设置}
 % \label{sec:layout}
 %
+%    \begin{macrocode}
+%<*cls>
+\AtBeginDvi{\special{papersize=\the\paperwidth,\the\paperheight}}
+\AtBeginDvi{\special{!%
+      \@percentchar\@percentchar BeginPaperSize: a4
+      ^^Ja4^^J\@percentchar\@percentchar EndPaperSize}}
+\setlength{\textwidth}{\paperwidth}
+\setlength{\textheight}{\paperheight}
+\setlength\marginparwidth{0cm} 
+\setlength\marginparsep{0cm}
+\addtolength{\textwidth}{-6.4cm}
+\setlength{\oddsidemargin}{3.2cm-1in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\headheight}{20pt}
+\setlength{\topskip}{0pt}
+\setlength{\skip\footins}{15pt} 
+\setlength{\topmargin}{2.8cm-1in} 
+\ifxd@bachelor
+  \setlength{\footskip}{1.3cm}
+  \setlength{\headsep}{0.6cm}
+  \addtolength{\textheight}{-7.8cm}  
+% \else
+%   \setlength{\footskip}{1.5cm}
+%   \setlength{\headsep}{0.5cm}
+%   \addtolength{\textheight}{-8.6cm}
+\fi
+%</cls>
+%    \end{macrocode}
+%
 % \subsubsection{页眉页脚}
 % \label{sec:headerfooter}
+%
+% 新的一章最好从奇数页开始（openright），所以必须保证它前面那页如果没有内容也必
+% 须没有页眉页脚。code stolen from fancyhdr
+%    \begin{macrocode}
+%<*cls>
+\let\xd@cleardoublepage\cleardoublepage
+\newcommand{\xd@clearemptydoublepage}{%
+  \clearpage{\pagestyle{empty}\xd@cleardoublepage}}
+\let\cleardoublepage\xd@clearemptydoublepage
+\let\xd@orgtitle\title
+\renewcommand{\title}[1]{\gdef\xd@title{#1}\xd@orgtitle{#1}}
+%    \end{macrocode}
+%
+%
+% 定义页眉和页脚。chapter 自动调用~thispagestyle{xd@plain}，所以要重新定
+% 义~xd@plain。
+% \begin{macro}{\ps@xd@empty}
+% \begin{macro}{\ps@xd@plain}
+% \begin{macro}{\ps@xd@headings}
+% 定义页眉页脚格式：
+% \begin{itemize}
+% \item \texttt{xd@empty} ：无页眉页脚
+% \item \texttt{xd@plain} ：只显示页眉的页码
+% \item \texttt{xd@headings}：页眉页脚同时显示
+% \end{itemize}
+%    \begin{macrocode}
+\def\ps@xd@empty{%
+  \let\@oddhead\@empty%
+  \let\@evenhead\@empty%
+  \let\@oddfoot\@empty%
+  \let\@evenfoot\@empty}
+\def\ps@xd@plain{% 
+  \let\@oddhead\@empty%
+  \let\@evenhead\@empty%
+  \let\@oddfoot\@empty%
+  \let\@evenfoot\@empty}
+\def\ps@xd@headings{% 
+  \def\@oddhead{\vbox{\hbox to\textwidth{%
+                \hfil{\wuhao\leftmark}\hfil{\xiaowu\thepage}}%
+                \vskip1pt\rule{\textwidth}{0.75pt}}}%
+  \def\@evenhead{\vbox{\hbox to\textwidth{%
+                {\xiaowu\thepage}\hfil{\wuhao\rightmark}\hfil}%
+                \vskip1pt\rule{\textwidth}{0.75pt}}}%
+  \let\@oddfoot\@empty%
+  \let\@evenfoot\@empty}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% 其实可以直接写到~\cs{chapter} 的定义里面。
+%    \begin{macrocode} 
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername~~#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\xd@title}}
+%</cls>
+%    \end{macrocode}
 %
 % \subsubsection{段落}
 % \label{sec:paragraph}
@@ -308,8 +412,8 @@
 \newcommand\CJKchaptername{章}
 \ifxd@bachelor
   \newcommand\CJKthechapter{\xd@CJKnumber{\@arabic\c@chapter}}
-\else
-  \newcommand\CJKthechapter{\@arabic\c@chapter}
+  \newcommand{\CJKthechaptername}[1]{%
+              \CJKprechaptername~\xd@CJKnumber{\@arabic#1}~\CJKchaptername~~}
 \fi
 \renewcommand\chaptername{\CJKprechaptername~\CJKthechapter~\CJKchaptername}
 %</cfg>
@@ -320,8 +424,8 @@
 %    \begin{macrocode}
 %<*cls>
 \titleformat{\chapter}[block]%
-            {\sanhao\bfseries}{\chaptername}%
-            {1ex}{\sanhao\bfseries\filcenter}
+            {\sanhao\fontspec{Adobe Song Std}\bfseries}{\chaptername}%
+            {1ex}{\sanhao\bfseries\filcenter}[\thispagestyle{xd@headings}]
 %    \end{macrocode}
 % \begin{macro}{\section}
 % 一级节标题，例如：2.1  实验装置与实验方法
@@ -333,6 +437,8 @@
             {1ex}{\sihao[1.429]\filcenter}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}{\subsection}
 % 二级节标题，例如：2.1.1  实验方法
 % 节标题序号与标题名之间空一个汉字符（下同）。
 % 采用宋体小四号（12pt）字居左书写。
@@ -343,11 +449,29 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%
+%\subsubsection{目录格式}
+%\label{sec:tableofcontents}
+%
+%    \begin{macrocode}
+%<*cls>
+\let\xd@orgtoc\tableofcontents
+\renewcommand\tableofcontents{\xd@orgtoc\markright{\contentsname}}
+\titlecontents{chapter}%
+              [0pt]%
+              {}%
+              {\xiaosi\bfseries\CJKthechaptername\thecontentslabel}%
+              {0.5em}%
+              {\titlerule*[.6pc]{.}\contentspage}
+%</cls>
+%    \end{macrocode}
+%
 %\subsubsection{数学相关}
 %\label{sec:maths}
 %
 %    \begin{macrocode}
-\renewcommand\theequation{\ifnum \c@chapter>\z@ \thechapter-\fi\@arabic\c@equation}
+\renewcommand\theequation{\ifnum \c@chapter>\z@ \thechapter%
+                          -\fi\@arabic\c@equation}
 %    \end{macrocode}
 %
 % \subsubsection{浮动对象以及表格}
@@ -364,8 +488,9 @@
 \captionsetup{labelformat=xd@cap,labelsep=xd@sep,font=xd@capfont}
 \captionsetup[table]{position=top,belowskip={12bp-\intextsep},aboveskip=3bp} 
 \captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=-2bp}
-\captionsetup[subfloat]{font=xd@capfont,captionskip=6bp,nearskip=6bp,farskip=0bp,topadjust=0bp}
- %\renewcommand{\thesubfigure}{\thefigure--(\arabic{subfigure})}
+\captionsetup[subfloat]{font=xd@capfont,captionskip=6bp,%
+                        nearskip=6bp,farskip=0bp,topadjust=0bp}
+ % \renewcommand{\thesubfigure}{\thefigure--(\arabic{subfigure})}
  % \renewcommand{\p@subfigure}{:}
 %    \end{macrocode}
 
@@ -376,7 +501,6 @@
 
 %    \begin{macrocode}
 %<*cls>
-% \def\AtBeginDocument{\zhspacing}
 %</cls>
 %    \end{macrocode}
 
