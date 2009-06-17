@@ -20,11 +20,11 @@
 %%
 %% \fi
 %
-% \CheckSum{714}
+% \CheckSum{716}
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xdthesis.dtx}[2009/06/15 0.9.1 Xidian University Thesis Template]
+\ProvidesFile{xdthesis.dtx}[2009/06/17 0.9.2 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
 \usepackage{zhspacing,xltxtra}
@@ -113,6 +113,7 @@
 % \GetFileInfo{xdthesis.dtx}
 % \MakeShortVerb{\|}
 %
+% \changes{v0.9.2}{2009/06/17}{Using full Chinese punctuation.}
 % \changes{v0.9.1}{2009/06/15}{Template for Bachelor's thesis release candidate.}
 % \changes{v0.9}{2009/06/10}{Template realy works for Bachelor's thesis.}
 % \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and
@@ -308,6 +309,8 @@
 %    \begin{macrocode}
 \RequirePackage{xunicode,xltxtra}
 \RequirePackage[CJKnumber,CJKtextspaces,CJKmathspaces,BoldFont]{xeCJK}
+% \changes{v0.9.1}{2009/06/17}{使用全角格式中文标点符号。}
+\punctstyle{quanjiao}
 \def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
 \defaultfontfeatures{Mapping=tex-text} % after fontspec
 \setCJKmainfont{Adobe Song Std}
