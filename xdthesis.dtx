@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{716}
+% \CheckSum{717}
 %
 % \iffalse
 %<*driver>
@@ -308,7 +308,7 @@
 % 本模板是基于\XeLaTeX{}的。
 %    \begin{macrocode}
 \RequirePackage{xunicode,xltxtra}
-\RequirePackage[CJKnumber,CJKtextspaces,CJKmathspaces,BoldFont]{xeCJK}
+\RequirePackage[CJKnumber,BoldFont]{xeCJK}
 % \changes{v0.9.1}{2009/06/17}{使用全角格式中文标点符号。}
 \punctstyle{quanjiao}
 \def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
@@ -494,7 +494,7 @@
 %
 % 其实可以直接写到~\cs{chapter} 的定义里面。
 %    \begin{macrocode} 
-\renewcommand{\chaptermark}[1]{\markboth{\chaptername~~#1}{}}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\hspace{2ex}#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\xd@title}}
 %</cls>
 %    \end{macrocode}
@@ -561,9 +561,9 @@
 \ifxd@bachelor
   \newcommand\CJKthechapter{\xd@CJKnumber{\@arabic\c@chapter}}
   \newcommand{\CJKthechaptername}[1]{%
-              \CJKprechaptername~\xd@CJKnumber{\@arabic#1}~\CJKchaptername~~}
+              \CJKprechaptername\xd@CJKnumber{\@arabic#1}\CJKchaptername}
 \fi
-\renewcommand\chaptername{\CJKprechaptername~\CJKthechapter~\CJKchaptername}
+\renewcommand\chaptername{\CJKprechaptername\CJKthechapter\CJKchaptername}
 \newcommand{\cabstractname}{摘\hspace{1em}要}
 \newcommand{\eabstractname}{ABSTRACT}
 \newcommand{\xd@ackname}{致\hspace{1em}谢}
@@ -634,12 +634,12 @@
 % \label{sec:float}
 %
 % 设置浮动对象和文字之间的距离
-% \changes{v0.2}{2009/06/06}{增加~\cs{subfloat}}
+% \changes{v0.2}{2009/06/06}{增加\cs{subfloat}}
 %    \begin{macrocode}
 %<*cls>
 \let\old@tabular\@tabular
 \def\xd@tabular{\dawu[1.5]\old@tabular}
-\DeclareCaptionLabelFormat{xd@cap}{{\dawu[1.5] #1~\rmfamily #2}}
+\DeclareCaptionLabelFormat{xd@cap}{{\dawu[1.5] #1\rmfamily #2}}
 \DeclareCaptionLabelSeparator{xd@sep}{\hspace{1em}}
 \DeclareCaptionFont{xd@capfont}{\dawu[1.5]}
 \captionsetup{labelformat=xd@cap,labelsep=xd@sep,font=xd@capfont}
@@ -675,7 +675,7 @@
 \newenvironment{ekeywords}{\collect@body\xd@@ekeywords}{}
 \newcommand{\xd@makeabstract}{%
   \xd@mkabstracttrue%
-% 摘要内容用小四号字书写，两端对齐，汉字用宋体，外文字用~Times New Roman 体，标点
+% 摘要内容用小四号字书写，两端对齐，汉字用宋体，外文字用Times New Roman 体，标点
 % 符号一律用中文输入状态下的标点符号
   \chapter*{\cabstractname}%
   \markboth{\cabstractname}{}%
@@ -684,7 +684,7 @@
   \setbox0=\hbox{\hei\xd@ckeywords@title\hspace{1em}}%
   \ifxd@bachelor\noindent\hangindent\wd0\hangafter1\fi
   \box0{\hei\xd@ckeywords}%
-% 英文摘要部分的标题为“ABSTRACT”，用~Times New Roman 体三号字。
+% 英文摘要部分的标题为“ABSTRACT”，用Times New Roman 体三号字。
   \chapter*{\bfseries\eabstractname}%
   \markboth{\eabstractname}{}%
   \normalsize\xd@eabstract\vskip12bp%
@@ -723,7 +723,7 @@
 % \label{sec:ref}
 %
 % \begin{macro}{\onlinecite}
-% 正文引用模式。依赖于~\pkg{natbib}~宏包，修改其中的命令。
+% 正文引用模式。依赖于\pkg{natbib}宏包，修改其中的命令。
 %    \begin{macrocode}
 %<*cls>
 \bibpunct{[}{]}{,}{s}{}{,}
@@ -736,10 +736,10 @@
 % \end{macro}
 %
 % 参考文献的正文部分用五号字。
-% 行距采用固定值~16 磅，段前空~3 磅，段后空~0 磅。
+% 行距采用固定值16磅，段前空3磅，段后空0磅。
 %
 % \begin{environment}{thebibliography}
-% 修改默认的~thebibliography 环境，增加一些调整代码。
+% 修改默认的thebibliography环境，增加一些调整代码。
 %    \begin{macrocode}
 \renewenvironment{thebibliography}[1]{%    
   \xd@numberedfalse
