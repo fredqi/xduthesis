@@ -9,19 +9,20 @@
 ## ----------------------------------------------------------------------
 ### CHANGE LOG
 ## ----------------------------------------------------------------------
-## Last-Updated: 2009-06-08 05:51:31(+0800) [by Fred Qi]
-##     Update #: 13
+## Last-Updated: 2011-03-29 09:27:30(+0800) [by Fred Qi]
+##     Update #: 21
 ## ----------------------------------------------------------------------
 
-import os, glob
+import os
 
 env = Environment( ENV = os.environ,
                    PDFLATEX = 'xelatex' )
 
 tmpl = Glob( 'xdthesis.c*' )
 
-test = env.PDF( 'main.tex' )
-Depends( test, tmpl )
+pdf = env.PDF( [ 'main.tex' ] )
+Depends( pdf, [ 'cover.tex', 'refs.bib' ] )
+Depends( pdf, Glob( 'ch*.tex' ) )
 
 ## ----------------------------------------------------------------------
 ### END OF FILE 
