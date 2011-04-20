@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{717}
+% \CheckSum{719}
 %
 % \iffalse
 %<*driver>
@@ -113,6 +113,8 @@
 % \GetFileInfo{xdthesis.dtx}
 % \MakeShortVerb{\|}
 %
+% \changes{v0.9.3}{2011/04/20}{Fixed the error on
+% \texttt{$\backslash$nobreakspace}.}
 % \changes{v0.9.2}{2009/06/17}{Using full Chinese punctuation.}
 % \changes{v0.9.1}{2009/06/15}{Template for Bachelor's thesis release candidate.}
 % \changes{v0.9}{2009/06/10}{Template realy works for Bachelor's thesis.}
@@ -307,7 +309,6 @@
 %    \end{macrocode}
 % 本模板是基于\XeLaTeX{}的。
 %    \begin{macrocode}
-\RequirePackage{xunicode,xltxtra}
 \RequirePackage[CJKnumber,BoldFont]{xeCJK}
 % \changes{v0.9.1}{2009/06/17}{使用全角格式中文标点符号。}
 \punctstyle{quanjiao}
@@ -325,6 +326,8 @@
 \setmainfont{Times New Roman}
 % \setsansfont{Arial}
 \setmonofont{Courier Std}
+% \changes{v0.9.3}{2011/04/20}{引用宏包顺序调整，以避免\texttt{nobreakspace}的问题。}
+\RequirePackage{xunicode,xltxtra}
 %</cls>
 %    \end{macrocode}
 %
