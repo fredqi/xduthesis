@@ -20,11 +20,11 @@
 %%
 %% \fi
 %
-% \CheckSum{719}
+% \CheckSum{750}
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xdthesis.dtx}[2009/06/17 0.9.2 Xidian University Thesis Template]
+\ProvidesFile{xdthesis.dtx}[2011/12/13 0.9.4 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
 \usepackage{zhspacing,xltxtra}
@@ -113,15 +113,14 @@
 % \GetFileInfo{xdthesis.dtx}
 % \MakeShortVerb{\|}
 %
-% \changes{v0.9.3}{2011/04/20}{Fixed the error on
-% \texttt{$\backslash$nobreakspace}.}
+% \changes{v0.9.4}{2012/01/10}{Made the full support for the master option.}
+% \changes{v0.9.3a}{2011/12/13}{Fixed line space and chapter space in TOC.}
+% \changes{v0.9.3}{2011/04/20}{Fixed the error on \texttt{$\backslash$nobreakspace}.}
 % \changes{v0.9.2}{2009/06/17}{Using full Chinese punctuation.}
 % \changes{v0.9.1}{2009/06/15}{Template for Bachelor's thesis release candidate.}
 % \changes{v0.9}{2009/06/10}{Template realy works for Bachelor's thesis.}
-% \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and
-%   floats formats.}
-% \changes{v0.1}{2008/06/24}{The \XeLaTeX\ template for writing thesis of Xidian
-%   starts.}
+% \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and floats formats.}
+% \changes{v0.1}{2008/06/24}{The \XeLaTeX\ template for writing thesis of Xidian starts.}
 %
 % \def\xdthesis{\textsc{XD}\-\textsc{Thesis}}
 % \def\pkg#1{\texttt{#1}}
@@ -220,7 +219,7 @@
 %<*cls>
 \hyphenation{XD-Thesis}
 \def\xdthesis{\textsc{XDThesis}}
-\def\version{0.1}
+\def\version{0.9.4}
 \newif\ifxd@bachelor\xd@bachelorfalse
 \newif\ifxd@master\xd@masterfalse
 \newif\ifxd@doctor\xd@doctorfalse
@@ -413,7 +412,12 @@
 % 定义行距，正文小四号（12pt）字，行距为1.5倍行距
 %    \begin{macrocode}
 \renewcommand\normalsize{\@setfontsize\normalsize{12bp}{18bp}}
-\renewcommand\baselinestretch{1.3}
+\ifxd@bachelor
+\renewcommand\baselinestretch{1.2}
+\fi
+\ifxd@master
+\renewcommand\baselinestretch{1.2}
+\fi
 %</cls>
 %    \end{macrocode}
 %
@@ -566,6 +570,11 @@
   \newcommand{\CJKthechaptername}[1]{%
               \CJKprechaptername\xd@CJKnumber{\@arabic#1}\CJKchaptername}
 \fi
+\ifxd@master
+  \newcommand\CJKthechapter{\xd@CJKnumber{\@arabic\c@chapter}}
+  \newcommand{\CJKthechaptername}[1]{%
+              \CJKprechaptername\xd@CJKnumber{\@arabic#1}\CJKchaptername}
+\fi
 \renewcommand\chaptername{\CJKprechaptername\CJKthechapter\CJKchaptername}
 \newcommand{\cabstractname}{摘\hspace{1em}要}
 \newcommand{\eabstractname}{ABSTRACT}
@@ -617,9 +626,9 @@
 \renewcommand\tableofcontents{\xd@orgtoc\markright{\contentsname}}
 \titlecontents{chapter}[0pt]{}%
               {\xiaosi\bfseries\song%
-                \ifxd@numbered\CJKthechaptername\thecontentslabel\else%
-                \thecontentslabel\fi}{}%
-              {\titlerule*[.6pc]{.}\contentspage}
+               \CJKthechaptername\thecontentslabel\enspace\enspace}%
+              {\thecontentslabel}%
+              {\titlerule*[.5pc]{.}\contentspage}
 %</cls>
 %    \end{macrocode}
 %
@@ -686,6 +695,7 @@
 % 关键词为悬挂缩进
   \setbox0=\hbox{\hei\xd@ckeywords@title\hspace{1em}}%
   \ifxd@bachelor\noindent\hangindent\wd0\hangafter1\fi
+  \ifxd@master\noindent\hangindent\wd0\hangafter1\fi
   \box0{\hei\xd@ckeywords}%
 % 英文摘要部分的标题为“ABSTRACT”，用Times New Roman 体三号字。
   \chapter*{\bfseries\eabstractname}%
@@ -694,6 +704,7 @@
 % 关键词为悬挂缩进
   \setbox0=\hbox{\bfseries Keywords:\hspace{1em}}%
   \ifxd@bachelor\noindent\hangindent\wd0\hangafter1\fi
+  \ifxd@master\noindent\hangindent\wd0\hangafter1\fi
   \box0{\bfseries\xd@ekeywords}%
   \xd@mkabstractfalse%
 }
@@ -712,11 +723,11 @@
 %
 %    \begin{macrocode}
 %<*cls>
-\newenvironment{ack}{%
+\newenvironment{acknowledgments}{%
   \xd@numberedfalse%
   \chapter*{\xd@ackname}%
   \addcontentsline{toc}{chapter}{\bfseries\song\xd@ackname}%
-  \markboth{\xd@ackname}{}%
+  \markboth{\xd@ackname}{\xd@title}%
   \xd@numberedtrue}%
   {}
 %</cls>
