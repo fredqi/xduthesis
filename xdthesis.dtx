@@ -20,11 +20,11 @@
 %%
 %% \fi
 %
-% \CheckSum{763}
+% \CheckSum{773}
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xdthesis.dtx}[2011/12/13 0.9.4 Xidian University Thesis Template]
+\ProvidesFile{xdthesis.dtx}[2012/02/07 0.9.4a Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
 \usepackage{xltxtra}
@@ -213,6 +213,7 @@
 % \subsection{定义选项}
 % \label{sec:defoption}
 %
+% \changes{v0.9.4a}{2012/02/07}{Added option print.}
 % 定义论文类型以及是否涉密
 %    \begin{macrocode}
 %<*cls>
@@ -225,10 +226,12 @@
 \newif\ifxd@secret\xd@secretfalse
 \newif\ifxd@mkabstract\xd@mkabstractfalse
 \newif\ifxd@numbered\xd@numberedtrue
+\newif\ifxd@print\xd@printfalse
 \DeclareOption{bachelor}{\xd@bachelortrue}
 \DeclareOption{master}{\xd@mastertrue}
 \DeclareOption{doctor}{\xd@doctortrue}
 \DeclareOption{secret}{\xd@secrettrue}
+\DeclareOption{print}{\xd@printtrue}
 \AtEndOfClass{%
   \ifxd@bachelor\relax\else
     \ifxd@master\relax\else
@@ -250,14 +253,23 @@
 % \subsection{装载宏包}
 % \label{sec:loadpackage}
 %
-% 参考文献引用宏包。
+% \changes{v0.9.4a}{2012/02/07}{Added package calc for paper layout setup.}
+% 设置页边距等引用宏包
 %    \begin{macrocode}
 %<*cls>
+\RequirePackage{calc}
+%    \end{macrocode}
+% 参考文献引用宏包。
+%    \begin{macrocode}
 \RequirePackage[numbers,super,sort&compress]{natbib}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-% \RequirePackage{hyperref}
+\ifxd@print
+\RequirePackage[colorlinks=true,allcolors=black]{hyperref}
+\else
+\RequirePackage[colorlinks=true]{hyperref}
+\fi
 %    \end{macrocode}
 % 引用的宏包和相应的定义。
 % \pkg{hypernat} 让~\pkg{hyperref} 和~\pkg{natbib} 协调的工作。应该
