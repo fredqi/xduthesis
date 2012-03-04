@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{773}
+% \CheckSum{758}
 %
 % \iffalse
 %<*driver>
@@ -580,16 +580,9 @@
                     {十六}\or{十七}\or{十八}\or{十九}\or{二十}\fi}
 \newcommand\CJKprechaptername{第}
 \newcommand\CJKchaptername{章}
-\ifxd@bachelor
-  \newcommand\CJKthechapter{\xd@CJKnumber{\@arabic\c@chapter}}
-  \newcommand{\CJKthechaptername}[1]{%
-              \CJKprechaptername\xd@CJKnumber{\@arabic#1}\CJKchaptername}
-\fi
-\ifxd@master
-  \newcommand\CJKthechapter{\xd@CJKnumber{\@arabic\c@chapter}}
-  \newcommand{\CJKthechaptername}[1]{%
-              \CJKprechaptername\xd@CJKnumber{\@arabic#1}\CJKchaptername}
-\fi
+\newcommand\CJKthechapter{\xd@CJKnumber{\@arabic\c@chapter}}
+\newcommand{\CJKthechaptername}[1]{%
+            \CJKprechaptername\xd@CJKnumber{\@arabic#1}\CJKchaptername}
 \renewcommand\chaptername{\CJKprechaptername\CJKthechapter\CJKchaptername}
 \newcommand{\cabstractname}{摘\hspace{1em}要}
 \newcommand{\eabstractname}{ABSTRACT}
