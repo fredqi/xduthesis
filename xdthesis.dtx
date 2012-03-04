@@ -20,16 +20,16 @@
 %%
 %% \fi
 %
-% \CheckSum{750}
+% \CheckSum{763}
 %
 % \iffalse
 %<*driver>
 \ProvidesFile{xdthesis.dtx}[2011/12/13 0.9.4 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
-\usepackage{zhspacing,xltxtra}
-\newfontfamily\zhfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
-\newfontfamily\zhpunctfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
+\usepackage{xltxtra}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
 \usepackage{indentfirst}
 \setlength{\parskip}{4pt plus1pt minus0pt}
 \setlength{\topsep}{0pt}
@@ -99,7 +99,6 @@
                                       {\normalfont\normalsize\bfseries}}
 \makeatother
 \pagestyle{empty}
-\zhspacing
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -340,12 +339,16 @@
   \if@openright\cleardoublepage\else\clearpage\fi
   \@mainmatterfalse
   \pagenumbering{roman}
-  \pagestyle{xd@headings}}
+  \pagestyle{xd@front}}
 \renewcommand\mainmatter{%
+  \if@openright\cleardoublepage\else\clearpage\fi
   \cleardoublepage
   \@mainmattertrue
   \pagenumbering{arabic}
   \pagestyle{xd@headings}}
+\renewcommand\backmatter{%
+  \if@openright\cleardoublepage\else\clearpage\fi
+  \@mainmattertrue}
 %</cls>
 %    \end{macrocode}
 %
@@ -459,16 +462,16 @@
 %    \end{macrocode}
 %
 %
-% 定义页眉和页脚。chapter 自动调用~thispagestyle{xd@abstract}，所以要重新定
-% 义~xd@abstract。
+% 定义页眉和页脚。chapter 自动调用~thispagestyle{xd@front}，所以要重新定
+% 义~xd@front。
 % \begin{macro}{\ps@xd@empty}
-% \begin{macro}{\ps@xd@abstract}
+% \begin{macro}{\ps@xd@front}
 % \begin{macro}{\ps@xd@headings}
 % 定义页眉页脚格式：
 % \begin{itemize}
 % \item \texttt{xd@empty} ：无页眉页脚
-% \item \texttt{xd@abstract} ：只显示页眉的页码
-% \item \texttt{xd@headings}：页眉页脚同时显示
+% \item \texttt{xd@front} ：页眉中无页码
+% \item \texttt{xd@headings}：页眉中显示页码
 % \end{itemize}
 %    \begin{macrocode}
 \def\ps@xd@empty{%
@@ -476,7 +479,7 @@
   \let\@evenhead\@empty%
   \let\@oddfoot\@empty%
   \let\@evenfoot\@empty}
-\def\ps@xd@abstract{%
+\def\ps@xd@front{%
   \def\@oddhead{\vbox{\hbox to\textwidth{%
                 \hfil{\wuhao\leftmark}\hfil}%
                 \vskip2pt\rule{\textwidth}{0.75pt}}}%
@@ -501,7 +504,7 @@
 %
 % 其实可以直接写到~\cs{chapter} 的定义里面。
 %    \begin{macrocode} 
-\renewcommand{\chaptermark}[1]{\markboth{\chaptername\hspace{2ex}#1}{}}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\hspace{2ex}#1}{\xd@title}}
 \renewcommand{\sectionmark}[1]{\markright{\xd@title}}
 %</cls>
 %    \end{macrocode}
@@ -590,7 +593,7 @@
 \titleformat{\chapter}[block]%
             {\sanhao\hei}{\chaptername}%
             {1ex}{\sanhao\hei\filcenter}%
-            [\ifxd@mkabstract\thispagestyle{xd@abstract}\else\thispagestyle{xd@headings}\fi]
+            [\if@mainmatter\thispagestyle{xd@headings}\else\thispagestyle{xd@front}\fi]
 \titlespacing*{\chapter}{0pt}{4ex}{3ex}[0pt]
 %    \end{macrocode}
 % \begin{macro}{\section}
@@ -690,7 +693,7 @@
 % 摘要内容用小四号字书写，两端对齐，汉字用宋体，外文字用Times New Roman 体，标点
 % 符号一律用中文输入状态下的标点符号
   \chapter*{\cabstractname}%
-  \markboth{\cabstractname}{}%
+  \markboth{\cabstractname}{\xd@title}%
   \normalsize\xd@cabstract\vskip12bp%
 % 关键词为悬挂缩进
   \setbox0=\hbox{\hei\xd@ckeywords@title\hspace{1em}}%
@@ -699,7 +702,7 @@
   \box0{\hei\xd@ckeywords}%
 % 英文摘要部分的标题为“ABSTRACT”，用Times New Roman 体三号字。
   \chapter*{\bfseries\eabstractname}%
-  \markboth{\eabstractname}{}%
+  \markboth{\eabstractname}{\xd@title}%
   \normalsize\xd@eabstract\vskip12bp%
 % 关键词为悬挂缩进
   \setbox0=\hbox{\bfseries Keywords:\hspace{1em}}%
@@ -727,7 +730,6 @@
   \xd@numberedfalse%
   \chapter*{\xd@ackname}%
   \addcontentsline{toc}{chapter}{\bfseries\song\xd@ackname}%
-  \markboth{\xd@ackname}{\xd@title}%
   \xd@numberedtrue}%
   {}
 %</cls>
@@ -760,7 +762,7 @@
   \chapter*{\bibname}%
   \addcontentsline{toc}{chapter}{\bfseries\song\bibname}%
   \markboth{\bibname}{\xd@title}%
-  \xd@numberedtrue%
+  % \xd@numberedtrue%
   \wuhao[1.5]
   \list{\@biblabel{\@arabic\c@enumiv}}%
   {\renewcommand{\makelabel}[1]{##1\hfill}
