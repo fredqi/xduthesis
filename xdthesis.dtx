@@ -20,11 +20,11 @@
 %%
 %% \fi
 %
-% \CheckSum{1025}
+% CheckSum{1209}
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xdthesis.dtx}[2012/02/07 0.9.4a Xidian University Thesis Template]
+\ProvidesFile{xdthesis.dtx}[2012/06/27 0.9.6 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
 \usepackage{xltxtra}
@@ -194,6 +194,26 @@
 %
 % \subsection{下载}
 % \xdthesis{} 的主页是：  \url{http://code.google.com/p/xdthesis/}。
+%
+% \section{使用说明}
+% \label{sec:userguide}
+%
+% \subsection{命令}
+% \label{sec:command}
+% 模板中的命令分为两类：一是格式控制，二是内容替换。格式控制如字体、字号、字距和
+% 行距。内容替换如姓名、院系、专业、致谢等等。其中内容替换命令居多，而且主要集中
+% 在封面上。首先来看格式控制命令。
+%
+% \subsubsection{基本控制命令}
+% \label{sec:basiccom}
+
+% \subsubsection{封面命令}
+% \label{sec:titlepage}
+% 下面是内容替换命令，其中以 |c| 开头的命令跟中文相关，|e| 开头则为对应的英文。
+% 这部分的命令数目比较多，但实际上都相当简单，套用即可。
+%
+% 大多数命令的使用方法都是： \cs{command}\marg{arg}，例外者将具体指出。这些命令都
+% 在示例文档的 data/cover.tex 中。
 %
 %\section{致谢}
 %\label{sec:thanks}
@@ -393,6 +413,11 @@
 % 1bp = 72.27/72 pt
 % \end{verbatim}
 %
+% \begin{macro}{\song}
+% \begin{macro}{\songti}
+% \begin{macro}{\hei}
+% \begin{macro}{\heiti}
+%
 %    \begin{macrocode}
 %<*cls>
 \newcommand{\song}{\CJKfamily{song}} % 宋体
@@ -400,6 +425,29 @@
 \newcommand{\hei}{\CJKfamily{hei}} % 黑体
 \def\heiti{\hei}
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% 
+% \begin{macro}{\chuhao}
+% \begin{macro}{\xiaochu}
+% \begin{macro}{\yihao}
+% \begin{macro}{\xiaoyi}
+% \begin{macro}{\erhao}
+% \begin{macro}{\xiaoer}
+% \begin{macro}{\sanhao}
+% \begin{macro}{\xiaosan}
+% \begin{macro}{\sihao}
+% \begin{macro}{\banxiaosi}
+% \begin{macro}{\xiaosi}
+% \begin{macro}{\dawu}
+% \begin{macro}{\wuhao}
+% \begin{macro}{\xiaowu}
+% \begin{macro}{\liuhao}
+% \begin{macro}{\xiaoliu}
+% \begin{macro}{\qihao}
+% \begin{macro}{\bahao}
 %    \begin{macrocode}
 \newlength\xd@linespace
 \newcommand{\xd@choosefont}[2]{%
@@ -427,6 +475,24 @@
 \xd@define@fontsize{qihao}{5.5bp}
 \xd@define@fontsize{bahao}{5bp}
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 %
 % 定义行距，正文小四号（12pt）字，行距为1.5倍行距
 %    \begin{macrocode}
@@ -473,8 +539,8 @@
 \newcommand{\xd@clearemptydoublepage}{%
   \clearpage{\pagestyle{empty}\xd@cleardoublepage}}
 \let\cleardoublepage\xd@clearemptydoublepage
-\let\xd@orgtitle\title
-\renewcommand{\title}[1]{\gdef\xd@title{#1}\xd@orgtitle{#1}}
+% \let\xd@orgtitle\title
+% \renewcommand{\title}[1]{\gdef\xd@ctitle{#1}\xd@orgtitle{#1}}
 %    \end{macrocode}
 %
 %
@@ -520,8 +586,8 @@
 %
 % 其实可以直接写到~\cs{chapter} 的定义里面。
 %    \begin{macrocode} 
-\renewcommand{\chaptermark}[1]{\markboth{\chaptername\hspace{2ex}#1}{\xd@title}}
-\renewcommand{\sectionmark}[1]{\markright{\xd@title}}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\hspace{2ex}#1}{\xd@ctitle}}
+\renewcommand{\sectionmark}[1]{\markright{\xd@ctitle}}
 %</cls>
 %    \end{macrocode}
 %
@@ -765,7 +831,7 @@
 %    \begin{macrocode}
 %<*cls>
 \let\xd@orgtoc\tableofcontents
-\renewcommand\tableofcontents{\xd@orgtoc\markright{\xd@title}}
+\renewcommand\tableofcontents{\xd@orgtoc\markright{\xd@ctitle}}
 \titlecontents{chapter}[0pt]{}%
               {\xiaosi\bfseries\song%
                \CJKthechaptername\thecontentslabel\enspace\enspace}%
@@ -774,7 +840,173 @@
 %</cls>
 %    \end{macrocode}
 %
-%\subsubsection{数学相关}
+% \subsubsection{封面和封底}
+% \label{sec:cover}
+% \begin{macro}{\xd@define@term}
+% 方便的定义封面的一些替换命令。
+% \changes{v0.9.5}{2012/06/23}{引入 \cs{xd@define@term} 定义封面命令。}
+%    \begin{macrocode}
+%<*cls>
+\def\xd@define@term#1{
+  \expandafter\gdef\csname #1\endcsname##1{%
+    \expandafter\gdef\csname xd@#1\endcsname{##1}}
+  \csname #1\endcsname{}}
+%    \end{macrocode}
+% \end{macro}
+% 
+%
+% \begin{macro}{\subjectcode}
+% \begin{macro}{\catalognumber}
+% \begin{macro}{\classid}
+% \begin{macro}{\studentid}
+% \begin{macro}{\secretlevel}
+% \begin{macro}{\ctitle}
+% \begin{macro}{\cschool}
+% \begin{macro}{\cmajor}
+% \begin{macro}{\cfirstdiscipline}
+% \begin{macro}{\cseconddiscipline}
+% \begin{macro}{\cauthor}
+% \begin{macro}{\csupervisor}
+% \begin{macro}{\cassocsupervisor}
+% \begin{macro}{\cdate}
+% \begin{macro}{\etitle}
+%    \begin{macrocode}
+\xd@define@term{subjectcode}
+\xd@define@term{catelognumber}
+\xd@define@term{classid}
+\xd@define@term{studentid}
+\xd@define@term{secretlevel}
+\xd@define@term{ctitle}
+\xd@define@term{cschool}
+\xd@define@term{cmajor}
+\xd@define@term{cfirstdiscipline}
+\xd@define@term{cseconddiscipline}
+\xd@define@term{cauthor}
+\xd@define@term{csupervisor}
+\xd@define@term{cassosupervisor}
+\xd@define@term{cdate}
+\xd@define@term{etitle}
+%</cls>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro} 
+% \end{macro}
+% \end{macro}
+% \end{macro} 
+% \end{macro}
+% \end{macro}
+% \end{macro} 
+% \end{macro} 
+% \end{macro} 
+% \end{macro} 
+% \end{macro}
+%
+%    \begin{macrocode}
+%<*cfg>
+\def\xd@classid@prefix{班\hspace{1em}级}
+\def\xd@studentid@prefix{学\hspace{1em}号}
+\def\xd@ctitle@prefix{题\hspace{2em}目}
+\def\xd@cschool@prefix{学\hspace{2em}院}
+\def\xd@cmajor@prefix{专\hspace{2em}业}
+\ifxd@bachelor
+\def\xd@cauthor@prefix{学生姓名}
+\def\xd@csupervisor@prefix{导师姓名}
+\fi
+\def\xd@catalog@number@title{分类号}
+\def\xd@declaration@title{毕业设计（论文）诚信声明书}
+\newcommand{\xd@declaration@bachelor}{
+本人声明：本人所提交的毕业论文《\xd@ctitle》是本人在指导教师指
+导下独立研究、写作的成果，论文中所引用他人的无论以何种方式发布的文字、研究成果，
+均在论文中加以说明；有关教师、同学和其他人员对本文的写作、修订提出过并为我在论文
+中加以采纳的意见、建议，均已在我的致谢辞中加以说明并深致谢意。
+
+本论文和资料若有不实之处，本人承担一切相关责任。
+}
+\newcommand{\xd@author@sig}{论文作者： }
+\newcommand{\xd@teacher@sig}{指导教师已阅：}
+%</cfg>
+%    \end{macrocode} 
+%
+%
+%    \begin{macrocode}
+% \changes{v0.9.6}{2012/06/27}{完成了本科毕业设计封面设计。}
+%<*cls>
+\newcommand\xd@urule[2][32mm]{\hskip2pt\underline{\hb@xt@ #1{\hss#2\hss}}\hskip3pt}
+\newlength{\xd@prefix@width}
+\def\xd@put@prefix#1{\makebox[\xd@prefix@width]{#1}}
+\def\xd@titlepage{\ifxd@bachelor\xd@titlepage@bachelor\fi}
+\newcommand{\xd@titlepage@bachelor}{
+    \parbox[b]{0.9\linewidth}{
+      \setlength{\xd@prefix@width}{3em}
+      \xiaosi[1.5]\song\bf\ignorespaces\flushright
+      \xd@put@prefix{\xd@classid@prefix}\enskip%
+      \xd@urule{\xd@classid}\par%
+      \xd@put@prefix{\xd@studentid@prefix}\enskip%
+      \xd@urule{\xd@studentid}}
+    \begin{center}
+      \ifxd@print\vspace{132mm}\else\vspace{18mm}
+      \includegraphics[width=77mm]{xidian}\par
+      \vspace{15mm}
+      \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
+      \vspace{15mm}
+      \includegraphics[width=44mm]{xdlogo}\par
+      \vspace{18mm}\fi
+      \parbox[t]{25mm}{\xiaosan[2.5]\song\bf
+        \xd@ctitle@prefix\par~\par
+        \xd@cschool@prefix\par
+        \xd@cmajor@prefix\par
+        \xd@cauthor@prefix\par
+        \xd@csupervisor@prefix}\enskip
+      \parbox[t]{95mm}{%\noindent
+        \setlength\unitlength{1mm}
+        \begin{picture}(0,0)(0,0)
+          \linethickness{1pt}
+          \multiput(0,-3)(0,-16){6}{\line(10,0){95}}
+        \end{picture}%
+        \vspace{-17mm}
+        \begin{center}
+          \sanhao[2.2]\hei\ignorespaces\xd@ctitle
+        \end{center}
+        \setbox0=\hbox{{\sanhao[2.2]\hei\ignorespaces\xd@ctitle}}
+        \ifdim\wd0>95mm\vspace{-8mm}\else\vspace{8mm}\fi
+        \begin{center}
+          \xiaosan[2.5]\song\ignorespaces
+          \xd@cschool\par
+          \xd@cmajor\par
+          \xd@cauthor\par
+          \xd@csupervisor        
+        \end{center}}
+    \end{center}
+}
+%    \end{macrocode}
+%
+% 封面中论文诚信声明部分。
+% \begin{macro}{\xd@make@declaration}
+%    \begin{macrocode}
+\newcommand{\xd@make@declaration}{%
+  \ifxd@bachelor\xd@declaration@bachelor\fi
+}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\makecover}
+% \changes{v0.9.5}{2012/06/23}{分成几个小模块来搞，不然这个 macro 太大了，看不过来。}
+%
+%    \begin{macrocode}
+\newcommand{\makecover}{
+  \begin{titlepage}
+    \xd@titlepage
+  \end{titlepage}
+  \xd@makeabstract
+}
+%</cls>
+%    \end{macrocode}
+% \end{macro}
+% 
+% \subsubsection{数学相关}
 %\label{sec:maths}
 %
 %    \begin{macrocode}
@@ -842,7 +1074,7 @@
 % 摘要内容用小四号字书写，两端对齐，汉字用宋体，外文字用Times New Roman 体，标点
 % 符号一律用中文输入状态下的标点符号
   \chapter*{\cabstractname}%
-  \markboth{\cabstractname}{\xd@title}%
+  \markboth{\cabstractname}{\xd@ctitle}%
   \normalsize\xd@cabstract\vskip12bp%
 % 关键词为悬挂缩进
   \setbox0=\hbox{\hei\xd@ckeywords@title\hspace{1em}}%
@@ -851,7 +1083,7 @@
   \box0{\hei\xd@ckeywords}%
 % 英文摘要部分的标题为“ABSTRACT”，用Times New Roman 体三号字。
   \chapter*{\bfseries\eabstractname}%
-  \markboth{\eabstractname}{\xd@title}%
+  \markboth{\eabstractname}{\xd@ctitle}%
   \normalsize\xd@eabstract\vskip12bp%
 % 关键词为悬挂缩进
   \setbox0=\hbox{\bfseries Keywords:\hspace{1em}}%
@@ -864,12 +1096,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\makecover}
-%    \begin{macrocode}
-%<cls>\newcommand\makecover{\xd@makeabstract}
-%    \end{macrocode}
-% \end{macro}
-%
 % \subsubsection{致谢}
 % \label{sec:ack}
 %
@@ -879,7 +1105,7 @@
   \xd@numberedfalse%
   \chapter*{\xd@ackname}%
   \addcontentsline{toc}{chapter}{\bfseries\song\xd@ackname}%
-  \markboth{\xd@ackname}{\xd@title}%
+  \markboth{\xd@ackname}{\xd@ctitle}%
   \xd@numberedtrue}%
   {}
 %</cls>
@@ -911,7 +1137,7 @@
   \xd@numberedfalse
   \chapter*{\bibname}%
   \addcontentsline{toc}{chapter}{\bfseries\song\bibname}%
-  \markboth{\bibname}{\xd@title}%
+  \markboth{\bibname}{\xd@ctitle}%
   % \xd@numberedtrue%
   \wuhao[1.5]
   \list{\@biblabel{\@arabic\c@enumiv}}%
