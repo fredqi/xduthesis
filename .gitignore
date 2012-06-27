@@ -1,0 +1,28 @@
+# cls and cfg files generated for testing
+xdthesis.cls
+xdthesis.cfg
+# documentation
+xdthesis.pdf
+
+# latex generated fiels
+*.aux
+*.bbl
+*.blg
+*.fls
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.toc
+
+# Emacs generated files
+auto/
+
+# SCons generated files
+.sconsign.dblite
+
+# Example directory
+examples/thesis-*.pdf
