@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{758}
+% \CheckSum{1025}
 %
 % \iffalse
 %<*driver>
@@ -29,6 +29,7 @@
 \usepackage{url}
 \usepackage{xltxtra}
 \usepackage{xeCJK}
+\usepackage[normalem]{ulem}
 \setCJKmainfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
 \usepackage{indentfirst}
 \setlength{\parskip}{4pt plus1pt minus0pt}
@@ -310,6 +311,9 @@
 % ~\pkg{subfig} 装载进来。所以可以在后面看到~\cs{captionsetup} 的命令。
 %    \begin{macrocode}
 \RequirePackage{subfig}
+% 下划线（虚线）
+% \dashuline{dashing} dashed underline like dashing
+\RequirePackage[normalem]{ulem}
 %    \end{macrocode}
 %
 % 载入标题格式宏包。
@@ -550,6 +554,136 @@
   \let\endenumerate\endcompactenum
   \let\description\compactdesc
   \let\enddescription\endcompactdesc}
+  
+  
+%
+% \newcommand{\xddashuline}[1]{%
+% \dashuline{\hbox to 4.45cm{\hfill{#1}\hfill}}
+% }
+% \def\XDBA@dashuline[#1]#2{%
+  % \dashuline{\hbox to #1{\hfill#2\hfill}}}
+% \def\XDBAdashuline{\@ifnextchar[\XDBA@dashuline\dashuline}
+\def\xddashuline[#1]#2{%
+  \dashuline{\hbox to #1{\hfill#2\hfill}}
+}
+\def\xduline[#1]#2{%
+  \uline{\hbox to #1{\hfill#2\hfill}}
+}
+\newcommand\boldhei{%
+\fontspec[BoldFont={Adobe Heiti Std},BoldFeatures={RawFeature={embolden=2}}]{Adobe Heiti Std}
+}
+\newcommand\boldsong{%
+\fontspec[BoldFont={Adobe Song Std},BoldFeatures={RawFeature={embolden=2}}]{Adobe Song Std}
+}
+
+\def\xd@daihao{10701}
+\def\xd@xuehao{0911120728}
+\def\xd@leihao{TP391.41}
+\def\xd@miji{公开}
+
+\def\xd@timuI{论文题目}
+\def\xd@timuII{}
+\def\xd@timuIII{}
+\def\xd@timuIIII{}
+\def\xd@xingming{作者姓名}
+\def\xd@jiaoshi{教师姓名职称}
+\def\xd@menglei{学科门类}
+\def\xd@zhuanye{学科专业}
+\def\xd@riqi{日期}
+	
+\newcommand\daihao[1]{\def\xd@daihao{#1}}
+\newcommand\xuehao[1]{\def\xd@xuehao{#1}}
+\newcommand\leihao[1]{\def\xd@leihao{#1}}
+\newcommand\miji[1]{\def\xd@miji{#1}}
+
+\newcommand\timuI[1]{\def\xd@timuI{#1}}
+\newcommand\timuII[1]{\def\xd@timuII{#1}}
+\newcommand\timuIII[1]{\def\xd@timuIII{#1}}
+\newcommand\timuIIII[1]{\def\xd@timuIIII{#1}}
+\newcommand\xingming[1]{\def\xd@xingming{#1}}
+\newcommand\jiaoshi[1]{\def\xd@jiaoshi{#1}}
+\newcommand\menglei[1]{\def\xd@menglei{#1}}
+\newcommand\zhuanye[1]{\def\xd@zhuanye{#1}}
+\newcommand\riqi[1]{\def\xd@riqi{#1}}
+	
+\newcommand{\xdcover}{%
+
+\ifxd@master
+{
+\cleardoublepage
+\thispagestyle{empty}
+{
+%\setlength{\baselineskip}{30pt}
+\bfseries\heiti\dawu
+\makebox[1cm]{}\vspace{4mm}
+
+\hspace{2mm}{代~~~~~~号}\xddashuline[4.3cm]{\boldhei\xd@daihao} \hspace*{1.4cm}
+{学~~~~~~号}\xddashuline[4.3cm]{\boldhei\xd@xuehao} \vspace{3mm}
+
+\hspace{2mm}{分~类~号}\xddashuline[4.3cm]{\boldhei\xd@leihao} \hspace*{1.4cm}
+{密~~~~~~级}\xddashuline[4.3cm]{\xd@miji} \vspace{13.8cm}
+
+\bfseries\sihao
+\noindent\makebox[3.2cm][s]{\heiti 题{\xiaowu(中、英文)}目}\xddashuline[12cm]{\boldsong\songti\xd@timuI} \vspace{-3mm}
+
+\noindent\makebox[3.2cm][s]{}\xddashuline[12cm]{\boldsong\songti\xd@timuII} \vspace{-3mm}
+
+\noindent\makebox[3.2cm][s]{}\xddashuline[12cm]{\boldsong\xd@timuIII} \vspace{-3mm}
+
+\noindent\makebox[3.2cm][s]{}\xddashuline[12cm]{\boldsong\xd@timuIIII} 
+
+\noindent\makebox[3.2cm][s]{\heiti 作者姓名}\xddashuline[3cm]{\songti\sanhao\xd@xingming}
+	\makebox[4.4cm][s]{\heiti 指导教师姓名、职务}\xddashuline[4.46cm]{\songti\sanhao\xd@jiaoshi}\vspace{-3mm}%\vspace{5mm}
+	
+\noindent\makebox[3.2cm][s]{\heiti 学科门类}\xddashuline[3cm]{\songti\sanhao\xd@menglei}
+	\makebox[2.5cm][s]{\heiti 学科、专业}\xddashuline[6.3cm]{\songti\sanhao\xd@zhuanye}\vspace{-1mm}%\vspace{7mm}
+	
+\noindent\makebox[3.2cm][s]{\heiti 提交论文日期}\xddashuline[12cm]{\songti\sanhao\xd@riqi}
+\makebox[1cm]{}
+
+}
+
+\cleardoublepage
+\thispagestyle{empty}
+{
+%\baselinestretch{1.2}
+%\setlength{\baselineskip}{26pt}
+\begin{center}
+\bfseries \sanhao
+西安电子科技大学
+
+学位论文独创性（或创新性）声明
+\end{center}
+
+\xiaosi \setlength{\baselineskip}{20pt}
+秉承学校严谨的学风和优良的科学道德，本人声明所呈交的论文是我个人在导师指导下进行的研究工作及取得的研究成果。尽我所知，除了文中特别加以标注和致谢中所罗列的内容以外，论文中不包含其他人已经发表或撰写过的研究成果；也不包含为获得西安电子科技大学或其它教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研究所做的任何贡献均已在论文中做了明确的说明并表示了谢意。
+
+申请学位论文与资料若有不实之处，本人承担一切的法律责任。\\
+
+本人签名：\xduline[3cm]{} \hspace{2.5cm} 日期：\xduline[3cm]{} \\     
+
+\vspace{2cm}
+\begin{center}
+\bfseries \sanhao
+西安电子科技大学
+
+关于论文使用授权的说明
+\end{center}
+
+\xiaosi \setlength{\baselineskip}{20pt}
+本人完全了解西安电子科技大学有关保留和使用学位论文的规定，即：研究生在校攻读学位期间论文工作的知识产权单位属西安电子科技大学。学校有权保留送交论文的复印件，允许查阅和借阅论文；学校可以公布论文的全部或部分内容，可以允许采用影印、缩印或其它复制手段保存论文。同时本人保证，毕业后结合学位论文研究课题再撰写的文章一律署名单位为西安电子科技大学。
+
+本人授权西安电子科技大学图书馆保存学位论文，本学位论文属于\xd@miji（保密级别），在
+\xduline[1cm]{}年解密后适用本授权书，并同意将论文在互联网上发布。\\\\
+
+本人签名：\xduline[3cm]{} \hspace{2.5cm} 日期：\xduline[3cm]{}  \\      
+
+导师签名：\xduline[3cm]{} \hspace{2.5cm} 日期：\xduline[3cm]{} 
+}
+}
+\fi
+}
+
 %</cls>
 %    \end{macrocode}
 % \end{macro}
@@ -631,7 +765,7 @@
 %    \begin{macrocode}
 %<*cls>
 \let\xd@orgtoc\tableofcontents
-\renewcommand\tableofcontents{\xd@orgtoc\markright{\contentsname}}
+\renewcommand\tableofcontents{\xd@orgtoc\markright{\xd@title}}
 \titlecontents{chapter}[0pt]{}%
               {\xiaosi\bfseries\song%
                \CJKthechaptername\thecontentslabel\enspace\enspace}%
@@ -667,6 +801,16 @@
 \captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=3bp}
 \captionsetup[subfloat]{font=xd@capfont,captionskip=6bp,%
                         nearskip=6bp,farskip=0bp,topadjust=0bp}
+		
+%\AtBeginEnvironment{tabular}{\dawu[1.5]}		
+\renewenvironment{table}{%
+  \renewcommand* {\@floatboxreset}{%
+    \reset@font\@setminipage}
+  \dawu\@float{table}%
+}{%
+  \end@float\normalsize
+}
+
  % \renewcommand{\thesubfigure}{\thefigure--(\arabic{subfigure})}
  % \renewcommand{\p@subfigure}{:}
 %</cls>
@@ -735,6 +879,7 @@
   \xd@numberedfalse%
   \chapter*{\xd@ackname}%
   \addcontentsline{toc}{chapter}{\bfseries\song\xd@ackname}%
+  \markboth{\xd@ackname}{\xd@title}%
   \xd@numberedtrue}%
   {}
 %</cls>
