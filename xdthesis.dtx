@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1480}
+% \CheckSum{1472}
 %
 % \iffalse
 %<*driver>
@@ -970,46 +970,43 @@
     \xd@titlepage@graduate%
   \fi}
 \newcommand{\xd@titlepage@bachelor}{
-    \parbox[b]{0.9\linewidth}{
-      \xiaosi[1.5]\song\bf\ignorespaces\flushright
-      \xd@put@prefix{3em}{\xd@classid@prefix}\enskip%
-      \xd@urule{32mm}{\xd@classid}\par%
-      \xd@put@prefix{3em}{\xd@studentid@prefix}\enskip%
-      \xd@urule{32mm}{\xd@studentid}}
-    \begin{center}
-      \ifxd@print\vspace{132mm}\else\vspace{18mm}
-      \includegraphics[width=77mm]{xdbadge}\par
-      \vspace{15mm}
-      \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
-      \vspace{15mm}
-      \includegraphics[width=44mm]{xdlogo}\par
-      \vspace{18mm}\fi
-      \parbox[t]{25mm}{\xiaosan[2.5]\song\bf
-        \xd@put@prefix{25mm}{\xd@ctitle@prefix}\par~\par
-        \xd@put@prefix{25mm}{\xd@cschool@prefix}\par
-        \xd@put@prefix{25mm}{\xd@cmajor@prefix}\par
-        \xd@put@prefix{25mm}{\xd@cauthor@prefix}\par
-        \xd@put@prefix{25mm}{\xd@csupervisor@prefix}}\enskip
-      \parbox[t]{95mm}{%\noindent
-        \setlength\unitlength{1mm}
-        \begin{picture}(0,0)(0,0)
-          \linethickness{1pt}
-          \multiput(0,-3)(0,-16){6}{\line(10,0){95}}
-        \end{picture}%
-        \vspace{-17mm}
-        \begin{center}
-          \sanhao[2.2]\hei\ignorespaces\xd@ctitle
-        \end{center}
-        \setbox0=\hbox{{\sanhao[2.2]\hei\ignorespaces\xd@ctitle}}
-        \ifdim\wd0>95mm\vspace{-8mm}\else\vspace{8mm}\fi
-        \begin{center}
-          \xiaosan[2.5]\song\ignorespaces
-          \xd@urule{95mm}{\xd@cschool}\par
-          \xd@urule{95mm}{\xd@cmajor}\par
-          \xd@urule{95mm}{\xd@cauthor}\par
-          \xd@urule{95mm}{\xd@csupervisor}
-        \end{center}}
-    \end{center}
+  \parbox[b]{0.9\linewidth}{%
+    \xiaosi[1.5]\song\bf\ignorespaces\flushright%
+    \xd@put@prefix{3em}{\xd@classid@prefix}\enskip%
+    \xd@urule{32mm}{\xd@classid}\par%
+    \xd@put@prefix{3em}{\xd@studentid@prefix}\enskip%
+    \xd@urule{32mm}{\xd@studentid}}
+  \begin{center}
+    \ifxd@print\vspace{132mm}\else\vspace{18mm}
+    \includegraphics[width=77mm]{xdbadge}\par
+    \vspace{15mm}
+    \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
+    \vspace{15mm}
+    \includegraphics[width=44mm]{xdlogo}\par
+    \vspace{18mm}\fi
+    \begin{minipage}{122mm}
+      \flushleft\xiaosan[2.5]\song%
+      \xd@put@prefix{25mm}{\bf\xd@ctitle@prefix}
+      \xd@urule{95mm}{}\par
+      \xd@put@prefix{25mm}{}\xd@urule{95mm}{}\par
+      \xd@put@prefix{25mm}{\bf\xd@cschool@prefix}
+      \xd@urule{95mm}{\xd@cschool}\par
+      \xd@put@prefix{25mm}{\bf\xd@cmajor@prefix}
+      \xd@urule{95mm}{\xd@cmajor}\par
+      \xd@put@prefix{25mm}{\bf\xd@cauthor@prefix}
+      \xd@urule{95mm}{\xd@cauthor}\par
+      \xd@put@prefix{25mm}{\bf\xd@csupervisor@prefix}
+      \xd@urule{95mm}{\xd@csupervisor}
+    \end{minipage}
+    \vskip-87mm\hskip25mm
+    \begin{minipage}{85mm}
+      \xiaosan[2.5]\song\ignorespaces\flushright%
+      \parbox[t]{80mm}{%
+        \centering\xd@ctitle%
+        \setbox0=\hbox{\xd@ctitle}
+        \ifdim\wd0>80mm\vspace{-8mm}\else\vspace{8mm}\fi}
+    \end{minipage}
+  \end{center}
 }
 \newcommand{\xd@titlepage@graduate}{
   \parbox[b]{0.9\linewidth}{
