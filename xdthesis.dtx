@@ -20,14 +20,14 @@
 %%
 %% \fi
 %
-% CheckSum{1209}
+% \CheckSum{1212}
 %
 % \iffalse
 %<*driver>
 \ProvidesFile{xdthesis.dtx}[2012/06/27 0.9.6 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
-\usepackage{xltxtra}
+\usepackage{metalogo}
 \usepackage{xeCJK}
 \usepackage[normalem]{ulem}
 \setCJKmainfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
@@ -361,7 +361,8 @@
 % \setsansfont{Arial}
 \setmonofont{Courier Std}
 % \changes{v0.9.3}{2011/04/20}{引用宏包顺序调整，以避免\texttt{nobreakspace}的问题。}
-\RequirePackage{xunicode,xltxtra}
+% \changes{v0.9.7}{2012/12/11}{\texttt{xeCJK}与\texttt{xltxtra}冲突导致标点出错。}
+\RequirePackage{xunicode,metalogo}
 %</cls>
 %    \end{macrocode}
 %
