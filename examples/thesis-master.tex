@@ -9,40 +9,48 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2012-06-23 14:29:36(+0800) [by Fred Qi]
-%%     Update #: 19
+%% Last-Updated: 2012-12-12 23:16:34(+0800) [by Fred Qi]
+%%     Update #: 48
 %% ----------------------------------------------------------------------
 
-\documentclass[master,print]{xdthesis}
+\documentclass[master]{xdthesis}
+
 
 \begin{document}
 
-\title{基于词包模型的背景建模方法研究}
-\author{陆丹峰\\\textrm{killucs@foxmail.com}}
-\date{二零一二年三月}
-
-\daihao{10701}
-\xuehao{0911120728}
-\leihao{TP391.41}
-\miji{公开}
-\timuI{基于词包模型的背景建模方法研究}
-\timuII{Bag of Words based Background Modeling}
-\xingming{陆丹峰}
-\jiaoshi{石光明~教授}
-\menglei{工学}
-\zhuanye{电路与系统}
-\riqi{二〇一二年一月}
-    
-\xdcover
-
-% Front matter
+%%%%%%%%%%%%%%%
+%% 论文前置部分
+%%%%%%%%%%%%%%%
 \frontmatter
-\input{cover}
 
+% 论文相关信息（封面）
+\subjectcode{10701}
+\studentid{0911120728}
+\catelognumber{TP391.41}
+\secretlevel{公开}
+
+\ctitle{硕士学位论文中文题目}
+\etitle{Title of the Thesis for Master's Degree in English}
+
+\cauthor{某某某}
+\csupervisor{某某某~教授}
+
+\cfirstdiscipline{工学}
+\cseconddiscipline{电路与系统}
+\cdate{二〇一二年十二月}
+
+% 中英文摘要声明
+\input{abstract}
+
+% 生成论文的封面、声明页、中英文摘要
+\makecover
+
+% 论文目录
 \tableofcontents
 
-
-% Main matter
+%%%%%%%%%%%%%%%
+%% 论文正文
+%%%%%%%%%%%%%%%
 \mainmatter
 
 \input{ch01-intro}
@@ -51,12 +59,17 @@
 % \input{ch04-results}
 % \input{ch05-conclusion}
 
+% 参考文献
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,refs}
 
+%%%%%%%%%%%%%%%
+%% 论文后置部分
+%%%%%%%%%%%%%%%
+\backmatter
+
 
 \end{document}
-
 
 %% ----------------------------------------------------------------------
 %%% END OF FILE 

@@ -9,23 +9,47 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2012-02-07 15:57:03(+0800) [by Fred Qi]
-%%     Update #: 69
+%% Last-Updated: 2012-12-12 23:16:23(+0800) [by Fred Qi]
+%%     Update #: 105
 %% ----------------------------------------------------------------------
 \documentclass[doctor]{xdthesis}
 
 \begin{document}
 
-% Title page format is NOT available now.
-\title{西安电子科技大学\\\XeLaTeX{}学位论文模板使用示例文档}
-\author{gprsnl\\\textrm{gprsnl@yeah.net}}
-\date{二０一一年三月}
-\maketitle
-
+%%%%%%%%%%%%%%%
+%% 论文前置部分
+%%%%%%%%%%%%%%%
 \frontmatter
-\input{cover}
+
+% 论文相关信息（封面）
+\subjectcode{10701}
+\studentid{0911120728}
+\catelognumber{TP391.41}
+\secretlevel{公开}
+
+\ctitle{博士学位论文中文题目}
+\etitle{Dissertation for Applying Doctoral Degree in English}
+
+\cauthor{某某某}
+\csupervisor{某某某~教授}
+
+\cfirstdiscipline{工学}
+\cseconddiscipline{电路与系统}
+
+\cdate{二〇一二年十二月}
+
+% 中英文摘要声明
+\input{abstract}
+
+% 生成论文的封面、声明页、中英文摘要
+\makecover
+
+% 论文目录
 \tableofcontents
 
+%%%%%%%%%%%%%%%
+%% 论文正文
+%%%%%%%%%%%%%%%
 \mainmatter
 
 \input{ch01-intro}
@@ -34,8 +58,16 @@
 % \input{ch04-results}
 % \input{ch05-conclusion}
 
+% 参考文献
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,refs}
+
+%%%%%%%%%%%%%%%
+%% 论文后置部分
+%%%%%%%%%%%%%%%
+\backmatter
+
+
 
 \end{document}
 
