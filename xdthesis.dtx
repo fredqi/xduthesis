@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1521}
+% \CheckSum{1524}
 %
 % \iffalse
 %<*driver>
@@ -1079,7 +1079,9 @@
     攻读学位期间论文工作的知识产权单位属西安电子科技大学。学校有权保留送交论文的
     复印件，允许查阅和借阅论文；学校可以公布论文的全部或部分内容，可以允许采用影
     印、缩印或其它复制手段保存论文。同时本人保证，毕业后结合学位论文研究课题再撰
-    写的文章一律署名单位为西安电子科技大学。（保密论文在解密后遵守此规定）}\fi}
+    写的文章一律署名单位为西安电子科技大学。\par%
+    （保密论文在解密后遵守此规定）\par%
+    本学位论文属于保密，在\underline{\hskip2em}年解密后适用本授权书。}\fi}
 \def\xd@author@presig{\ifxd@bachelor{论文作者：}\else{本人签名：}\fi}
 \def\xd@supervisor@presig{\ifxd@bachelor{指导教师已阅：}\else{导师签名：}\fi}
 \def\xd@date@presig{日期}
@@ -1100,13 +1102,14 @@
   {\centering\bfseries\sanhao%
     \xd@xidian@str\par\xd@authorization@title\par}
   \vskip5pt\xd@authorization@str\par
-  \vskip15mm
+  \vskip20mm
   \xd@put@prefix{5em}{\xd@author@presig}\underline{\hskip30mm}\hskip25mm
-  \xd@put@prefix{2em}{\xd@date@presig}\underline{\hskip30mm}
-  \vskip15mm
-  \xd@put@prefix{5em}{\xd@supervisor@presig}%
-  \underline{\hskip30mm}\hskip25mm
-  \xd@put@prefix{2em}{\xd@date@presig}\underline{\hskip30mm}
+  \xd@put@prefix{5em}{\xd@supervisor@presig} \underline{\hskip30mm}\par
+  \vskip10mm
+  \xd@put@prefix{4em}{\xd@date@presig}
+  \underline{\hskip1em\hskip30mm}\hskip25mm
+  \xd@put@prefix{4em}{\xd@date@presig}
+  \underline{\hskip1em\hskip30mm}
   \fi
 }
 %    \end{macrocode}
