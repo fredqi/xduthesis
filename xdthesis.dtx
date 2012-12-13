@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1472}
+% \CheckSum{1517}
 %
 % \iffalse
 %<*driver>
@@ -379,7 +379,6 @@
   \pagestyle{xd@front}}
 \renewcommand\mainmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
-  \cleardoublepage
   \@mainmattertrue
   \pagenumbering{arabic}
   \pagestyle{xd@headings}}
@@ -921,34 +920,20 @@
 \def\xd@classid@prefix{班级}
 \def\xd@studentid@prefix{学号}
 \def\xd@secretlevel@prefix{密级}
-\ifxd@bachelor
-\def\xd@ctitle@prefix{题目}
-\else
-\def\xd@ctitle@prefix{题{\xiaowu(中、英文)}目}
-\fi
+\def\xd@ctitle@prefix{\ifxd@bachelor{题目}\else{题{\xiaowu(中、英文)}目}\fi}
 \def\xd@cschool@prefix{学院}
 \def\xd@cmajor@prefix{专业}
-\ifxd@bachelor
-\def\xd@cauthor@prefix{学生姓名}
-\def\xd@csupervisor@prefix{导师姓名}
-\else
-\def\xd@cauthor@prefix{作者姓名}
-\def\xd@csupervisor@prefix{指导教师姓名、职务}
+\def\xd@cauthor@prefix{\ifxd@bachelor{学生姓名}\else{作者姓名}\fi}
+\def\xd@csupervisor@prefix{\ifxd@bachelor{导师姓名}%
+  \else{指导教师姓名、职务}\fi}
 \def\xd@cfirstdiscipline@prefix{学科门类}
 \def\xd@cseconddiscipline@prefix{学科、专业}
 \def\xd@cdate@prefix{提交论文日期}
-\fi
-\def\xd@declaration@title{毕业设计（论文）诚信声明书}
-\newcommand{\xd@declaration@bachelor}{
-本人声明：本人所提交的毕业论文《\xd@ctitle》是本人在指导教师指
-导下独立研究、写作的成果，论文中所引用他人的无论以何种方式发布的文字、研究成果，
-均在论文中加以说明；有关教师、同学和其他人员对本文的写作、修订提出过并为我在论文
-中加以采纳的意见、建议，均已在我的致谢辞中加以说明并深致谢意。
-
-本论文和资料若有不实之处，本人承担一切相关责任。
-}
-\newcommand{\xd@author@sig}{论文作者： }
-\newcommand{\xd@teacher@sig}{指导教师已阅：}
+\def\xd@thesis@str{%
+  \ifxd@bachelor{本科毕业设计论文}\else%
+    \ifxd@master{硕士学位论文}\else%
+      \ifxd@doctor{博士学位论文}\fi%
+  \fi\fi}
 %</cfg>
 %    \end{macrocode} 
 %
@@ -980,7 +965,7 @@
     \ifxd@print\vspace{132mm}\else\vspace{18mm}
     \includegraphics[width=77mm]{xdbadge}\par
     \vspace{15mm}
-    \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
+    \parbox[t]{\linewidth}{\chuhao\hei\centering\xd@thesis@str}\par
     \vspace{15mm}
     \includegraphics[width=44mm]{xdlogo}\par
     \vspace{18mm}\fi
@@ -1025,7 +1010,7 @@
   \begin{center}
     \includegraphics[width=77mm]{xdbadge}\par
     \vspace{15mm}
-    \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
+    \parbox[t]{\linewidth}{\chuhao\hei\centering\xd@thesis@str}\par
     \vspace{15mm}
     \includegraphics[width=44mm]{xdlogo}\par
     \vspace{18mm}
@@ -1033,8 +1018,9 @@
   \fi
   \renewcommand{\baselinestretch}{1.5}
   \begin{flushleft}
-    \bfseries\heiti\sihao%%
-    \xd@put@prefix{32mm}{\xd@ctitle@prefix}\xd@urule{114mm}{}\par\vskip1pt%
+    \bfseries\heiti\sihao%
+    \xd@put@prefix{32mm}{\xd@ctitle@prefix}%
+    \xd@urule{114mm}{}\par\vskip1pt%
     \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par\vskip1pt%
     \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par\vskip1pt%
     \xd@put@prefix{32mm}{}\xd@urule{114mm}{}      
@@ -1060,13 +1046,66 @@
   \xd@urule{114mm}{\song\bf\sihao\xd@cdate}
   \renewcommand{\baselinestretch}{1.2}
 }
+%</cls>
 %    \end{macrocode}
 %
 % 封面中论文诚信声明部分。
+%
+% \changes{v0.9.7}{2012/12/12}{增加各级学位论文诚信声明页。}
+%
+%<*cfg>
+\def\xd@xidian@str{西安电子科技大学}
+\def\xd@declaration@title{%
+  \ifxd@bachelor{毕业设计（论文）诚信声明书}%
+  \else{学位论文独创性（或创新性）声明}\fi}
+\def\xd@declaration@str{
+  \ifxd@bachelor{本人声明：本人所提交的毕业论文《\xd@ctitle》是本人在指导教师指导
+    下独立研究、写作的成果，论文中所引用他人的无论以何种方式发布的文字、研究成
+    果， 均在论文中加以说明；有关教师、同学和其他人员对本文的写作、修订提出过并为
+    我在论文中加以采纳的意见、建议，均已在我的致谢辞中加以说明并深致谢意。\par{}
+    本论文和资料若有不实之处，本人承担一切相关责任。}%
+  \else{秉承学校严谨的学风与优良的科学道德，本人声明所呈交的论文是我个人在导师指
+    导下进行的研究工作及取得的研究成果。尽我所知，除了文中特别中以标和致谢中所罗
+    列的内容以外，论文中不包含其他人已经发表或撰写过的研究成果；也不包含为获得西
+    安电子科技大学或其它教育机构的学位或证书而使用过的材料。与我一同工作的同志对
+    本研究所做的任何贡献均已在论文中做了明确的说明并表示了谢意。\par{}
+    申请学位论文与资料若有不实之处，本人承担一切的法律责任。}\fi}
+\def\xd@authorization@title{\ifxd@bachelor{}%
+  \else{关于论文使用授权的说明}\fi}
+\def\xd@authorization@str{\ifxd@bachelor{}%
+  \else{本人完全了解西安电子科技大学有关保留和使用学位论文的规定，即：研究生在校
+    攻读学位期间论文工作的知识产权单位属西安电子科技大学。学校有权保留送交论文的
+    复印件，允许查阅和借阅论文；学校可以公布论文的全部或部分内容，可以允许采用影
+    印、缩印或其它复制手段保存论文。同时本人保证，毕业后结合学位论文研究课题再撰
+    写的文章一律署名单位为西安电子科技大学。（保密论文在解密后遵守此规定）}\fi}
+\def\xd@author@presig{\ifxd@bachelor{论文作者：}\else{本人签名：}\fi}
+\def\xd@supervisor@presig{\ifxd@bachelor{指导教师已阅：}\else{导师签名：}\fi}
+\def\xd@date@presig{日期}
+%</cfg>
+%
 % \begin{macro}{\xd@make@declaration}
 %    \begin{macrocode}
-\newcommand{\xd@make@declaration}{%
-  \ifxd@bachelor\xd@declaration@bachelor\fi
+%<*cls>
+\def\xd@make@declaration{%
+  \song\xiaosi[1.5]
+  {\centering\bfseries\sanhao%
+    \xd@xidian@str\par\xd@declaration@title\par}
+  \vskip5pt\xd@declaration@str\vskip15mm
+  \xd@put@prefix{5em}{\xd@author@presig}\underline{\hskip30mm}\hskip25mm
+  \xd@put@prefix{2em}{\xd@date@presig}\underline{\hskip30mm}\par
+  \vskip20mm
+  \ifxd@bachelor{}\else
+  {\centering\bfseries\sanhao%
+    \xd@xidian@str\par\xd@authorization@title\par}
+  \vskip5pt\xd@authorization@str\par
+  \vskip15mm
+  \xd@put@prefix{5em}{\xd@author@presig}\underline{\hskip30mm}\hskip25mm
+  \xd@put@prefix{2em}{\xd@date@presig}\underline{\hskip30mm}
+  \vskip15mm
+  \xd@put@prefix{5em}{\xd@supervisor@presig}%
+  \underline{\hskip30mm}\hskip25mm
+  \xd@put@prefix{2em}{\xd@date@presig}\underline{\hskip30mm}
+  \fi
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1079,6 +1118,12 @@
   \begin{titlepage}
     \xd@titlepage
   \end{titlepage}
+  \cleardoublepage
+  \addtolength{\topmargin}{15pt}
+  \thispagestyle{xd@empty}\pagestyle{xd@empty}
+  \xd@make@declaration
+  \cleardoublepage
+  \addtolength{\topmargin}{-15pt}
   \setcounter{page}{1}
   \xd@makeabstract
 }
@@ -1156,19 +1201,17 @@
   \chapter*{\cabstractname}%
   \markboth{\cabstractname}{\xd@ctitle}%
   \normalsize\xd@cabstract\vskip12bp%
-% 关键词为悬挂缩进
+% 关键词为悬挂缩进(本科、硕士、博士论文格式相同)
   \setbox0=\hbox{\hei\xd@ckeywords@title\hspace{1em}}%
-  \ifxd@bachelor\noindent\hangindent\wd0\hangafter1\fi
-  \ifxd@master\noindent\hangindent\wd0\hangafter1\fi
+  \noindent\hangindent\wd0\hangafter1
   \box0{\hei\xd@ckeywords}%
 % 英文摘要部分的标题为“ABSTRACT”，用Times New Roman 体三号字。
   \chapter*{\bfseries\eabstractname}%
   \markboth{\eabstractname}{\xd@ctitle}%
   \normalsize\xd@eabstract\vskip12bp%
-% 关键词为悬挂缩进
+% 关键词为悬挂缩进(本科、硕士、博士论文格式相同)
   \setbox0=\hbox{\bfseries Keywords:\hspace{1em}}%
-  \ifxd@bachelor\noindent\hangindent\wd0\hangafter1\fi
-  \ifxd@master\noindent\hangindent\wd0\hangafter1\fi
+  \noindent\hangindent\wd0\hangafter1
   \box0{\bfseries\xd@ekeywords}%
   \xd@mkabstractfalse%
 }
