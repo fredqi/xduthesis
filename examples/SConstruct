@@ -9,8 +9,8 @@
 ## ----------------------------------------------------------------------
 ### CHANGE LOG
 ## ----------------------------------------------------------------------
-## Last-Updated: 2012-02-07 10:16:21(+0800) [by Fred Qi]
-##     Update #: 23
+## Last-Updated: 2012-12-11 21:28:17(+0800) [by Fred Qi]
+##     Update #: 24
 ## ----------------------------------------------------------------------
 
 import os
@@ -21,7 +21,7 @@ env = Environment( ENV = os.environ,
 tmpl = Glob( 'xdthesis.c*' )
 
 pdf = env.PDF( Glob( 'thesis-*.tex' ) )
-Depends( pdf, [ 'cover.tex', 'refs.bib' ] )
+Depends( pdf, [ 'abstract.tex', 'refs.bib' ] )
 Depends( pdf, Glob( 'ch*.tex' ) )
 
 ## ----------------------------------------------------------------------
