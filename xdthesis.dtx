@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1398}
+% \CheckSum{1471}
 %
 % \iffalse
 %<*driver>
@@ -375,7 +375,7 @@
 \renewcommand\frontmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
   \@mainmatterfalse
-  \pagenumbering{roman}
+  \ifxd@doctor\pagenumbering{Roman}\else\pagenumbering{roman}\fi
   \pagestyle{xd@front}}
 \renewcommand\mainmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
@@ -523,18 +523,27 @@
 \setlength{\headheight}{20pt}
 \setlength{\headsep}{0.6cm}
 \setlength{\topskip}{0pt}
-\setlength{\skip\footins}{15pt} 
-\setlength{\footskip}{1.3cm}
-\addtolength{\textheight}{-4.5cm}  
+\setlength{\footskip}{1pt}
+\setlength{\skip\footins}{15pt}
+\ifxd@doctor
+\addtolength{\textheight}{-4.75cm}
+\else
+\addtolength{\textheight}{-4.5cm}
+\fi
 %</cls>
 %    \end{macrocode}
 %
 % \subsubsection{页眉页脚}
 % \label{sec:headerfooter}
 %
+% \changes{v0.9.7}{2012/12/12}{增加博士学位论文页眉与页脚格式支持。}
+%
 % 新的一章最好从奇数页开始（openright），所以必须保证它前面那页如果没有内容也必
 % 须没有页眉页脚。code stolen from fancyhdr
 %    \begin{macrocode}
+%<*cfg>
+\def\ps@xd@pagefoot{西安电子科技大学博士学位论文}
+%</cfg>
 %<*cls>
 \let\xd@cleardoublepage\cleardoublepage
 \newcommand{\xd@clearemptydoublepage}{%
@@ -562,24 +571,31 @@
   \let\@evenhead\@empty%
   \let\@oddfoot\@empty%
   \let\@evenfoot\@empty}
+\def\ps@xd@foot@doctor{\vbox{\vskip5pt\rule{\textwidth}{1mm}%
+    \vskip1pt\rule{\textwidth}{0.75pt}\vskip1pt%
+    \hbox to\textwidth{\hfil{\xiaowu\ps@xd@pagefoot}\hfil}}}
 \def\ps@xd@front{%
   \def\@oddhead{\vbox{\hbox to\textwidth{%
-                \hfil{\wuhao\leftmark}\hfil}%
-                \vskip2pt\rule{\textwidth}{0.75pt}}}%
+                \hfil{\wuhao\leftmark}\hfil{\xiaowu\thepage}}%
+                \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1pt\fi%
+                \rule{\textwidth}{0.75pt}}}%
   \def\@evenhead{\vbox{\hbox to\textwidth{%
-                \hfil{\wuhao\rightmark}\hfil}%
-                \vskip2pt\rule{\textwidth}{0.75pt}}}%
-  \let\@oddfoot\@empty%
-  \let\@evenfoot\@empty}
+                \hfil{\wuhao\rightmark}\hfil{\xiaowu\thepage}}%
+                \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
+                \rule{\textwidth}{0.75pt}}}%
+  \def\@oddfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}%
+  \def\@evenfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}}%
 \def\ps@xd@headings{% 
   \def\@oddhead{\vbox{\hbox to\textwidth{%
                 \hfil{\wuhao\leftmark}\hfil{\xiaowu\thepage}}%
-                \vskip2pt\rule{\textwidth}{0.75pt}}}%
+                \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
+                \rule{\textwidth}{0.75pt}}}%
   \def\@evenhead{\vbox{\hbox to\textwidth{%
                 {\xiaowu\thepage}\hfil{\wuhao\rightmark}\hfil}%
-                \vskip2pt\rule{\textwidth}{0.75pt}}}%
-  \let\@oddfoot\@empty%
-  \let\@evenfoot\@empty}
+                \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
+                \rule{\textwidth}{0.75pt}}}%
+  \def\@oddfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}%
+  \def\@evenfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -587,7 +603,7 @@
 %
 % 其实可以直接写到~\cs{chapter} 的定义里面。
 %    \begin{macrocode} 
-\renewcommand{\chaptermark}[1]{\markboth{\chaptername\hspace{2ex}#1}{\xd@ctitle}}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\hspace{2ex}{#1}}{\xd@ctitle}}
 \renewcommand{\sectionmark}[1]{\markright{\xd@ctitle}}
 %</cls>
 %    \end{macrocode}
@@ -621,8 +637,6 @@
   \let\endenumerate\endcompactenum
   \let\description\compactdesc
   \let\enddescription\endcompactdesc}
-  
-  
 %
 % \newcommand{\xddashuline}[1]{%
 % \dashuline{\hbox to 4.45cm{\hfill{#1}\hfill}}
@@ -954,9 +968,11 @@
 \def\xd@urule#1#2{\hskip2pt\dashuline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
 \fi
 \def\xd@put@prefix#1#2{\makebox[#1][s]{#2}}
-\def\xd@titlepage{
-  \ifxd@bachelor\xd@titlepage@bachelor\else
-    \ifxd@master\xd@titlepage@graduate\fi
+\def\xd@titlepage{%
+  \ifxd@bachelor%
+    \xd@titlepage@bachelor%
+  \else%
+    \xd@titlepage@graduate%
   \fi}
 \newcommand{\xd@titlepage@bachelor}{
     \parbox[b]{0.9\linewidth}{
@@ -1001,53 +1017,52 @@
     \end{center}
 }
 \newcommand{\xd@titlepage@graduate}{
-    \parbox[b]{0.9\linewidth}{
-      \dawu\heiti\bfseries\ignorespaces\flushright
-      \xd@put@prefix{14mm}{\xd@subjectcode@prefix}%
-      \xd@urule{45mm}{\xd@subjectcode}%
-      \hspace{14mm}%
-      \xd@put@prefix{14mm}{\xd@studentid@prefix}%
-      \xd@urule{45mm}{\xd@studentid}\\[3mm]
-      \xd@put@prefix{14mm}{\xd@catelognumber@prefix}%
-      \xd@urule{45mm}{\xd@catelognumber}%
-      \hspace{14mm}%
-      \xd@put@prefix{14mm}{\xd@secretlevel@prefix}%
-      \xd@urule{45mm}{\xd@secretlevel}}
-    \ifxd@print\vspace{132mm}\else\vspace{18mm}
-    \centering
-    \includegraphics[width=77mm]{xdbadge}\par
-    \vspace{15mm}
-    \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
-    \vspace{15mm}
-    \includegraphics[width=44mm]{xdlogo}\par
-    \vspace{18mm}
-    \fi
-    \sihao%
-    \begin{flushleft}
-      \bfseries\heiti%
-      \xd@put@prefix{32mm}{\xd@ctitle@prefix}\xd@urule{114mm}{}\par%
-      \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par%
-      \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par%
-      \xd@put@prefix{32mm}{}\xd@urule{114mm}{}      
-    \end{flushleft}
-    \vspace{-31mm}\hspace{40mm}\noindent
-    \parbox[b]{100mm}{\centering\song\bf\noindent\ignorespaces%
-      \xd@ctitle\par
-      \setbox0=\hbox{{\song\bf\xd@ctitle}}
-      \ifdim\wd0>100mm\par\else\vspace{7mm}\fi
-      \xd@etitle\par
-      \setbox1=\hbox{{\song\bf\xd@etitle}}
-      \ifdim\wd1>100mm\par\else\vspace{7mm}\fi}
-    {\bfseries\heiti\xd@put@prefix{32mm}{\xd@cauthor@prefix}}
-    {\song\bf\xd@urule{30mm}{\xd@cauthor}}
-    {\bfseries\heiti\xd@put@prefix{42mm}{\xd@csupervisor@prefix}}
-    {\song\bf\xd@urule{37mm}{\ignorespaces\xd@csupervisor}}\\
-    {\bfseries\heiti\sihao\xd@put@prefix{32mm}{\xd@cfirstdiscipline@prefix}}
-    {\song\bf\xd@urule{30mm}{\xd@cfirstdiscipline}}
-    {\bfseries\heiti\xd@put@prefix{23mm}{\xd@cseconddiscipline@prefix}}
-    {\song\bf\xd@urule{57mm}{\xd@cseconddiscipline}}\\
-    {\bfseries\heiti\xd@put@prefix{32mm}{\xd@cdate@prefix}}
-    {\song\bf\xd@urule{114mm}{\xd@cdate}}
+  \parbox[b]{0.9\linewidth}{
+    \dawu\heiti\bfseries\ignorespaces\flushright
+    \xd@put@prefix{14mm}{\xd@subjectcode@prefix}%
+    \xd@urule{45mm}{\xd@subjectcode}%
+    \hspace{14mm}%
+    \xd@put@prefix{14mm}{\xd@studentid@prefix}%
+    \xd@urule{45mm}{\xd@studentid}\\[3mm]
+    \xd@put@prefix{14mm}{\xd@catelognumber@prefix}%
+    \xd@urule{45mm}{\xd@catelognumber}%
+    \hspace{14mm}%
+    \xd@put@prefix{14mm}{\xd@secretlevel@prefix}%
+    \xd@urule{45mm}{\xd@secretlevel}}
+  \ifxd@print\vspace{132mm}\else\vspace{18mm}
+  \centering
+  \includegraphics[width=77mm]{xdbadge}\par
+  \vspace{15mm}
+  \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
+  \vspace{15mm}
+  \includegraphics[width=44mm]{xdlogo}\par
+  \vspace{18mm}
+  \fi
+  \begin{flushleft}
+    \bfseries\heiti\sihao%%
+    \xd@put@prefix{32mm}{\xd@ctitle@prefix}\xd@urule{114mm}{}\par\vskip1pt%
+    \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par\vskip1pt%
+    \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par\vskip1pt%
+    \xd@put@prefix{32mm}{}\xd@urule{114mm}{}      
+  \end{flushleft}
+  \vspace{-25mm}\hskip40mm\noindent
+  \parbox[b]{100mm}{\centering\song\bf\sihao\noindent\ignorespaces%
+    \xd@ctitle\par
+    \setbox0=\hbox{{\song\bf\xd@ctitle}}
+    \ifdim\wd0>100mm\par\else\vskip16pt\fi
+    \xd@etitle\par
+    \setbox1=\hbox{{\song\bf\xd@etitle}}
+    \ifdim\wd1>100mm\par\else\vskip14pt\fi}
+  \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cauthor@prefix}
+  \xd@urule{30mm}{\song\bf\sihao\xd@cauthor}
+  \xd@put@prefix{42mm}{\bfseries\heiti\sihao\xd@csupervisor@prefix}
+  \xd@urule{37mm}{\song\bf\sihao\xd@csupervisor}\par\noindent
+  \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cfirstdiscipline@prefix}
+  \xd@urule{30mm}{\song\bf\sihao\xd@cfirstdiscipline}
+  \xd@put@prefix{23mm}{\bfseries\heiti\sihao\xd@cseconddiscipline@prefix}
+  \xd@urule{57mm}{\song\bf\sihao\xd@cseconddiscipline}\par\noindent
+  \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cdate@prefix}
+  \xd@urule{114mm}{\song\bf\sihao\xd@cdate}
 }
 %    \end{macrocode}
 %
