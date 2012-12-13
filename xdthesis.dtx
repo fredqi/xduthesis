@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1523}
+% \CheckSum{1487}
 %
 % \iffalse
 %<*driver>
@@ -943,6 +943,7 @@
 %    \begin{macrocode}
 % \changes{v0.9.6}{2012/06/27}{完成了本科毕业设计封面设计。}
 % \changes{v0.9.7}{2012/12/12}{完成了研究生论文封面的设计。}
+% \changes{v0.9.7}{2012/12/13}{改进了封面论文题目显示机制，允许题目中使用换行。}
 %<*cls>
 \ifxd@bachelor
 \def\xd@urule#1#2{\hskip2pt\underline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
@@ -987,11 +988,7 @@
     \end{minipage}
     \vskip-87mm\hskip25mm
     \begin{minipage}{85mm}
-      \xiaosan[2.5]\song\ignorespaces\flushright%
-      \parbox[t]{80mm}{%
-        \centering\xd@ctitle%
-        \setbox0=\hbox{\xd@ctitle}
-        \ifdim\wd0>80mm\vspace{-8mm}\else\vspace{8mm}\fi}
+      \xiaosan[2.5]\song\centering\ignorespaces\xd@ctitle
     \end{minipage}
   \end{center}
 }
@@ -1027,15 +1024,7 @@
     \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par\vskip1pt%
     \xd@put@prefix{32mm}{}\xd@urule{114mm}{}      
   \end{flushleft}
-  \vskip-44mm\hskip37mm\noindent
-  \parbox[b]{100mm}{\centering\song\bf\sihao\noindent%
-    \xd@ctitle
-    \setbox0=\hbox{{\song\bf\xd@ctitle}}
-    \ifdim\wd0>100mm\par\vskip1pt\else\par\vskip32pt\fi
-    \xd@etitle
-    \setbox1=\hbox{{\song\bf\xd@etitle}}
-    \ifdim\wd1>100mm\par\vskip1pt\else\par\vskip32pt\fi}
-  \vskip5pt\noindent
+  \vskip-2mm
   \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cauthor@prefix}
   \xd@urule{30mm}{\song\bf\sihao\xd@cauthor}
   \xd@put@prefix{42mm}{\bfseries\heiti\sihao\xd@csupervisor@prefix}
@@ -1046,6 +1035,12 @@
   \xd@urule{57mm}{\song\bf\sihao\xd@cseconddiscipline}\par\vskip5pt\noindent
   \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cdate@prefix}
   \xd@urule{114mm}{\song\bf\sihao\xd@cdate}
+  \noindent\vskip-68mm\hskip27mm
+  \begin{minipage}{110mm}
+    \centering\song\bf\sihao
+    \xd@ctitle\par
+    \xd@etitle
+  \end{minipage}
   \renewcommand{\baselinestretch}{1.2}
 }
 %</cls>
