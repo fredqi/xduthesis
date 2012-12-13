@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1212}
+% \CheckSum{1398}
 %
 % \iffalse
 %<*driver>
@@ -907,16 +907,28 @@
 %
 %    \begin{macrocode}
 %<*cfg>
-\def\xd@classid@prefix{班\hspace{1em}级}
-\def\xd@studentid@prefix{学\hspace{1em}号}
-\def\xd@ctitle@prefix{题\hspace{2em}目}
-\def\xd@cschool@prefix{学\hspace{2em}院}
-\def\xd@cmajor@prefix{专\hspace{2em}业}
+\def\xd@subjectcode@prefix{代号}
+\def\xd@catelognumber@prefix{分类号}
+\def\xd@classid@prefix{班级}
+\def\xd@studentid@prefix{学号}
+\def\xd@secretlevel@prefix{密级}
+\ifxd@bachelor
+\def\xd@ctitle@prefix{题目}
+\else
+\def\xd@ctitle@prefix{题{\xiaowu(中、英文)}目}
+\fi
+\def\xd@cschool@prefix{学院}
+\def\xd@cmajor@prefix{专业}
 \ifxd@bachelor
 \def\xd@cauthor@prefix{学生姓名}
 \def\xd@csupervisor@prefix{导师姓名}
+\else
+\def\xd@cauthor@prefix{作者姓名}
+\def\xd@csupervisor@prefix{指导教师姓名、职务}
+\def\xd@cfirstdiscipline@prefix{学科门类}
+\def\xd@cseconddiscipline@prefix{学科、专业}
+\def\xd@cdate@prefix{提交论文日期}
 \fi
-\def\xd@catalog@number@title{分类号}
 \def\xd@declaration@title{毕业设计（论文）诚信声明书}
 \newcommand{\xd@declaration@bachelor}{
 本人声明：本人所提交的毕业论文《\xd@ctitle》是本人在指导教师指
@@ -934,33 +946,39 @@
 %
 %    \begin{macrocode}
 % \changes{v0.9.6}{2012/06/27}{完成了本科毕业设计封面设计。}
+% \changes{v0.9.7}{2012/12/12}{完成了研究生论文封面的设计。}
 %<*cls>
-\newcommand\xd@urule[2][32mm]{\hskip2pt\underline{\hb@xt@ #1{\hss#2\hss}}\hskip3pt}
-\newlength{\xd@prefix@width}
-\def\xd@put@prefix#1{\makebox[\xd@prefix@width]{#1}}
-\def\xd@titlepage{\ifxd@bachelor\xd@titlepage@bachelor\fi}
+\ifxd@bachelor
+\def\xd@urule#1#2{\hskip2pt\underline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
+\else
+\def\xd@urule#1#2{\hskip2pt\dashuline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
+\fi
+\def\xd@put@prefix#1#2{\makebox[#1][s]{#2}}
+\def\xd@titlepage{
+  \ifxd@bachelor\xd@titlepage@bachelor\else
+    \ifxd@master\xd@titlepage@graduate\fi
+  \fi}
 \newcommand{\xd@titlepage@bachelor}{
     \parbox[b]{0.9\linewidth}{
-      \setlength{\xd@prefix@width}{3em}
       \xiaosi[1.5]\song\bf\ignorespaces\flushright
-      \xd@put@prefix{\xd@classid@prefix}\enskip%
-      \xd@urule{\xd@classid}\par%
-      \xd@put@prefix{\xd@studentid@prefix}\enskip%
-      \xd@urule{\xd@studentid}}
+      \xd@put@prefix{3em}{\xd@classid@prefix}\enskip%
+      \xd@urule{32mm}{\xd@classid}\par%
+      \xd@put@prefix{3em}{\xd@studentid@prefix}\enskip%
+      \xd@urule{32mm}{\xd@studentid}}
     \begin{center}
       \ifxd@print\vspace{132mm}\else\vspace{18mm}
-      \includegraphics[width=77mm]{xidian}\par
+      \includegraphics[width=77mm]{xdbadge}\par
       \vspace{15mm}
       \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
       \vspace{15mm}
       \includegraphics[width=44mm]{xdlogo}\par
       \vspace{18mm}\fi
       \parbox[t]{25mm}{\xiaosan[2.5]\song\bf
-        \xd@ctitle@prefix\par~\par
-        \xd@cschool@prefix\par
-        \xd@cmajor@prefix\par
-        \xd@cauthor@prefix\par
-        \xd@csupervisor@prefix}\enskip
+        \xd@put@prefix{25mm}{\xd@ctitle@prefix}\par~\par
+        \xd@put@prefix{25mm}{\xd@cschool@prefix}\par
+        \xd@put@prefix{25mm}{\xd@cmajor@prefix}\par
+        \xd@put@prefix{25mm}{\xd@cauthor@prefix}\par
+        \xd@put@prefix{25mm}{\xd@csupervisor@prefix}}\enskip
       \parbox[t]{95mm}{%\noindent
         \setlength\unitlength{1mm}
         \begin{picture}(0,0)(0,0)
@@ -975,12 +993,61 @@
         \ifdim\wd0>95mm\vspace{-8mm}\else\vspace{8mm}\fi
         \begin{center}
           \xiaosan[2.5]\song\ignorespaces
-          \xd@cschool\par
-          \xd@cmajor\par
-          \xd@cauthor\par
-          \xd@csupervisor        
+          \xd@urule{95mm}{\xd@cschool}\par
+          \xd@urule{95mm}{\xd@cmajor}\par
+          \xd@urule{95mm}{\xd@cauthor}\par
+          \xd@urule{95mm}{\xd@csupervisor}
         \end{center}}
     \end{center}
+}
+\newcommand{\xd@titlepage@graduate}{
+    \parbox[b]{0.9\linewidth}{
+      \dawu\heiti\bfseries\ignorespaces\flushright
+      \xd@put@prefix{14mm}{\xd@subjectcode@prefix}%
+      \xd@urule{45mm}{\xd@subjectcode}%
+      \hspace{14mm}%
+      \xd@put@prefix{14mm}{\xd@studentid@prefix}%
+      \xd@urule{45mm}{\xd@studentid}\\[3mm]
+      \xd@put@prefix{14mm}{\xd@catelognumber@prefix}%
+      \xd@urule{45mm}{\xd@catelognumber}%
+      \hspace{14mm}%
+      \xd@put@prefix{14mm}{\xd@secretlevel@prefix}%
+      \xd@urule{45mm}{\xd@secretlevel}}
+    \ifxd@print\vspace{132mm}\else\vspace{18mm}
+    \centering
+    \includegraphics[width=77mm]{xdbadge}\par
+    \vspace{15mm}
+    \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
+    \vspace{15mm}
+    \includegraphics[width=44mm]{xdlogo}\par
+    \vspace{18mm}
+    \fi
+    \sihao%
+    \begin{flushleft}
+      \bfseries\heiti%
+      \xd@put@prefix{32mm}{\xd@ctitle@prefix}\xd@urule{114mm}{}\par%
+      \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par%
+      \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par%
+      \xd@put@prefix{32mm}{}\xd@urule{114mm}{}      
+    \end{flushleft}
+    \vspace{-31mm}\hspace{40mm}\noindent
+    \parbox[b]{100mm}{\centering\song\bf\noindent\ignorespaces%
+      \xd@ctitle\par
+      \setbox0=\hbox{{\song\bf\xd@ctitle}}
+      \ifdim\wd0>100mm\par\else\vspace{7mm}\fi
+      \xd@etitle\par
+      \setbox1=\hbox{{\song\bf\xd@etitle}}
+      \ifdim\wd1>100mm\par\else\vspace{7mm}\fi}
+    {\bfseries\heiti\xd@put@prefix{32mm}{\xd@cauthor@prefix}}
+    {\song\bf\xd@urule{30mm}{\xd@cauthor}}
+    {\bfseries\heiti\xd@put@prefix{42mm}{\xd@csupervisor@prefix}}
+    {\song\bf\xd@urule{37mm}{\ignorespaces\xd@csupervisor}}\\
+    {\bfseries\heiti\sihao\xd@put@prefix{32mm}{\xd@cfirstdiscipline@prefix}}
+    {\song\bf\xd@urule{30mm}{\xd@cfirstdiscipline}}
+    {\bfseries\heiti\xd@put@prefix{23mm}{\xd@cseconddiscipline@prefix}}
+    {\song\bf\xd@urule{57mm}{\xd@cseconddiscipline}}\\
+    {\bfseries\heiti\xd@put@prefix{32mm}{\xd@cdate@prefix}}
+    {\song\bf\xd@urule{114mm}{\xd@cdate}}
 }
 %    \end{macrocode}
 %
