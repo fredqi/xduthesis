@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1475}
+% \CheckSum{1480}
 %
 % \iffalse
 %<*driver>
@@ -571,22 +571,22 @@
     \hbox to\textwidth{\hfil{\xiaowu\ps@xd@pagefoot}\hfil}}}
 \def\ps@xd@front{%
   \def\@oddhead{\vbox{\hbox to\textwidth{%
-                \hfil{\wuhao\leftmark}\hfil{\xiaowu\thepage}}%
+                \hfil{\wuhao\leftmark}\hfil{\xiaowu\thepage}\hskip1pt}%
                 \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1pt\fi%
                 \rule{\textwidth}{0.75pt}}}%
   \def\@evenhead{\vbox{\hbox to\textwidth{%
-                \hfil{\wuhao\rightmark}\hfil{\xiaowu\thepage}}%
+                \hskip1pt{\xiaowu\thepage}\hfil{\wuhao\rightmark}\hfil}%
                 \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
                 \rule{\textwidth}{0.75pt}}}%
   \def\@oddfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}%
   \def\@evenfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}}%
 \def\ps@xd@headings{% 
   \def\@oddhead{\vbox{\hbox to\textwidth{%
-                \hfil{\wuhao\leftmark}\hfil{\xiaowu\thepage}}%
+                \hfil{\wuhao\leftmark}\hfil{\xiaowu\thepage}\hskip1pt}%
                 \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
                 \rule{\textwidth}{0.75pt}}}%
   \def\@evenhead{\vbox{\hbox to\textwidth{%
-                {\xiaowu\thepage}\hfil{\wuhao\rightmark}\hfil}%
+                \hskip1pt{\xiaowu\thepage}\hfil{\wuhao\rightmark}\hfil}%
                 \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
                 \rule{\textwidth}{0.75pt}}}%
   \def\@oddfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}%
@@ -1082,6 +1082,7 @@
   \begin{titlepage}
     \xd@titlepage
   \end{titlepage}
+  \setcounter{page}{1}
   \xd@makeabstract
 }
 %</cls>
