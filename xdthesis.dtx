@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1465}
+% \CheckSum{1475}
 %
 % \iffalse
 %<*driver>
@@ -521,7 +521,7 @@
 \setlength{\footskip}{1pt}
 \setlength{\skip\footins}{15pt}
 \ifxd@doctor
-\addtolength{\textheight}{-4.75cm}
+\addtolength{\textheight}{-5.0cm}
 \else
 \addtolength{\textheight}{-4.5cm}
 \fi
@@ -566,7 +566,7 @@
   \let\@evenhead\@empty%
   \let\@oddfoot\@empty%
   \let\@evenfoot\@empty}
-\def\ps@xd@foot@doctor{\vbox{\vskip5pt\rule{\textwidth}{1mm}%
+\def\ps@xd@foot@doctor{\vbox{\vskip10pt\rule{\textwidth}{1mm}%
     \vskip1pt\rule{\textwidth}{0.75pt}\vskip1pt%
     \hbox to\textwidth{\hfil{\xiaowu\ps@xd@pagefoot}\hfil}}}
 \def\ps@xd@front{%
@@ -1024,15 +1024,17 @@
     \hspace{14mm}%
     \xd@put@prefix{14mm}{\xd@secretlevel@prefix}%
     \xd@urule{45mm}{\xd@secretlevel}}
-  \ifxd@print\vspace{132mm}\else\vspace{18mm}
-  \centering
-  \includegraphics[width=77mm]{xdbadge}\par
-  \vspace{15mm}
-  \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
-  \vspace{15mm}
-  \includegraphics[width=44mm]{xdlogo}\par
-  \vspace{18mm}
+  \ifxd@print\vspace{135mm}\else\vspace{18mm}
+  \begin{center}
+    \includegraphics[width=77mm]{xdbadge}\par
+    \vspace{15mm}
+    \parbox[t]{\linewidth}{\chuhao\hei\centering 本科毕业设计论文}\par
+    \vspace{15mm}
+    \includegraphics[width=44mm]{xdlogo}\par
+    \vspace{18mm}
+  \end{center}
   \fi
+  \renewcommand{\baselinestretch}{1.5}
   \begin{flushleft}
     \bfseries\heiti\sihao%%
     \xd@put@prefix{32mm}{\xd@ctitle@prefix}\xd@urule{114mm}{}\par\vskip1pt%
@@ -1040,24 +1042,26 @@
     \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par\vskip1pt%
     \xd@put@prefix{32mm}{}\xd@urule{114mm}{}      
   \end{flushleft}
-  \vspace{-25mm}\hskip40mm\noindent
-  \parbox[b]{100mm}{\centering\song\bf\sihao\noindent\ignorespaces%
-    \xd@ctitle\par
+  \vskip-44mm\hskip37mm\noindent
+  \parbox[b]{100mm}{\centering\song\bf\sihao\noindent%
+    \xd@ctitle
     \setbox0=\hbox{{\song\bf\xd@ctitle}}
-    \ifdim\wd0>100mm\par\else\vskip16pt\fi
-    \xd@etitle\par
+    \ifdim\wd0>100mm\par\vskip1pt\else\par\vskip32pt\fi
+    \xd@etitle
     \setbox1=\hbox{{\song\bf\xd@etitle}}
-    \ifdim\wd1>100mm\par\else\vskip14pt\fi}
+    \ifdim\wd1>100mm\par\vskip1pt\else\par\vskip32pt\fi}
+  \vskip5pt\noindent
   \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cauthor@prefix}
   \xd@urule{30mm}{\song\bf\sihao\xd@cauthor}
   \xd@put@prefix{42mm}{\bfseries\heiti\sihao\xd@csupervisor@prefix}
-  \xd@urule{37mm}{\song\bf\sihao\xd@csupervisor}\par\noindent
+  \xd@urule{37mm}{\song\bf\sihao\xd@csupervisor}\par\vskip5pt\noindent
   \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cfirstdiscipline@prefix}
   \xd@urule{30mm}{\song\bf\sihao\xd@cfirstdiscipline}
   \xd@put@prefix{23mm}{\bfseries\heiti\sihao\xd@cseconddiscipline@prefix}
-  \xd@urule{57mm}{\song\bf\sihao\xd@cseconddiscipline}\par\noindent
+  \xd@urule{57mm}{\song\bf\sihao\xd@cseconddiscipline}\par\vskip5pt\noindent
   \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cdate@prefix}
   \xd@urule{114mm}{\song\bf\sihao\xd@cdate}
+  \renewcommand{\baselinestretch}{1.2}
 }
 %    \end{macrocode}
 %
