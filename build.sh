@@ -10,8 +10,8 @@
 ## ----------------------------------------------------------------------
 ### CHANGE LOG
 ## ----------------------------------------------------------------------
-## Last-Updated: 2012-02-07 15:52:44(+0800) [by Fred Qi]
-##     Update #: 11
+## Last-Updated: 2012-12-12 22:55:27(+0800) [by Fred Qi]
+##     Update #: 13
 ## ----------------------------------------------------------------------
 
 pkg=xdthesis
@@ -42,7 +42,8 @@ cd ..
 [[ -f xdthesis.7z ]] && rm xdthesis.7z
 
 7z a -l xdthesis.7z xdthesis.{pdf,dtx,ins} examples/xdthesis.{cfg,cls} \
-                    examples/{thesis-*,cover,ch01-intro}.tex examples/refs.bib \
+                    examples/{thesis-*,abstract,ch01-intro}.tex \
+                    examples/refs.bib \
 	                examples/SConstruct
 
 ## ----------------------------------------------------------------------
