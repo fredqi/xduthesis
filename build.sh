@@ -10,11 +10,13 @@
 ## ----------------------------------------------------------------------
 ### CHANGE LOG
 ## ----------------------------------------------------------------------
-## Last-Updated: 2012-12-12 22:55:27(+0800) [by Fred Qi]
-##     Update #: 13
+## Last-Updated: 2012-12-14 18:04:23(+0800) [by Fred Qi]
+##     Update #: 23
 ## ----------------------------------------------------------------------
 
 pkg=xdthesis
+ver=0.9.7
+zball=$pkg-$ver.7z
 
 rm $pkg.{cls,cfg}
 
@@ -39,12 +41,12 @@ cd ..
 ## ----------------------------------------------------------------------
 ## Generate the release package
 ## ----------------------------------------------------------------------
-[[ -f xdthesis.7z ]] && rm xdthesis.7z
+[[ -f $zball ]] && rm $zball
 
-7z a -l xdthesis.7z xdthesis.{pdf,dtx,ins} examples/xdthesis.{cfg,cls} \
-                    examples/{thesis-*,abstract,ch01-intro}.tex \
-                    examples/refs.bib \
-	                examples/SConstruct
+7z a -l $zball $pkg.{pdf,dtx,ins} examples/$pkg.{cfg,cls} \
+    examples/{thesis-*,biography,abstract,ch01-intro}.tex \
+    examples/photo.png examples/refs.bib \
+    examples/SConstruct
 
 ## ----------------------------------------------------------------------
 ### END OF FILE 
