@@ -531,6 +531,7 @@
 % \label{sec:headerfooter}
 %
 % \changes{v0.9.7}{2012/12/12}{增加博士学位论文页眉与页脚格式支持。}
+% \changes{v0.9.8}{2012/12/18}{修正论文题目中换行破坏右侧页眉的问题。}
 %
 % 新的一章最好从奇数页开始（openright），所以必须保证它前面那页如果没有内容也必
 % 须没有页眉页脚。code stolen from fancyhdr
@@ -576,7 +577,7 @@
       \rule{\textwidth}{0.75pt}}}%
   \def\@evenhead{\vbox{\hbox to\textwidth{%
         \hskip1pt{\ifxd@doctor\xiaowu\thepage\fi}%
-        \hfil{\wuhao\rightmark}\hfil}%
+        \hfil{\let\\=\relax\wuhao\rightmark}\hfil}%
       \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
       \rule{\textwidth}{0.75pt}}}%
   \def\@oddfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}%
@@ -587,7 +588,7 @@
       \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
       \rule{\textwidth}{0.75pt}}}%
   \def\@evenhead{\vbox{\hbox to\textwidth{%
-        \hskip1pt{\xiaowu\thepage}\hfil{\wuhao\rightmark}\hfil}%
+        \hskip1pt{\xiaowu\thepage}\hfil{\let\\=\relax\wuhao\rightmark}\hfil}%
       \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
       \rule{\textwidth}{0.75pt}}}%
   \def\@oddfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}%
