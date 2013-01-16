@@ -9,12 +9,17 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2012-12-12 23:18:10(+0800) [by Fred Qi]
-%%     Update #: 89
+%% Last-Updated: 2012-12-26 13:35:52(+0800) [by Fred Qi]
+%%     Update #: 112
 %% ----------------------------------------------------------------------
-\documentclass[bachelor]{xdthesis}
+\documentclass[bachelor,print]{xdthesis}
+
+%%%%%%%%%%%%%%%
+%该文档的具体内容填写请参照‘thesis-doctor.tex’文档
+%%%%%%%%%%%%%%%
 
 \begin{document}
+
 
 %%%%%%%%%%%%%%%
 %% 论文前置部分
@@ -46,19 +51,30 @@
 \mainmatter
 
 \input{ch01-intro}
-% \input{ch02-principle}
-% \input{ch03-method}
-% \input{ch04-results}
-% \input{ch05-conclusion}
-
-% 参考文献
-\bibliographystyle{IEEEtran}
-\bibliography{IEEEabrv,refs}
+\input{ch02-options}
+\input{ch03-frontmatter}
+\input{ch04-mainmatter}
+\input{ch05-backmatter}
+\input{ch06-bibliography}
+\input{ch07-conclusions}
 
 %%%%%%%%%%%%%%%
 %% 论文后置部分
 %%%%%%%%%%%%%%%
 \backmatter
+
+%% 插图索引
+% \listoffigures
+%% 表格索引
+% \listoftables
+
+% 参考文献
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,refs}
+
+\input{acknowledgments}
+
+\input{achievements}
 
 \end{document}
 
