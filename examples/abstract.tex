@@ -14,19 +14,51 @@
 %% ----------------------------------------------------------------------
 
 \begin{cabstract}
-  这里是中文摘要。  
+图像是多媒体信息时代的主要数字信息资源。如何从海量的图像数据中迅速而准确地搜寻到我们所需的信息成为研究热点。...。本文的主要研究内容包括以下几部分：
+
+（1）针对人类视觉系统更加关注视觉信息丰富的图像区域，提出基于视觉信息量的图像显著性检测算法。首先根据图像像素间的相关性，度量图像内容的视觉冗余程度；接着，根据像素的分布特性，计算图像内容的信息熵；然后，从信息熵中去除图像的视觉冗余，获得图像内容的视觉信息量；最后，采用视觉信息量来度量图像显著性，从而建立显著性检测模型。实验结果表明提出的基于视觉信息熵的图像显著性检测算法能准确检测出任何潜在图像特征下的显著性内容，且所得显著图与主观视觉关注区域高度吻合。
+
+（2）针对人类视觉系统对具有规则结构的图像区域高度敏感，提出基于结构自相似性的恰可识别失真阈值估计算法。视觉系统非常善于提取图像的结构信息，并通过结构比对及模式匹配来理解图像内容，因此视觉系统对具有自相似结构区域分辨能力强。根据相邻像素间的相似性，首先度量图像内容的结构自相似程度；然后，根据结构自相似性提出新的空域掩膜方程；最后，结合现有的亮度敏感度方程和所提空域掩膜方程，建立恰可识别失真阈值估计模型。实验结果表明，所提算法能准确估计纹理区域的恰可识别失真阈值，而现有其它算法无法准确估计该区域。
+
+（3）...
+
+（4）...
+
+（5）...
+
+上述研究成果从主观视觉感知的角度对图像处理进行分析与研究，具有一定的前瞻性和挑战性。本文在理论分析上取得一些突破，在技术实现上具有一些创新，为基于主观视觉感知的客观图像处理开辟了新的思路，具有重要的理论意义及实用价值。
+
 \end{cabstract}
 
+
 \begin{ckeywords}
-  学位论文; 模板; \XeLaTeX
+人类视觉系统~~视觉关注~~恰克识别失真阈值~~结构自相似~~视觉敏感度~~不确定信息~~图像质量评价
 \end{ckeywords}
 
+
+
+
 \begin{eabstract}
-  Please put your English abstract here.
+In the multimedia era, image information plays a very important role in our daily life...The main contributions of this thesis can be summarized as follows:
+
+(1) According to that the HVS pays more attention to these regions with abundant visual information, we introduce a visual information based saliency detection model. Firstly, the visual redundancy of an image is measured based on the correlations among pixels. And according to the distribution of pixels, the entropy of the image is computed. Then, by removing the visual redundancy from the entropy, the quantity of visual information of the image is acquired. Finally, the visual information is used to estimate the saliency of the image. Experimental results show that the proposed saliency detection model can accurately estimate the salient object under any potential image feature, and the saliency map from the proposed model is highly coincided with the subjective visual attention.
+
+(2) According to that the HVS is highly sensitive to regular regions, we introduce a structural self-similarity based JND threshold estimation model. The HVS is highly adapted to extract structural information for image perception and understanding, and the HVS is highly sensitive to these regions with self-similar structures. According to the similarities among nearby pixels, we firstly measure the structural self-similarity of an image. And then, a novel spatial masking function is introduced based on structural self-similarity. Finally, combining the existing luminance adaptation function and the proposed spatial masking function, a new JND threshold estimation model is built. Experimental results demonstrate that the proposed JND model can accurately estimate the JND threshold of the textural region, where the existing JND models always failed.
+
+(3) ...
+
+(4) ...
+
+(5) ...
+
+The results above are image processing researches from the perspective of subjective visual perception, which are forward looking and full of challenges.  This thesis has some breakthrough in theory and some innovation in technology. This work opens up a new way for visual perception based image processing, which has extremely important theoretical significance and application value．
+
+
 \end{eabstract}
 
+
 \begin{ekeywords}
-  Thesis; Template; \XeLaTeX
+The Human Visual System, Visual Attention, Just Noticeable Distortion, Structural Self-Similarity, Visual Sensitivity, Uncertainty, Image Quality Assessment
 \end{ekeywords}
 
 % \tableofcontents
