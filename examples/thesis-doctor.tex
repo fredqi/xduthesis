@@ -9,10 +9,10 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2012-12-26 13:39:00(+0800) [by Fred Qi]
-%%     Update #: 124
+%% Last-Updated: 2013-01-19 10:25:04(+0800) [by Fred Qi]
+%%     Update #: 136
 %% ----------------------------------------------------------------------
-\documentclass[doctor]{xdthesis}
+\documentclass[doctor,print]{xdthesis}
 
 \begin{document}
 
@@ -74,17 +74,22 @@
 %% 表格索引
 % \listoftables
 
-% 参考文献
+%% 参考文献
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,refs}
 
-\input{acknowledgments}
+%% 附录，建议放在参考文献之后，致谢与成果部分之前
+\begin{appendix}
+  \input{appendix01}  
+\end{appendix}
 
+%% 致谢
+\input{acknowledgments}
+%% 在学期间取得的成果
 \input{achievements}
 
 
 \end{document}
-
 
 %%% Local Variables:
 %%% TeX-master: t

@@ -9,13 +9,13 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2012-12-26 13:35:52(+0800) [by Fred Qi]
-%%     Update #: 112
+%% Last-Updated: 2013-01-19 10:23:31(+0800) [by Fred Qi]
+%%     Update #: 117
 %% ----------------------------------------------------------------------
 \documentclass[bachelor,print]{xdthesis}
 
 %%%%%%%%%%%%%%%
-%该文档的具体内容填写请参照‘thesis-doctor.tex’文档
+% 该文档的具体内容填写请参照‘thesis-bachelor.tex’文档
 %%%%%%%%%%%%%%%
 
 \begin{document}
@@ -72,8 +72,14 @@
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,refs}
 
-\input{acknowledgments}
+%% 附录，建议放在参考文献之后，致谢与成果部分之前
+\begin{appendix}
+  \input{appendix01}  
+\end{appendix}
 
+%% 致谢
+\input{acknowledgments}
+%% 在学期间取得的成果
 \input{achievements}
 
 \end{document}
