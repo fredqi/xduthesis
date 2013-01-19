@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1608}
+% \CheckSum{1625}
 %
 % \iffalse
 %<*driver>
@@ -621,7 +621,8 @@
 %
 % 其实可以直接写到~\cs{chapter} 的定义里面。
 %    \begin{macrocode} 
-\renewcommand{\chaptermark}[1]{\markboth{\chaptername\hspace{2ex}{#1}}{\xd@ctitle}}
+%\renewcommand{\chaptermark}[1]{\markboth{\chaptername\hspace{2ex}{#1}}{\xd@ctitle}}
+\renewcommand{\chaptermark}[1]{\markboth{\@chapapp\hspace{2ex}#1}{\xd@ctitle}}
 \renewcommand{\sectionmark}[1]{\markright{\xd@ctitle}}
 %</cls>
 %    \end{macrocode}
@@ -797,6 +798,7 @@
 \renewcommand\contentsname{目\hspace{1em}录}
 \renewcommand\listfigurename{插图索引}
 \renewcommand\listtablename{表格索引}
+\renewcommand\appendixname{附录}
 \newcommand\listequationname{公式索引}
 \newcommand\equationname{公式}
 \renewcommand\bibname{参考文献}
@@ -826,18 +828,63 @@
 
 % \subsubsection{章节标题}
 % \label{sec:titleandtoc}
+%
+% \changes{v0.9.8}{2013/01/19}{增加附录环境。}
+%
+% 章标题与章名之间空一个半角空格，居中书写，单倍行距，段前空\texttt{4ex}，段后空
+% \texttt{3ex}。
+%
 %    \begin{macrocode}
 %<*cls>
-\titleformat{\chapter}[block]%
-            {\sanhao\hei}{\chaptername}%
-            {1ex}{\filcenter}%
-            [\if@mainmatter\thispagestyle{xd@headings}\else\thispagestyle{xd@front}\fi]
-\titlespacing*{\chapter}{0pt}{4ex}{3ex}[0pt]
+\renewcommand\chapter{%
+  \if@openright\cleardoublepage\else\clearpage\fi%
+  \phantomsection%
+  \if@mainmatter\thispagestyle{xd@headings}%
+  \else\thispagestyle{xd@front}\fi%
+  \global\@topnum\z@%
+  \secdef\@chapter\@schapter}
+\def\@chapter[#1]#2{%
+  \ifnum \c@secnumdepth >\m@ne
+    \if@mainmatter
+      \refstepcounter{chapter}%
+      \addcontentsline{toc}{chapter}{%
+        \song\bfseries\@chapapp\hskip1ex#1}%
+    \else
+      \addcontentsline{toc}{chapter}{#1}%
+    \fi
+  \else
+    \addcontentsline{toc}{chapter}{#1}
+  \fi
+  \chaptermark{#1}%
+  \@makechapterhead{#2}}
+\def\@makechapterhead#1{%
+  \parbox[b]{\textwidth}{\vskip15mm}%
+  {\centering \sanhao\hei\noindent
+    \ifnum \c@secnumdepth > \m@ne
+      \@chapapp\hskip1ex
+    \fi
+   #1\par\nobreak%
+   \vskip3ex}}
+\def\@schapter#1{%
+  \@makeschapterhead{#1}
+  \@afterheading}
+\def\@makeschapterhead#1{%
+  {\noindent \centering \sanhao\hei
+    \interlinepenalty\@M #1\par\nobreak
+   \vskip9mm}}
+% \titleformat{\chapter}[block]%
+%             {\sanhao\hei}{\chaptername}%
+%             {1ex}{\filcenter}%
+% [\if@mainmatter\thispagestyle{xd@headings}\else\thispagestyle{xd@front}\fi
+% \if@mainmatter\relax\else\addcontentsline{toc}{chapter}{\chaptertitlename}\fi]
+% \titlespacing*{\chapter}{0pt}{4ex}{3ex}[0pt]
 %    \end{macrocode}
 % \begin{macro}{\section}
+%
 % 一级节标题，例如：2.1  实验装置与实验方法
 % 节标题序号与标题名之间空一个汉字符（下同）。
 % 采用宋体四号（14pt）字居中书写。
+%
 %    \begin{macrocode}
 \titleformat{\section}[block]%
             {\sihao[1.429]}{\thesection}%
@@ -1310,21 +1357,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{致谢}
-% \label{sec:ack}
-%
-%    \begin{macrocode}
-%<*cls>
-\newenvironment{acknowledgments}{%
-  \xd@numberedfalse%
-  \chapter*{\xd@ackname}%
-  \addcontentsline{toc}{chapter}{\bfseries\song\xd@ackname}%
-  \markboth{\xd@ackname}{\xd@ctitle}%
-  \xd@numberedtrue}%
-  {}
-%</cls>
-%    \end{macrocode}
-%
 % \subsubsection{参考文献}
 % \label{sec:ref}
 %
@@ -1376,6 +1408,34 @@
 %</cls>
 %    \end{macrocode}
 % \end{environment}
+%
+% \subsubsection{致谢}
+% \label{sec:ack}
+%
+%    \begin{macrocode}
+%<*cls>
+\newenvironment{acknowledgments}{%
+  \xd@numberedfalse%
+  \chapter*{\xd@ackname}%
+  \addcontentsline{toc}{chapter}{\bfseries\song\xd@ackname}%
+  \markboth{\xd@ackname}{\xd@ctitle}%
+  \xd@numberedtrue}%
+  {}
+%</cls>
+%    \end{macrocode}
+%
+% \subsubsection{附录}
+% \label{sec:appendix}
+%
+%    \begin{macrocode}
+%<*cls>
+\let\xd@appendix\appendix
+\renewenvironment{appendix}{
+  \xd@appendix
+  \gdef\@chapapp{\appendixname~\thechapter}
+}{}
+%</cls>
+%    \end{macrocode}
 %
 %    \begin{macrocode}
 %<cls>\AtEndOfClass{\input{xdthesis.cfg}}%
