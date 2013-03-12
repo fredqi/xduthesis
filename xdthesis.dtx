@@ -267,7 +267,6 @@
 \newif\ifxd@doctor\xd@doctorfalse
 \newif\ifxd@secret\xd@secretfalse
 \newif\ifxd@mkabstract\xd@mkabstractfalse
-\newif\ifxd@numbered\xd@numberedtrue
 \newif\ifxd@print\xd@printfalse
 \DeclareOption{bachelor}{\xd@bachelortrue}
 \DeclareOption{master}{\xd@mastertrue}
@@ -830,7 +829,7 @@
 % \label{sec:titleandtoc}
 %
 % \changes{v0.9.8}{2013/03/11}{修正无编号章标题段前段后空白}
-% \changes{v0.9.8}{2013/03/11}{修正章标题居中对齐（多了段首空格）}
+% \changes{v0.9.8}{2013/03/11}{去掉了章标题段首空格}
 % \changes{v0.9.8}{2013/01/19}{增加附录环境}
 %
 % 章标题与章名之间空一个半角空格，居中书写，单倍行距，段前空\texttt{4ex}，段后空
@@ -847,8 +846,7 @@
   \secdef\@chapter\@schapter}
 \def\@chapter[#1]#2{%
   \if@mainmatter\refstepcounter{chapter}\fi
-  \addcontentsline{toc}{chapter}{%
-    \song\bfseries\@chapapp\hskip1ex#1}%
+  \addcontentsline{toc}{chapter}{\@chapapp\hskip1ex#1}%
   \chaptermark{#1}%
   \@makechapterhead{#2}}
 \def\@makechapterhead#1{\noindent%
@@ -866,38 +864,11 @@
   \parbox[b]{\textwidth}{\vskip15mm}%
   {\sanhao\hei\centering%
    #1\par\nobreak\vskip3ex}}
-\newcounter{xd@bookmark}
-\def\xd@chapter*{%
-  \@ifnextchar [ % ]
-    {\xd@@chapter}
-    {\xd@@chapter@}}
-\def\xd@@chapter@#1{\xd@@chapter[#1]{#1}}
-\def\xd@@chapter[#1]#2{%
-  \@ifnextchar [ % ]
-    {\xd@@@chapter[#1]{#2}}
-    {\xd@@@chapter[#1]{#2}[]}}
-\def\xd@@@chapter[#1]#2[#3]{%
+\def\xd@chapter*#1{
   \if@openright\cleardoublepage\else\clearpage\fi
-  % \phantomsection
-  \def\@tmpa{#1}
-  \def\@tmpb{#3}
-  \ifx\@tmpa\@empty
-    \addtocounter{xd@bookmark}\@ne
-    \pdfbookmark[0]{#2}{xdchapter.\thexd@bookmark}
-  \else
-    \addcontentsline{toc}{chapter}{\song\bfseries#2}
-  \fi
-  \chapter*{#2}
-  \ifx\@tmpb\@empty
-    \@mkboth{#2}{#2}
-  \else
-    \@mkboth{#3}{#3}
-  \fi}
-% \titleformat{\chapter}[block]%
-%             {\sanhao\hei}{\chaptername}%
-%             {1ex}{\filcenter}%
-% [\if@mainmatter\thispagestyle{xd@headings}\else\thispagestyle{xd@front}\fi
-% \if@mainmatter\relax\else\addcontentsline{toc}{chapter}{\chaptertitlename}\fi]
+  \phantomsection
+  \addcontentsline{toc}{chapter}{#1}
+  \chapter*{#1}}
 %    \end{macrocode}
 % \begin{macro}{\section}
 %
@@ -928,15 +899,24 @@
 %\subsubsection{目录格式}
 %\label{sec:tableofcontents}
 %
+% \changes{v0.9.8}{2013/03/12}{修正目录点间距、PDF书签}
+%
 %    \begin{macrocode}
 %<*cls>
-\let\xd@orgtoc\tableofcontents
-\renewcommand\tableofcontents{\xd@orgtoc\markright{\xd@ctitle}}
+\newcounter{xd@bookmark}
+\renewcommand{\tableofcontents}{%
+  \if@openright\cleardoublepage\else\clearpage\fi%
+  \phantomsection%
+  \addtocounter{xd@bookmark}\@ne%
+  \pdfbookmark[0]{\contentsname}{xdchapter.\thexd@bookmark}%
+  \chapter*{\contentsname}%
+  \markboth{\contentsname}{\xd@ctitle}%
+  \@starttoc{toc}}
 \titlecontents{chapter}[0pt]{}%
-              {\xiaosi\bfseries\song%
-               \CJKthechaptername\thecontentslabel\enspace\enspace}%
-              {\thecontentslabel}%
-              {\titlerule*[.5pc]{.}\contentspage}
+              {\contentslabel[\xiaosi\bfseries\song]{0pt}}%
+              {\hspace*{0pt}}%
+              {\titlerule*[0.6pc]{.}\contentspage}
+\dottedcontents{section}[4em]{}{2.3em}{0.6pc}
 %</cls>
 %    \end{macrocode}
 %
@@ -1356,7 +1336,6 @@
 % 符号一律用中文输入状态下的标点符号
   \xd@chapter*{\cabstractname}%
   \markboth{\cabstractname}{\xd@ctitle}%
-  % \addcontentsline{toc}{chapter}{\song\bfseries\cabstractname}%
   \normalsize\par\xd@cabstract\vskip12bp%
 % 关键词为悬挂缩进(本科、硕士、博士论文格式相同)
   \setbox0=\hbox{\hei\xd@ckeywords@title\hspace{1em}}%
@@ -1365,7 +1344,6 @@
 % 英文摘要部分的标题为“ABSTRACT”，用Times New Roman 体三号字。
   \xd@chapter*{\bfseries\eabstractname}%
   \markboth{\eabstractname}{\xd@ctitle}%
-  % \addcontentsline{toc}{chapter}{\song\bfseries\eabstractname}%
   \normalsize\par\xd@eabstract\vskip12bp%
 % 关键词为悬挂缩进(本科、硕士、博士论文格式相同)
   \setbox0=\hbox{\bfseries Keywords:\hspace{1em}}%
@@ -1400,12 +1378,9 @@
 % 修改默认的thebibliography环境，增加一些调整代码。
 %    \begin{macrocode}
 \renewenvironment{thebibliography}[1]{%    
-  \xd@numberedfalse
   \xd@chapter*{\bibname}%
-  % \addcontentsline{toc}{chapter}{\bfseries\song\bibname}%
   \markboth{\bibname}{\xd@ctitle}%
-  % \xd@numberedtrue%
-  \wuhao[1.5]
+  \wuhao[1.5]%
   \list{\@biblabel{\@arabic\c@enumiv}}%
   {\renewcommand{\makelabel}[1]{##1\hfill}
     \settowidth\labelwidth{1.1cm}
@@ -1435,11 +1410,8 @@
 %    \begin{macrocode}
 %<*cls>
 \newenvironment{acknowledgments}{%
-  \xd@numberedfalse%
   \xd@chapter*{\xd@ackname}%
-  % \addcontentsline{toc}{chapter}{\bfseries\song\xd@ackname}%
-  \markboth{\xd@ackname}{\xd@ctitle}%
-  \xd@numberedtrue}%
+  \markboth{\xd@ackname}{\xd@ctitle}}%
   {}
 %</cls>
 %    \end{macrocode}
