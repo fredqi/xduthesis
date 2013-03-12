@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1744}
+% \CheckSum{1647}
 %
 % \iffalse
 %<*driver>
@@ -287,7 +287,11 @@
 %    \begin{macrocode}
 \ExecuteOptions{arialtitle}
 \ProcessOptions
-\LoadClass[12pt, a4paper, openright]{book}
+\ifxd@print
+\LoadClass[12pt, a4paper, twoside, openright]{book}
+\else
+\LoadClass[12pt, a4paper, oneside, openany]{book}
+\fi
 %</cls>
 %    \end{macrocode}
 %
@@ -393,17 +397,17 @@
 %    \begin{macrocode}
 %<*cls>
 \renewcommand\frontmatter{%
-  \if@openright\cleardoublepage\else\clearpage\fi
+  \xd@clearpage%
   \@mainmatterfalse
   \ifxd@doctor\pagenumbering{Roman}\else\pagenumbering{roman}\fi
   \pagestyle{xd@front}}
 \renewcommand\mainmatter{%
-  \if@openright\cleardoublepage\else\clearpage\fi
+  \xd@clearpage
   \@mainmattertrue
   \pagenumbering{arabic}
   \pagestyle{xd@headings}}
 \renewcommand\backmatter{%
-  \if@openright\cleardoublepage\else\clearpage\fi
+  \xd@clearpage
   \@mainmattertrue}
 %</cls>
 %    \end{macrocode}
@@ -555,17 +559,19 @@
 %
 % 新的一章最好从奇数页开始（openright），所以必须保证它前面那页如果没有内容也必
 % 须没有页眉页脚。code stolen from fancyhdr
+%
 %    \begin{macrocode}
 %<*cfg>
 \def\ps@xd@pagefoot{西安电子科技大学博士学位论文}
 %</cfg>
 %<*cls>
-\let\xd@cleardoublepage\cleardoublepage
-\newcommand{\xd@clearemptydoublepage}{%
-  \clearpage{\pagestyle{empty}\xd@cleardoublepage}}
-\let\cleardoublepage\xd@clearemptydoublepage
-% \let\xd@orgtitle\title
-% \renewcommand{\title}[1]{\gdef\xd@ctitle{#1}\xd@orgtitle{#1}}
+\def\xd@clearpage{%
+  \clearpage%
+  \if@openright%
+    \ifodd\c@page\relax\else%
+      \null\thispagestyle{xd@empty}\newpage%
+    \fi%
+  \fi}
 %    \end{macrocode}
 %
 %
@@ -838,15 +844,15 @@
 %    \begin{macrocode}
 %<*cls>
 \renewcommand\chapter{%
-  \if@openright\cleardoublepage\else\clearpage\fi%
-  \phantomsection%
+  \xd@clearpage%
   \if@mainmatter\thispagestyle{xd@headings}%
   \else\thispagestyle{xd@front}\fi%
+  \phantomsection%
   \global\@topnum\z@%
   \secdef\@chapter\@schapter}
 \def\@chapter[#1]#2{%
   \if@mainmatter\refstepcounter{chapter}\fi
-  \addcontentsline{toc}{chapter}{\@chapapp\hskip1ex#1}%
+  \addcontentsline{toc}{chapter}{\xiaosi\song\bfseries\@chapapp\hskip1ex#1}%
   \chaptermark{#1}%
   \@makechapterhead{#2}}
 \def\@makechapterhead#1{\noindent%
@@ -856,19 +862,15 @@
       \@chapapp\hskip1ex%
     \fi%
    #1\par\nobreak%
-   \vskip3ex}}
+   \vskip3ex plus-3ex minus3ex}}
 \def\@schapter#1{%
+  \addcontentsline{toc}{chapter}{\xiaosi\song\bfseries#1}%
   \@makeschapterhead{#1}
   \@afterheading}
 \def\@makeschapterhead#1{\noindent%
   \parbox[b]{\textwidth}{\vskip15mm}%
   {\sanhao\hei\centering%
    #1\par\nobreak\vskip3ex}}
-\def\xd@chapter*#1{
-  \if@openright\cleardoublepage\else\clearpage\fi
-  \phantomsection
-  \addcontentsline{toc}{chapter}{#1}
-  \chapter*{#1}}
 %    \end{macrocode}
 % \begin{macro}{\section}
 %
@@ -905,17 +907,17 @@
 %<*cls>
 \newcounter{xd@bookmark}
 \renewcommand{\tableofcontents}{%
-  \if@openright\cleardoublepage\else\clearpage\fi%
+  \xd@clearpage%
   \phantomsection%
   \addtocounter{xd@bookmark}\@ne%
   \pdfbookmark[0]{\contentsname}{xdchapter.\thexd@bookmark}%
-  \chapter*{\contentsname}%
+  \@makeschapterhead{\contentsname}%
   \markboth{\contentsname}{\xd@ctitle}%
   \@starttoc{toc}}
 \titlecontents{chapter}[0pt]{}%
-              {\contentslabel[\xiaosi\bfseries\song]{0pt}}%
+              {\contentslabel{0pt}}%
               {\hspace*{0pt}}%
-              {\titlerule*[0.6pc]{.}\contentspage}
+              {\titlerule*[0.6pc]{.}\bfseries\contentspage}
 \dottedcontents{section}[4em]{}{2.3em}{0.6pc}
 %</cls>
 %    \end{macrocode}
@@ -1255,16 +1257,16 @@
   \begin{titlepage}
     \xd@titlepage
   \end{titlepage}
-  \cleardoublepage
+  \xd@clearpage
   \addtolength{\topmargin}{15pt}
-  \ifxd@bachelor\relax\else
+  \ifxd@doctor
     \thispagestyle{xd@empty}
     \xd@make@authorbio
-    \cleardoublepage
+    \xd@clearpage
   \fi
   \thispagestyle{xd@empty}
   \xd@make@declaration
-  \cleardoublepage
+  \xd@clearpage
   \addtolength{\topmargin}{-15pt}
   \setcounter{page}{1}
   \xd@makeabstract
@@ -1334,7 +1336,7 @@
   \xd@mkabstracttrue%
 % 摘要内容用小四号字书写，两端对齐，汉字用宋体，外文字用Times New Roman 体，标点
 % 符号一律用中文输入状态下的标点符号
-  \xd@chapter*{\cabstractname}%
+  \chapter*{\cabstractname}%
   \markboth{\cabstractname}{\xd@ctitle}%
   \normalsize\par\xd@cabstract\vskip12bp%
 % 关键词为悬挂缩进(本科、硕士、博士论文格式相同)
@@ -1342,7 +1344,7 @@
   \noindent\hangindent\wd0\hangafter1
   \box0{\hei\xd@ckeywords}%
 % 英文摘要部分的标题为“ABSTRACT”，用Times New Roman 体三号字。
-  \xd@chapter*{\bfseries\eabstractname}%
+  \chapter*{\bfseries\eabstractname}%
   \markboth{\eabstractname}{\xd@ctitle}%
   \normalsize\par\xd@eabstract\vskip12bp%
 % 关键词为悬挂缩进(本科、硕士、博士论文格式相同)
@@ -1378,7 +1380,7 @@
 % 修改默认的thebibliography环境，增加一些调整代码。
 %    \begin{macrocode}
 \renewenvironment{thebibliography}[1]{%    
-  \xd@chapter*{\bibname}%
+  \chapter*{\bibname}%
   \markboth{\bibname}{\xd@ctitle}%
   \wuhao[1.5]%
   \list{\@biblabel{\@arabic\c@enumiv}}%
@@ -1410,7 +1412,7 @@
 %    \begin{macrocode}
 %<*cls>
 \newenvironment{acknowledgments}{%
-  \xd@chapter*{\xd@ackname}%
+  \chapter*{\xd@ackname}%
   \markboth{\xd@ackname}{\xd@ctitle}}%
   {}
 %</cls>
