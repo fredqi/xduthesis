@@ -10,13 +10,14 @@
 ## ----------------------------------------------------------------------
 ### CHANGE LOG
 ## ----------------------------------------------------------------------
-## Last-Updated: 2012-12-25 21:55:11(+0800) [by Fred Qi]
-##     Update #: 34
+## Last-Updated: 2013-03-13 17:04:00(+0800) [by Fred Qi]
+##     Update #: 43
 ## ----------------------------------------------------------------------
 
 pkg=xdthesis
 ver="$(cat version)"
-zball=$pkg-$ver.tar.gz
+zball="$pkg-$ver-source.tar.gz"
+rball="$pkg-$ver-release.tar.gz"
 
 rm $pkg.{cls,cfg}
 
@@ -44,10 +45,14 @@ cd ..
 [[ -f $zball ]] && rm $zball
 
 tar chzvf $zball $pkg.{pdf,dtx,ins} examples/$pkg.{cfg,cls} \
-    examples/{thesis-*,biography,abstract,ch01-intro}.tex \
+    examples/{thesis-*,biography,a*,ch*}.tex \
     examples/photo.png examples/refs.bib \
     examples/xd*.eps \
     examples/SConstruct
+
+[[ -f $rball ]] && rm $rball
+
+tar chzvf $rball $pkg.{cfg,cls} xd*.eps
 
 ## ----------------------------------------------------------------------
 ### END OF FILE 
