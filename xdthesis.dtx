@@ -861,8 +861,10 @@
     \ifnum \c@secnumdepth > \m@ne%
       \@chapapp\hskip1ex%
     \fi%
+   \interlinepenalty\@M%
    #1\par\nobreak%
-   \vskip3ex plus-3ex minus3ex}}
+   \vskip4ex%
+   \nointerlineskip}}
 \def\@schapter#1{%
   \addcontentsline{toc}{chapter}{\xiaosi\song\bfseries#1}%
   \@makeschapterhead{#1}
@@ -870,7 +872,10 @@
 \def\@makeschapterhead#1{\noindent%
   \parbox[b]{\textwidth}{\vskip15mm}%
   {\sanhao\hei\centering%
-   #1\par\nobreak\vskip3ex}}
+   \interlinepenalty\@M
+   #1\par\nobreak%
+   \vskip4ex%
+   \nointerlineskip}}
 %    \end{macrocode}
 % \begin{macro}{\section}
 %
@@ -879,9 +884,13 @@
 % 采用宋体四号（14pt）字居中书写。
 %
 %    \begin{macrocode}
-\titleformat{\section}[block]%
-            {\sihao[1.429]}{\thesection}%
-            {1ex}{\filcenter}
+\renewcommand\section{%
+  \ifdim\prevdepth=-1000pt\dimen0=1ex%
+  \else\dimen0=3ex\fi%
+  \@startsection {section}{1}{\z@}%
+  {\dimen0}%
+  {2ex}%
+  {\sihao[1.429]\filcenter}}
 %    \end{macrocode}
 % \end{macro}
 %
