@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1653}
+% \CheckSum{1652}
 %
 % \iffalse
 %<*driver>
@@ -288,9 +288,9 @@
 \ExecuteOptions{arialtitle}
 \ProcessOptions
 \ifxd@print
-\LoadClass[12pt, a4paper, twoside, openright]{book}
+\LoadClass[12pt, a4paper, openright]{book}
 \else
-\LoadClass[12pt, a4paper, oneside, openany]{book}
+\LoadClass[12pt, a4paper, openany]{book}
 \fi
 %</cls>
 %    \end{macrocode}
@@ -624,10 +624,18 @@
 % \end{macro}
 % \end{macro}
 %
+%
+% \changes{v0.9.8}{2013/03/14}{修正电子存储方式页眉}
+%
 % 其实可以直接写到~\cs{chapter} 的定义里面。
 %    \begin{macrocode} 
-\renewcommand{\chaptermark}[1]{\markboth{\@chapapp\hspace{2ex}#1}{\xd@ctitle}}
-\renewcommand{\sectionmark}[1]{\markright{\xd@ctitle}}
+\renewcommand{\chaptermark}[1]{%
+  \ifodd\c@page%
+    \markboth{#1}{\xd@ctitle}%
+  \else%
+    \markboth{\xd@ctitle}{#1}%
+  \fi}
+\renewcommand{\sectionmark}[1]{}
 %</cls>
 %    \end{macrocode}
 %
@@ -854,7 +862,7 @@
 \def\@chapter[#1]#2{%
   \if@mainmatter\refstepcounter{chapter}\fi
   \addcontentsline{toc}{chapter}{\xiaosi\song\bfseries\@chapapp\hskip1ex#1}%
-  \chaptermark{#1}%
+  \chaptermark{\@chapapp\hskip2ex#1}%
   \@makechapterhead{#2}}
 \def\@makechapterhead#1{\noindent%
   \parbox[b]{\textwidth}{\vskip15mm}%
@@ -868,7 +876,7 @@
    \nointerlineskip}}
 \def\@schapter#1{%
   \addcontentsline{toc}{chapter}{\xiaosi\song\bfseries#1}%
-  \markboth{#1}{\xd@ctitle}%
+  \chaptermark{#1}%
   \@makeschapterhead{#1}
   \@afterheading}
 \def\@makeschapterhead#1{\noindent%
@@ -924,7 +932,7 @@
   \addtocounter{xd@bookmark}\@ne%
   \pdfbookmark[0]{\contentsname}{xdchapter.\thexd@bookmark}%
   \@makeschapterhead{\contentsname}%
-  \markboth{\contentsname}{\xd@ctitle}%
+  \chaptermark{\contentsname}%
   \@starttoc{toc}}
 \newlength\xd@dot@space
 \setlength\xd@dot@space{0.6pc}
@@ -1025,11 +1033,12 @@
 %</cfg>
 %    \end{macrocode} 
 %
-%
-%    \begin{macrocode}
+% \changes{v0.9.8}{2013/03/14}{修正研究生论文封面行距}
 % \changes{v0.9.6}{2012/06/27}{完成了本科毕业设计封面设计}
 % \changes{v0.9.7}{2012/12/12}{完成了研究生论文封面的设计}
 % \changes{v0.9.7}{2012/12/13}{改进了封面论文题目显示机制，允许题目中使用换行}
+%
+%    \begin{macrocode}
 %<*cls>
 \ifxd@bachelor
 \def\xd@urule#1#2{\hskip2pt\underline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
@@ -1110,7 +1119,7 @@
     \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par\vskip1pt%
     \xd@put@prefix{32mm}{}\xd@urule{114mm}{}      
   \end{flushleft}
-  \vskip-2mm
+  \vskip3mm
   \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cauthor@prefix}
   \xd@urule{30mm}{\song\bf\sihao\xd@cauthor}
   \xd@put@prefix{42mm}{\bfseries\heiti\sihao\xd@csupervisor@prefix}
@@ -1118,10 +1127,10 @@
   \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cfirstdiscipline@prefix}
   \xd@urule{30mm}{\song\bf\sihao\xd@cfirstdiscipline}
   \xd@put@prefix{23mm}{\bfseries\heiti\sihao\xd@cseconddiscipline@prefix}
-  \xd@urule{57mm}{\song\bf\sihao\xd@cseconddiscipline}\par\vskip5pt\noindent
+  \xd@urule{57mm}{\song\bf\sihao\xd@cseconddiscipline}\par\vskip5mm\noindent
   \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cdate@prefix}
   \xd@urule{114mm}{\song\bf\sihao\xd@cdate}
-  \noindent\vskip-68mm\hskip27mm
+  \noindent\vskip-77mm\hskip27mm
   \begin{minipage}{110mm}
     \centering\song\bf\sihao
     \xd@ctitle\par
