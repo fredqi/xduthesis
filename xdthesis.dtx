@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1652}
+% \CheckSum{1662}
 %
 % \iffalse
 %<*driver>
@@ -268,11 +268,14 @@
 \newif\ifxd@secret\xd@secretfalse
 \newif\ifxd@mkabstract\xd@mkabstractfalse
 \newif\ifxd@print\xd@printfalse
+\newif\ifxd@msfonts\xd@msfontsfalse
 \DeclareOption{bachelor}{\xd@bachelortrue}
 \DeclareOption{master}{\xd@mastertrue}
 \DeclareOption{doctor}{\xd@doctortrue}
 \DeclareOption{secret}{\xd@secrettrue}
 \DeclareOption{print}{\xd@printtrue}
+\DeclareOption{msfonts}{\xd@msfontstrue}
+\DeclareOption{adobefonts}{\xd@msfontsfalse}
 \AtEndOfClass{%
   \ifxd@bachelor\relax\else
     \ifxd@master\relax\else
@@ -285,7 +288,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ExecuteOptions{arialtitle}
+\ExecuteOptions{}
 \ProcessOptions
 \ifxd@print
 \LoadClass[12pt, a4paper, openright]{book}
@@ -311,9 +314,9 @@
 %
 %    \begin{macrocode}
 \ifxd@print
-\RequirePackage[colorlinks=true,allcolors=black]{hyperref}
+\RequirePackage[xetex,colorlinks=true,allcolors=black]{hyperref}
 \else
-\RequirePackage[colorlinks=true]{hyperref}
+\RequirePackage[xetex,colorlinks=true]{hyperref}
 \fi
 %    \end{macrocode}
 % 引用的宏包和相应的定义。
@@ -368,21 +371,34 @@
 % 本模板是基于\XeLaTeX{}的。
 %    \begin{macrocode}
 \RequirePackage[CJKnumber,BoldFont]{xeCJK}
+%
+% \changes{v0.9.8}{2013/03/14}{增加msfonts选项以使用微软字体}
 % \changes{v0.9.1}{2009/06/17}{使用全角格式中文标点符号}
+%
 \punctstyle{quanjiao}
 \def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
 \defaultfontfeatures{Mapping=tex-text} % after fontspec
+\ifxd@msfonts
+\setCJKmainfont{SimSun}
+\setCJKsansfont{SimHei}
+\setCJKmonofont{KaiTi_GB2312}
+\setCJKfamilyfont{song}{SimSun}
+\setCJKfamilyfont{hei}{SimHei}
+\setCJKfamilyfont{fs}{FangSong_GB2312}
+\setCJKfamilyfont{kai}{KaiTi_GB2312}
+\setCJKfamilyfont{li}{Adobe Kaiti Std}
+\setCJKfamilyfont{you}{LiSu}
+\else
 \setCJKmainfont{Adobe Song Std}
 \setCJKsansfont{Adobe Heiti Std}
-% \setCJKmonofont{Adobe Kaiti Std}
 \setCJKfamilyfont{song}{Adobe Song Std}
 \setCJKfamilyfont{hei}{Adobe Heiti Std}
+% \setCJKmonofont{Adobe Kaiti Std}
 % \setCJKfamilyfont{fs}{Adobe Fangsong Std}
 % \setCJKfamilyfont{kai}{Adobe Kaiti Std}
-% \setCJKfamilyfont{li}{Adobe Kaiti Std} % todo: 用隶书字体代替
-% \setCJKfamilyfont{you}{Adobe Kaiti Std} % todo: 用幼圆字体代替
+\fi
 \setmainfont{Times New Roman}
-% \setsansfont{Arial}
+\setsansfont{Arial}
 \setmonofont{Courier Std}
 % \changes{v0.9.3}{2011/04/20}{引用宏包顺序调整，以避免\texttt{nobreakspace}的问题}
 % \changes{v0.9.7}{2012/12/11}{\texttt{xeCJK}与\texttt{xltxtra}冲突导致标点出错}
@@ -646,11 +662,12 @@
 % 用于中文段落缩进和正文版式
 %    \begin{macrocode}
 %<*cls>
-\newlength\CJK@twochars
-\def\CJK@spaceChar{\Unicode{48}{7}}
+\newlength\xd@CJK@twochars
+\newcommand{\xd@unicode}[2]{\char\numexpr#1*256+#2\relax}
+\def\xd@CJK@space{\xd@unicode{48}{7}}
 \def\CJKindent{%
-  \settowidth\CJK@twochars{\CJK@spaceChar\CJK@spaceChar}%
-  \parindent\CJK@twochars}
+  \settowidth\xd@CJK@twochars{\xd@CJK@space\xd@CJK@space}%
+  \parindent\xd@CJK@twochars}
 %    \end{macrocode}
 %
 % 段落之间的竖直距离
@@ -925,12 +942,9 @@
 %
 %    \begin{macrocode}
 %<*cls>
-\newcounter{xd@bookmark}
 \renewcommand{\tableofcontents}{%
   \xd@clearpage%
   \phantomsection%
-  \addtocounter{xd@bookmark}\@ne%
-  \pdfbookmark[0]{\contentsname}{xdchapter.\thexd@bookmark}%
   \@makeschapterhead{\contentsname}%
   \chaptermark{\contentsname}%
   \@starttoc{toc}}
@@ -1091,12 +1105,12 @@
   \parbox[b]{0.9\linewidth}{
     \dawu\heiti\bfseries\ignorespaces\flushright
     \xd@put@prefix{14mm}{\xd@subjectcode@prefix}%
-    \xd@urule{45mm}{\xd@subjectcode}%
+    \xd@urule{45mm}{\sf\bfseries\xd@subjectcode}%
     \hspace{14mm}%
     \xd@put@prefix{14mm}{\xd@studentid@prefix}%
-    \xd@urule{45mm}{\xd@studentid}\\[3mm]
+    \xd@urule{45mm}{\sf\bfseries\xd@studentid}\\[3mm]
     \xd@put@prefix{14mm}{\xd@catelognumber@prefix}%
-    \xd@urule{45mm}{\xd@catelognumber}%
+    \xd@urule{45mm}{\sf\bfseries\xd@catelognumber}%
     \hspace{14mm}%
     \xd@put@prefix{14mm}{\xd@secretlevel@prefix}%
     \xd@urule{45mm}{\xd@secretlevel}}
@@ -1313,21 +1327,25 @@
 % \label{sec:float}
 %
 % 设置浮动对象和文字之间的距离
+%
+% \changes{v0.9.8}{2013/03/14}{设置图表长标题居中对齐}
 % \changes{v0.2}{2009/06/06}{增加\cs{subfloat}}
+%
 %    \begin{macrocode}
 %<*cls>
 \let\old@tabular\@tabular
-\def\xd@tabular{\dawu[1.5]\old@tabular}
-\DeclareCaptionLabelFormat{xd@cap}{{\dawu[1.5] #1\rmfamily #2}}
+\def\xd@tabular{\wuhao\old@tabular}
+\DeclareCaptionLabelFormat{xd@cap}{{\wuhao#1\rmfamily#2}}
 \DeclareCaptionLabelSeparator{xd@sep}{\hspace{1em}}
-\DeclareCaptionFont{xd@capfont}{\dawu[1.5]}
-\captionsetup{labelformat=xd@cap,labelsep=xd@sep,font=xd@capfont}
-\captionsetup[table]{position=top,belowskip={12bp-\intextsep},aboveskip=3bp} 
-\captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=3bp}
+\DeclareCaptionFont{xd@capfont}{\wuhao}
+\captionsetup{labelformat=xd@cap,
+              labelsep=xd@sep,
+              font=xd@capfont,
+              justification=centering}
+\captionsetup[table]{position=top, belowskip={12bp-\intextsep}, aboveskip=3bp} 
+\captionsetup[figure]{position=bottom, belowskip={12bp-\intextsep}, aboveskip=3bp}
 \captionsetup[subfloat]{font=xd@capfont,captionskip=6bp,%
                         nearskip=6bp,farskip=0bp,topadjust=0bp}
-		
-%\AtBeginEnvironment{tabular}{\dawu[1.5]}		
 \renewenvironment{table}{%
   \renewcommand* {\@floatboxreset}{%
     \reset@font\@setminipage}
@@ -1335,9 +1353,6 @@
 }{%
   \end@float\normalsize
 }
-
- % \renewcommand{\thesubfigure}{\thefigure--(\arabic{subfigure})}
- % \renewcommand{\p@subfigure}{:}
 %</cls>
 %    \end{macrocode}
 
