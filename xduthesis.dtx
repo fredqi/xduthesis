@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1667}
+% \CheckSum{1715}
 %
 % \iffalse
 %<*driver>
@@ -113,6 +113,7 @@
 % \GetFileInfo{xduthesis.dtx}
 % \MakeShortVerb{\|}
 %
+% \changes{v0.9.9}{2014/04/19}{Naming changed from xdthesis to xduthesis.}
 % \changes{v0.9.4}{2012/01/10}{Made the full support for the master option.}
 % \changes{v0.9.3a}{2011/12/13}{Fixed line space and chapter space in TOC.}
 % \changes{v0.9.3}{2011/04/20}{Fixed the error on \texttt{$\backslash$nobreakspace}.}
@@ -255,6 +256,7 @@
 % \subsection{定义选项}
 % \label{sec:defoption}
 %
+% \changes{v0.9.9}{2014/04/19}{Added option english.}
 % \changes{v0.9.4a}{2012/02/07}{Added option print.}
 % 定义论文类型以及是否涉密
 %    \begin{macrocode}
@@ -266,6 +268,7 @@
 \newif\ifxdu@master\xdu@masterfalse
 \newif\ifxdu@doctor\xdu@doctorfalse
 \newif\ifxdu@secret\xdu@secretfalse
+\newif\ifxdu@english\xdu@englishfalse
 \newif\ifxdu@mkabstract\xdu@mkabstractfalse
 \newif\ifxdu@print\xdu@printfalse
 \newif\ifxdu@msfonts\xdu@msfontsfalse
@@ -273,6 +276,7 @@
 \DeclareOption{master}{\xdu@mastertrue}
 \DeclareOption{doctor}{\xdu@doctortrue}
 \DeclareOption{secret}{\xdu@secrettrue}
+\DeclareOption{english}{\xdu@englishtrue}
 \DeclareOption{print}{\xdu@printtrue}
 \DeclareOption{msfonts}{\xdu@msfontstrue}
 \DeclareOption{adobefonts}{\xdu@msfontsfalse}
@@ -645,12 +649,21 @@
 %
 % 其实可以直接写到~\cs{chapter} 的定义里面。
 %    \begin{macrocode} 
+\ifxdu@english
+\renewcommand{\chaptermark}[1]{%
+  \ifodd\c@page%
+    \markboth{#1}{\xdu@etitle}%
+  \else%
+    \markboth{\xdu@etitle}{#1}%
+  \fi}
+\else
 \renewcommand{\chaptermark}[1]{%
   \ifodd\c@page%
     \markboth{#1}{\xdu@ctitle}%
   \else%
     \markboth{\xdu@ctitle}{#1}%
   \fi}
+\fi
 \renewcommand{\sectionmark}[1]{}
 %</cls>
 %    \end{macrocode}
@@ -824,6 +837,11 @@
 %
 %    \begin{macrocode}
 %<*cfg>
+\ifxdu@english
+\renewcommand{\bibname}{References}
+\newcommand{\xdu@ackname}{Acknowledgments}
+\renewcommand{\chaptername}{Chapter {\@arabic\c@chapter}}
+\else
 \renewcommand\contentsname{目\hspace{1em}录}
 \renewcommand\listfigurename{插图索引}
 \renewcommand\listtablename{表格索引}
@@ -834,23 +852,24 @@
 \renewcommand\indexname{索引}
 \renewcommand\figurename{图}
 \renewcommand\tablename{表}
-\newcommand\CJKprepartname{第}
-\newcommand\CJKpartname{部分}
-\newcommand\CJKthepart{\CJKnumber{\@arabic\c@part}}
 \def\xdu@CJKnumber#1{\ifcase#1{零}\or%
                     {一}\or{二}\or{三}\or{四}\or{五}\or%
                     {六}\or{七}\or{八}\or{九}\or{十}\or%
                     {十一}\or{十二}\or{十三}\or{十四}\or{十五}\or%
                     {十六}\or{十七}\or{十八}\or{十九}\or{二十}\fi}
+\newcommand\CJKprepartname{第}
+\newcommand\CJKpartname{部分}
+\newcommand\CJKthepart{\CJKnumber{\@arabic\c@part}}
 \newcommand\CJKprechaptername{第}
 \newcommand\CJKchaptername{章}
 \newcommand\CJKthechapter{\xdu@CJKnumber{\@arabic\c@chapter}}
 \newcommand{\CJKthechaptername}[1]{%
             \CJKprechaptername\xdu@CJKnumber{\@arabic#1}\CJKchaptername}
-\renewcommand\chaptername{\CJKprechaptername\CJKthechapter\CJKchaptername}
+\renewcommand{\chaptername}{\CJKprechaptername\CJKthechapter\CJKchaptername}
+\newcommand{\xdu@ackname}{致\hspace{1em}谢}
+\fi
 \newcommand{\cabstractname}{摘\hspace{1em}要}
 \newcommand{\eabstractname}{ABSTRACT}
-\newcommand{\xdu@ackname}{致\hspace{1em}谢}
 \newcommand{\xdu@ckeywords@title}{关键词：}
 %</cfg>
 %    \end{macrocode}
@@ -878,12 +897,17 @@
   \secdef\@chapter\@schapter}
 \def\@chapter[#1]#2{%
   \if@mainmatter\refstepcounter{chapter}\fi
+  \ifxdu@english%
+  \addcontentsline{toc}{chapter}{\xiaosi\bfseries\@chapapp~#1}%
+  \chaptermark{\@chapapp~#1}%
+  \else%
   \addcontentsline{toc}{chapter}{\xiaosi\song\bfseries\@chapapp\hskip1ex#1}%
   \chaptermark{\@chapapp\hskip2ex#1}%
+  \fi%
   \@makechapterhead{#2}}
 \def\@makechapterhead#1{\noindent%
   \parbox[b]{\textwidth}{\vskip15mm}%
-  {\centering \sanhao\hei%
+  {\centering \sanhao\hei\bfseries%
     \ifnum \c@secnumdepth > \m@ne%
       \@chapapp\hskip1ex%
     \fi%
@@ -898,7 +922,7 @@
   \@afterheading}
 \def\@makeschapterhead#1{\noindent%
   \parbox[b]{\textwidth}{\vskip15mm}%
-  {\sanhao\hei\centering%
+  {\sanhao\hei\bfseries\centering%
    \interlinepenalty\@M
    #1\par\nobreak%
    \vskip4ex%
@@ -911,7 +935,7 @@
 % 采用宋体四号（14pt）字居中书写。
 %
 %    \begin{macrocode}
-\renewcommand\section{%
+\renewcommand\section{\par%
   \ifdim\prevdepth=-1000pt\dimen0=1ex%
   \else\dimen0=3ex\fi%
   \@startsection {section}{1}{\z@}%
@@ -1447,7 +1471,11 @@
 %
 %    \begin{macrocode}
 %<*cls>
+\ifxdu@english
+\newenvironment{acknowledgments}{\chapter*{\bfseries\xdu@ackname}}{}
+\else
 \newenvironment{acknowledgments}{\chapter*{\xdu@ackname}}{}
+\fi
 %</cls>
 %    \end{macrocode}
 %
