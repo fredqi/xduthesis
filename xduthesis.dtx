@@ -6,7 +6,7 @@
 %% \fi
 %% \iffalse meta-comment
 %%
-%% Copyright (C) 2008-2011 by gprsnl <gprsnl@yeah.net>
+%% Copyright (C) 2008-2014 by Fred Qi <fred.qi@gmail.com>
 %%
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3a
@@ -20,11 +20,11 @@
 %%
 %% \fi
 %
-% \CheckSum{1662}
+% \CheckSum{1667}
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xdthesis.dtx}[2012/12/14 0.9.7 Xidian University Thesis Template]
+\ProvidesFile{xduthesis.dtx}[2014/04/19 0.9.9 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
 \usepackage{metalogo}
@@ -104,13 +104,13 @@
 \CodelineIndex
 \RecordChanges
 \begin{document}
-\DocInput{xdthesis.dtx}
+\DocInput{xduthesis.dtx}
 \clearpage
 \end{document}
 %</driver>
 % \fi
 %
-% \GetFileInfo{xdthesis.dtx}
+% \GetFileInfo{xduthesis.dtx}
 % \MakeShortVerb{\|}
 %
 % \changes{v0.9.4}{2012/01/10}{Made the full support for the master option.}
@@ -122,7 +122,7 @@
 % \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and floats formats.}
 % \changes{v0.1}{2008/06/24}{The \XeLaTeX\ template for writing thesis of Xidian starts.}
 %
-% \def\xdthesis{\textsc{XD}\-\textsc{Thesis}}
+% \def\xduthesis{\textsc{XDU}\-\textsc{Thesis}}
 % \def\pkg#1{\texttt{#1}}
 % \def\xdu{西安电子科技大学}
 %
@@ -148,7 +148,7 @@
 % \renewcommand{\abstractname}{摘~~要}
 % \renewcommand{\contentsname}{目~~录}
 %
-% \title{\xdthesis：\xdu{}学位论文模板\thanks{Xidian University \XeLaTeX{}
+% \title{\xduthesis：\xdu{}学位论文模板\thanks{Xidian University \XeLaTeX{}
 %     Thesis Template.}}
 % \author{齐飞\\[5pt]
 %   \texttt{fred.qi@gmail.com}} \date{v\fileversion\ (\filedate)}
@@ -194,7 +194,7 @@
 % \label{sec:installation}
 %
 % \subsection{下载}
-% \xdthesis{} 的主页是：  \url{http://code.google.com/p/xdthesis/}。
+% \xduthesis{} 的主页是：  \url{https://github.com/fredqi/xduthesis}。
 %
 % \section{使用说明}
 % \label{sec:userguide}
@@ -247,8 +247,8 @@
 % \subsection{基本信息}
 %    \begin{macrocode}
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<cls>\ProvidesClass{xdthesis}
-%<cfg>\ProvidesFile{xdthesis.cfg}
+%<cls>\ProvidesClass{xduthesis}
+%<cfg>\ProvidesFile{xduthesis.cfg}
 %<cls|cfg>[2009/06/06 0.2 Xidian University Thesis Template]
 %    \end{macrocode}
 %
@@ -260,27 +260,27 @@
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{XD-Thesis}
-\def\xdthesis{\textsc{XDThesis}}
-\def\version{0.9.4}
-\newif\ifxd@bachelor\xd@bachelorfalse
-\newif\ifxd@master\xd@masterfalse
-\newif\ifxd@doctor\xd@doctorfalse
-\newif\ifxd@secret\xd@secretfalse
-\newif\ifxd@mkabstract\xd@mkabstractfalse
-\newif\ifxd@print\xd@printfalse
-\newif\ifxd@msfonts\xd@msfontsfalse
-\DeclareOption{bachelor}{\xd@bachelortrue}
-\DeclareOption{master}{\xd@mastertrue}
-\DeclareOption{doctor}{\xd@doctortrue}
-\DeclareOption{secret}{\xd@secrettrue}
-\DeclareOption{print}{\xd@printtrue}
-\DeclareOption{msfonts}{\xd@msfontstrue}
-\DeclareOption{adobefonts}{\xd@msfontsfalse}
+\def\xduthesis{\textsc{Xduthesis}}
+\def\version{0.9.9}
+\newif\ifxdu@bachelor\xdu@bachelorfalse
+\newif\ifxdu@master\xdu@masterfalse
+\newif\ifxdu@doctor\xdu@doctorfalse
+\newif\ifxdu@secret\xdu@secretfalse
+\newif\ifxdu@mkabstract\xdu@mkabstractfalse
+\newif\ifxdu@print\xdu@printfalse
+\newif\ifxdu@msfonts\xdu@msfontsfalse
+\DeclareOption{bachelor}{\xdu@bachelortrue}
+\DeclareOption{master}{\xdu@mastertrue}
+\DeclareOption{doctor}{\xdu@doctortrue}
+\DeclareOption{secret}{\xdu@secrettrue}
+\DeclareOption{print}{\xdu@printtrue}
+\DeclareOption{msfonts}{\xdu@msfontstrue}
+\DeclareOption{adobefonts}{\xdu@msfontsfalse}
 \AtEndOfClass{%
-  \ifxd@bachelor\relax\else
-    \ifxd@master\relax\else
-      \ifxd@doctor\relax\else
-        \ClassError{xdthesis}%
+  \ifxdu@bachelor\relax\else
+    \ifxdu@master\relax\else
+      \ifxdu@doctor\relax\else
+        \ClassError{xduthesis}%
                    {Please specify a thesis option: bachelor, master or doctor.}{}
       \fi
     \fi
@@ -290,7 +290,7 @@
 %    \begin{macrocode}
 \ExecuteOptions{}
 \ProcessOptions
-\ifxd@print
+\ifxdu@print
 \LoadClass[12pt, a4paper, openright]{book}
 \else
 \LoadClass[12pt, a4paper, openany]{book}
@@ -313,7 +313,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ifxd@print
+\ifxdu@print
 \RequirePackage[xetex,colorlinks=true,allcolors=black]{hyperref}
 \else
 \RequirePackage[xetex,colorlinks=true]{hyperref}
@@ -378,7 +378,7 @@
 \punctstyle{quanjiao}
 \def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
 \defaultfontfeatures{Mapping=tex-text} % after fontspec
-\ifxd@msfonts
+\ifxdu@msfonts
 \setCJKmainfont{SimSun}
 \setCJKsansfont{SimHei}
 \setCJKmonofont{KaiTi_GB2312}
@@ -413,17 +413,17 @@
 %    \begin{macrocode}
 %<*cls>
 \renewcommand\frontmatter{%
-  \xd@clearpage%
+  \xdu@clearpage%
   \@mainmatterfalse
-  \ifxd@doctor\pagenumbering{Roman}\else\pagenumbering{roman}\fi
-  \pagestyle{xd@front}}
+  \ifxdu@doctor\pagenumbering{Roman}\else\pagenumbering{roman}\fi
+  \pagestyle{xdu@front}}
 \renewcommand\mainmatter{%
-  \xd@clearpage
+  \xdu@clearpage
   \@mainmattertrue
   \pagenumbering{arabic}
-  \pagestyle{xd@headings}}
+  \pagestyle{xdu@headings}}
 \renewcommand\backmatter{%
-  \xd@clearpage
+  \xdu@clearpage
   \@mainmattertrue}
 %</cls>
 %    \end{macrocode}
@@ -489,31 +489,31 @@
 % \begin{macro}{\qihao}
 % \begin{macro}{\bahao}
 %    \begin{macrocode}
-\newlength\xd@linespace
-\newcommand{\xd@choosefont}[2]{%
-   \setlength{\xd@linespace}{#2*\real{#1}}%
-   \fontsize{#2}{\xd@linespace}\selectfont}
-\def\xd@define@fontsize#1#2{%
+\newlength\xdu@linespace
+\newcommand{\xdu@choosefont}[2]{%
+   \setlength{\xdu@linespace}{#2*\real{#1}}%
+   \fontsize{#2}{\xdu@linespace}\selectfont}
+\def\xdu@define@fontsize#1#2{%
   \expandafter\newcommand\csname #1\endcsname[1][\baselinestretch]{%
-    \xd@choosefont{##1}{#2}}}
-\xd@define@fontsize{chuhao}{42bp}
-\xd@define@fontsize{xiaochu}{36bp}
-\xd@define@fontsize{yihao}{26bp}
-\xd@define@fontsize{xiaoyi}{24bp}
-\xd@define@fontsize{erhao}{22bp}
-\xd@define@fontsize{xiaoer}{18bp}
-\xd@define@fontsize{sanhao}{16bp}
-\xd@define@fontsize{xiaosan}{15bp}
-\xd@define@fontsize{sihao}{14bp}
-\xd@define@fontsize{banxiaosi}{13bp}
-\xd@define@fontsize{xiaosi}{12bp}
-\xd@define@fontsize{dawu}{11bp}
-\xd@define@fontsize{wuhao}{10.5bp}
-\xd@define@fontsize{xiaowu}{9bp}
-\xd@define@fontsize{liuhao}{7.5bp}
-\xd@define@fontsize{xiaoliu}{6.5bp}
-\xd@define@fontsize{qihao}{5.5bp}
-\xd@define@fontsize{bahao}{5bp}
+    \xdu@choosefont{##1}{#2}}}
+\xdu@define@fontsize{chuhao}{42bp}
+\xdu@define@fontsize{xiaochu}{36bp}
+\xdu@define@fontsize{yihao}{26bp}
+\xdu@define@fontsize{xiaoyi}{24bp}
+\xdu@define@fontsize{erhao}{22bp}
+\xdu@define@fontsize{xiaoer}{18bp}
+\xdu@define@fontsize{sanhao}{16bp}
+\xdu@define@fontsize{xiaosan}{15bp}
+\xdu@define@fontsize{sihao}{14bp}
+\xdu@define@fontsize{banxiaosi}{13bp}
+\xdu@define@fontsize{xiaosi}{12bp}
+\xdu@define@fontsize{dawu}{11bp}
+\xdu@define@fontsize{wuhao}{10.5bp}
+\xdu@define@fontsize{xiaowu}{9bp}
+\xdu@define@fontsize{liuhao}{7.5bp}
+\xdu@define@fontsize{xiaoliu}{6.5bp}
+\xdu@define@fontsize{qihao}{5.5bp}
+\xdu@define@fontsize{bahao}{5bp}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -559,7 +559,7 @@
 \setlength{\topskip}{0pt}
 \setlength{\footskip}{1pt}
 \setlength{\skip\footins}{15pt}
-\ifxd@doctor
+\ifxdu@doctor
 \addtolength{\textheight}{-5.0cm}
 \else
 \addtolength{\textheight}{-4.5cm}
@@ -578,63 +578,63 @@
 %
 %    \begin{macrocode}
 %<*cfg>
-\def\ps@xd@pagefoot{西安电子科技大学博士学位论文}
+\def\ps@xdu@pagefoot{西安电子科技大学博士学位论文}
 %</cfg>
 %<*cls>
-\def\xd@clearpage{%
+\def\xdu@clearpage{%
   \clearpage%
   \if@openright%
     \ifodd\c@page\relax\else%
-      \null\thispagestyle{xd@empty}\newpage%
+      \null\thispagestyle{xdu@empty}\newpage%
     \fi%
   \fi}
 %    \end{macrocode}
 %
 %
-% 定义页眉和页脚。chapter 自动调用~thispagestyle{xd@front}，所以要重新定
-% 义~xd@front。
-% \begin{macro}{\ps@xd@empty}
-% \begin{macro}{\ps@xd@front}
-% \begin{macro}{\ps@xd@headings}
+% 定义页眉和页脚。chapter 自动调用~thispagestyle{xdu@front}，所以要重新定
+% 义~xdu@front。
+% \begin{macro}{\ps@xdu@empty}
+% \begin{macro}{\ps@xdu@front}
+% \begin{macro}{\ps@xdu@headings}
 % 定义页眉页脚格式：
 % \begin{itemize}
-% \item \texttt{xd@empty} ：无页眉页脚
-% \item \texttt{xd@front} ：页眉中无页码
-% \item \texttt{xd@headings}：页眉中显示页码
+% \item \texttt{xdu@empty} ：无页眉页脚
+% \item \texttt{xdu@front} ：页眉中无页码
+% \item \texttt{xdu@headings}：页眉中显示页码
 % \end{itemize}
 %    \begin{macrocode}
-\def\ps@xd@empty{%
+\def\ps@xdu@empty{%
   \let\@oddhead\@empty%
   \let\@evenhead\@empty%
   \let\@oddfoot\@empty%
   \let\@evenfoot\@empty}
-\def\ps@xd@foot@doctor{\vbox{\vskip10pt\rule{\textwidth}{1mm}%
+\def\ps@xdu@foot@doctor{\vbox{\vskip10pt\rule{\textwidth}{1mm}%
     \vskip1pt\rule{\textwidth}{0.75pt}\vskip1pt%
-    \hbox to\textwidth{\hfil{\xiaowu\ps@xd@pagefoot}\hfil}}}
-\def\ps@xd@front{%
+    \hbox to\textwidth{\hfil{\xiaowu\ps@xdu@pagefoot}\hfil}}}
+\def\ps@xdu@front{%
   \def\@oddhead{\vbox{\hbox to\textwidth{%
         \hfil{\wuhao\noindent\leftmark}%
-        \hfil{\ifxd@doctor\xiaowu\thepage\fi}\hskip1pt}%
-      \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1pt\fi%
+        \hfil{\ifxdu@doctor\xiaowu\thepage\fi}\hskip1pt}%
+      \vskip2pt\ifxdu@doctor\rule{\textwidth}{1mm}\vskip1pt\fi%
       \rule{\textwidth}{0.75pt}}}%
   \def\@evenhead{\vbox{\hbox to\textwidth{%
-        \hskip1pt{\ifxd@doctor\xiaowu\thepage\fi}%
+        \hskip1pt{\ifxdu@doctor\xiaowu\thepage\fi}%
         \hfil{\let\\=\relax\wuhao\rightmark}\hfil}%
-      \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
+      \vskip2pt\ifxdu@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
       \rule{\textwidth}{0.75pt}}}%
-  \def\@oddfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}%
-  \def\@evenfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}}%
-\def\ps@xd@headings{% 
+  \def\@oddfoot{\ifxdu@doctor\ps@xdu@foot@doctor\else\@empty\fi}%
+  \def\@evenfoot{\ifxdu@doctor\ps@xdu@foot@doctor\else\@empty\fi}}%
+\def\ps@xdu@headings{% 
   \def\@oddhead{\vbox{\hbox to\textwidth{%
         \hfil{\wuhao\noindent\leftmark}\hfil{\xiaowu\thepage}\hskip1pt}%
-      \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
+      \vskip2pt\ifxdu@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
       \rule{\textwidth}{0.75pt}}}%
   \def\@evenhead{\vbox{\hbox to\textwidth{%
         \hskip1pt{\xiaowu\thepage}\hfil{\let\\=\relax\wuhao\rightmark}\hfil}%
-      \vskip2pt\ifxd@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
+      \vskip2pt\ifxdu@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
       \rule{\textwidth}{0.75pt}}}%
-  \def\@oddfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}%
-  \def\@evenfoot{\ifxd@doctor\ps@xd@foot@doctor\else\@empty\fi}}
+  \def\@oddfoot{\ifxdu@doctor\ps@xdu@foot@doctor\else\@empty\fi}%
+  \def\@evenfoot{\ifxdu@doctor\ps@xdu@foot@doctor\else\@empty\fi}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -647,9 +647,9 @@
 %    \begin{macrocode} 
 \renewcommand{\chaptermark}[1]{%
   \ifodd\c@page%
-    \markboth{#1}{\xd@ctitle}%
+    \markboth{#1}{\xdu@ctitle}%
   \else%
-    \markboth{\xd@ctitle}{#1}%
+    \markboth{\xdu@ctitle}{#1}%
   \fi}
 \renewcommand{\sectionmark}[1]{}
 %</cls>
@@ -662,12 +662,12 @@
 % 用于中文段落缩进和正文版式
 %    \begin{macrocode}
 %<*cls>
-\newlength\xd@CJK@twochars
-\newcommand{\xd@unicode}[2]{\char\numexpr#1*256+#2\relax}
-\def\xd@CJK@space{\xd@unicode{48}{7}}
+\newlength\xdu@CJK@twochars
+\newcommand{\xdu@unicode}[2]{\char\numexpr#1*256+#2\relax}
+\def\xdu@CJK@space{\xdu@unicode{48}{7}}
 \def\CJKindent{%
-  \settowidth\xd@CJK@twochars{\xd@CJK@space\xd@CJK@space}%
-  \parindent\xd@CJK@twochars}
+  \settowidth\xdu@CJK@twochars{\xdu@CJK@space\xdu@CJK@space}%
+  \parindent\xdu@CJK@twochars}
 %    \end{macrocode}
 %
 % 段落之间的竖直距离
@@ -676,9 +676,9 @@
 %    \end{macrocode}
 %
 % 调整默认列表环境间的距离，以符合中文习惯。
-% \begin{macro}{xd@item@space}
+% \begin{macro}{xdu@item@space}
 %    \begin{macrocode}
-\def\xd@item@space{%
+\def\xdu@item@space{%
   \let\itemize\compactitem
   \let\enditemize\endcompactitem
   \let\enumerate\compactenum
@@ -705,39 +705,39 @@
 \fontspec[BoldFont={Adobe Song Std},BoldFeatures={RawFeature={embolden=2}}]{Adobe Song Std}
 }
 
-\def\xd@daihao{10701}
-\def\xd@xuehao{0911120728}
-\def\xd@leihao{TP391.41}
-\def\xd@miji{公开}
+\def\xdu@daihao{10701}
+\def\xdu@xuehao{0911120728}
+\def\xdu@leihao{TP391.41}
+\def\xdu@miji{公开}
 
-\def\xd@timuI{论文题目}
-\def\xd@timuII{}
-\def\xd@timuIII{}
-\def\xd@timuIIII{}
-\def\xd@xingming{作者姓名}
-\def\xd@jiaoshi{教师姓名职称}
-\def\xd@menglei{学科门类}
-\def\xd@zhuanye{学科专业}
-\def\xd@riqi{日期}
+\def\xdu@timuI{论文题目}
+\def\xdu@timuII{}
+\def\xdu@timuIII{}
+\def\xdu@timuIIII{}
+\def\xdu@xingming{作者姓名}
+\def\xdu@jiaoshi{教师姓名职称}
+\def\xdu@menglei{学科门类}
+\def\xdu@zhuanye{学科专业}
+\def\xdu@riqi{日期}
 	
-\newcommand\daihao[1]{\def\xd@daihao{#1}}
-\newcommand\xuehao[1]{\def\xd@xuehao{#1}}
-\newcommand\leihao[1]{\def\xd@leihao{#1}}
-\newcommand\miji[1]{\def\xd@miji{#1}}
+\newcommand\daihao[1]{\def\xdu@daihao{#1}}
+\newcommand\xuehao[1]{\def\xdu@xuehao{#1}}
+\newcommand\leihao[1]{\def\xdu@leihao{#1}}
+\newcommand\miji[1]{\def\xdu@miji{#1}}
 
-\newcommand\timuI[1]{\def\xd@timuI{#1}}
-\newcommand\timuII[1]{\def\xd@timuII{#1}}
-\newcommand\timuIII[1]{\def\xd@timuIII{#1}}
-\newcommand\timuIIII[1]{\def\xd@timuIIII{#1}}
-\newcommand\xingming[1]{\def\xd@xingming{#1}}
-\newcommand\jiaoshi[1]{\def\xd@jiaoshi{#1}}
-\newcommand\menglei[1]{\def\xd@menglei{#1}}
-\newcommand\zhuanye[1]{\def\xd@zhuanye{#1}}
-\newcommand\riqi[1]{\def\xd@riqi{#1}}
+\newcommand\timuI[1]{\def\xdu@timuI{#1}}
+\newcommand\timuII[1]{\def\xdu@timuII{#1}}
+\newcommand\timuIII[1]{\def\xdu@timuIII{#1}}
+\newcommand\timuIIII[1]{\def\xdu@timuIIII{#1}}
+\newcommand\xingming[1]{\def\xdu@xingming{#1}}
+\newcommand\jiaoshi[1]{\def\xdu@jiaoshi{#1}}
+\newcommand\menglei[1]{\def\xdu@menglei{#1}}
+\newcommand\zhuanye[1]{\def\xdu@zhuanye{#1}}
+\newcommand\riqi[1]{\def\xdu@riqi{#1}}
 	
 \newcommand{\xdcover}{%
 
-\ifxd@master
+\ifxdu@master
 {
 \cleardoublepage
 \thispagestyle{empty}
@@ -746,28 +746,28 @@
 \bfseries\heiti\dawu
 \makebox[1cm]{}\vspace{4mm}
 
-\hspace{2mm}{代~~~~~~号}\xddashuline[4.3cm]{\boldhei\xd@daihao} \hspace*{1.4cm}
-{学~~~~~~号}\xddashuline[4.3cm]{\boldhei\xd@xuehao} \vspace{3mm}
+\hspace{2mm}{代~~~~~~号}\xddashuline[4.3cm]{\boldhei\xdu@daihao} \hspace*{1.4cm}
+{学~~~~~~号}\xddashuline[4.3cm]{\boldhei\xdu@xuehao} \vspace{3mm}
 
-\hspace{2mm}{分~类~号}\xddashuline[4.3cm]{\boldhei\xd@leihao} \hspace*{1.4cm}
-{密~~~~~~级}\xddashuline[4.3cm]{\xd@miji} \vspace{13.8cm}
+\hspace{2mm}{分~类~号}\xddashuline[4.3cm]{\boldhei\xdu@leihao} \hspace*{1.4cm}
+{密~~~~~~级}\xddashuline[4.3cm]{\xdu@miji} \vspace{13.8cm}
 
 \bfseries\sihao
-\noindent\makebox[3.2cm][s]{\heiti 题{\xiaowu(中、英文)}目}\xddashuline[12cm]{\boldsong\songti\xd@timuI} \vspace{-3mm}
+\noindent\makebox[3.2cm][s]{\heiti 题{\xiaowu(中、英文)}目}\xddashuline[12cm]{\boldsong\songti\xdu@timuI} \vspace{-3mm}
 
-\noindent\makebox[3.2cm][s]{}\xddashuline[12cm]{\boldsong\songti\xd@timuII} \vspace{-3mm}
+\noindent\makebox[3.2cm][s]{}\xddashuline[12cm]{\boldsong\songti\xdu@timuII} \vspace{-3mm}
 
-\noindent\makebox[3.2cm][s]{}\xddashuline[12cm]{\boldsong\xd@timuIII} \vspace{-3mm}
+\noindent\makebox[3.2cm][s]{}\xddashuline[12cm]{\boldsong\xdu@timuIII} \vspace{-3mm}
 
-\noindent\makebox[3.2cm][s]{}\xddashuline[12cm]{\boldsong\xd@timuIIII} 
+\noindent\makebox[3.2cm][s]{}\xddashuline[12cm]{\boldsong\xdu@timuIIII} 
 
-\noindent\makebox[3.2cm][s]{\heiti 作者姓名}\xddashuline[3cm]{\songti\sanhao\xd@xingming}
-	\makebox[4.4cm][s]{\heiti 指导教师姓名、职务}\xddashuline[4.46cm]{\songti\sanhao\xd@jiaoshi}\vspace{-3mm}%\vspace{5mm}
+\noindent\makebox[3.2cm][s]{\heiti 作者姓名}\xddashuline[3cm]{\songti\sanhao\xdu@xingming}
+	\makebox[4.4cm][s]{\heiti 指导教师姓名、职务}\xddashuline[4.46cm]{\songti\sanhao\xdu@jiaoshi}\vspace{-3mm}%\vspace{5mm}
 	
-\noindent\makebox[3.2cm][s]{\heiti 学科门类}\xddashuline[3cm]{\songti\sanhao\xd@menglei}
-	\makebox[2.5cm][s]{\heiti 学科、专业}\xddashuline[6.3cm]{\songti\sanhao\xd@zhuanye}\vspace{-1mm}%\vspace{7mm}
+\noindent\makebox[3.2cm][s]{\heiti 学科门类}\xddashuline[3cm]{\songti\sanhao\xdu@menglei}
+	\makebox[2.5cm][s]{\heiti 学科、专业}\xddashuline[6.3cm]{\songti\sanhao\xdu@zhuanye}\vspace{-1mm}%\vspace{7mm}
 	
-\noindent\makebox[3.2cm][s]{\heiti 提交论文日期}\xddashuline[12cm]{\songti\sanhao\xd@riqi}
+\noindent\makebox[3.2cm][s]{\heiti 提交论文日期}\xddashuline[12cm]{\songti\sanhao\xdu@riqi}
 \makebox[1cm]{}
 
 }
@@ -802,7 +802,7 @@
 \xiaosi \setlength{\baselineskip}{20pt}
 本人完全了解西安电子科技大学有关保留和使用学位论文的规定，即：研究生在校攻读学位期间论文工作的知识产权单位属西安电子科技大学。学校有权保留送交论文的复印件，允许查阅和借阅论文；学校可以公布论文的全部或部分内容，可以允许采用影印、缩印或其它复制手段保存论文。同时本人保证，毕业后结合学位论文研究课题再撰写的文章一律署名单位为西安电子科技大学。
 
-本人授权西安电子科技大学图书馆保存学位论文，本学位论文属于\xd@miji（保密级别），在
+本人授权西安电子科技大学图书馆保存学位论文，本学位论文属于\xdu@miji（保密级别），在
 \xduline[1cm]{}年解密后适用本授权书，并同意将论文在互联网上发布。\\\\
 
 本人签名：\xduline[3cm]{} \hspace{2.5cm} 日期：\xduline[3cm]{}  \\      
@@ -837,21 +837,21 @@
 \newcommand\CJKprepartname{第}
 \newcommand\CJKpartname{部分}
 \newcommand\CJKthepart{\CJKnumber{\@arabic\c@part}}
-\def\xd@CJKnumber#1{\ifcase#1{零}\or%
+\def\xdu@CJKnumber#1{\ifcase#1{零}\or%
                     {一}\or{二}\or{三}\or{四}\or{五}\or%
                     {六}\or{七}\or{八}\or{九}\or{十}\or%
                     {十一}\or{十二}\or{十三}\or{十四}\or{十五}\or%
                     {十六}\or{十七}\or{十八}\or{十九}\or{二十}\fi}
 \newcommand\CJKprechaptername{第}
 \newcommand\CJKchaptername{章}
-\newcommand\CJKthechapter{\xd@CJKnumber{\@arabic\c@chapter}}
+\newcommand\CJKthechapter{\xdu@CJKnumber{\@arabic\c@chapter}}
 \newcommand{\CJKthechaptername}[1]{%
-            \CJKprechaptername\xd@CJKnumber{\@arabic#1}\CJKchaptername}
+            \CJKprechaptername\xdu@CJKnumber{\@arabic#1}\CJKchaptername}
 \renewcommand\chaptername{\CJKprechaptername\CJKthechapter\CJKchaptername}
 \newcommand{\cabstractname}{摘\hspace{1em}要}
 \newcommand{\eabstractname}{ABSTRACT}
-\newcommand{\xd@ackname}{致\hspace{1em}谢}
-\newcommand{\xd@ckeywords@title}{关键词：}
+\newcommand{\xdu@ackname}{致\hspace{1em}谢}
+\newcommand{\xdu@ckeywords@title}{关键词：}
 %</cfg>
 %    \end{macrocode}
 
@@ -870,9 +870,9 @@
 %    \begin{macrocode}
 %<*cls>
 \renewcommand\chapter{%
-  \xd@clearpage%
-  \if@mainmatter\thispagestyle{xd@headings}%
-  \else\thispagestyle{xd@front}\fi%
+  \xdu@clearpage%
+  \if@mainmatter\thispagestyle{xdu@headings}%
+  \else\thispagestyle{xdu@front}\fi%
   \phantomsection%
   \global\@topnum\z@%
   \secdef\@chapter\@schapter}
@@ -943,32 +943,32 @@
 %    \begin{macrocode}
 %<*cls>
 \renewcommand{\tableofcontents}{%
-  \xd@clearpage%
+  \xdu@clearpage%
   \phantomsection%
   \@makeschapterhead{\contentsname}%
   \chaptermark{\contentsname}%
   \@starttoc{toc}}
-\newlength\xd@dot@space
-\setlength\xd@dot@space{0.6pc}
+\newlength\xdu@dot@space
+\setlength\xdu@dot@space{0.6pc}
 \titlecontents{chapter}[0pt]{}%
               {\contentslabel{0pt}}%
               {\hspace*{0pt}}%
-              {\titlerule*[\xd@dot@space]{.}\bfseries\contentspage}
-\dottedcontents{section}[5.8em]{}{2.1em}{\xd@dot@space}
-\dottedcontents{subsection}[8.8em]{}{2.7em}{\xd@dot@space}
+              {\titlerule*[\xdu@dot@space]{.}\bfseries\contentspage}
+\dottedcontents{section}[5.8em]{}{2.1em}{\xdu@dot@space}
+\dottedcontents{subsection}[8.8em]{}{2.7em}{\xdu@dot@space}
 %</cls>
 %    \end{macrocode}
 %
 % \subsubsection{封面和封底}
 % \label{sec:cover}
-% \begin{macro}{\xd@define@term}
+% \begin{macro}{\xdu@define@term}
 % 方便的定义封面的一些替换命令。
-% \changes{v0.9.5}{2012/06/23}{引入 \cs{xd@define@term} 定义封面命令}
+% \changes{v0.9.5}{2012/06/23}{引入 \cs{xdu@define@term} 定义封面命令}
 %    \begin{macrocode}
 %<*cls>
-\def\xd@define@term#1{
+\def\xdu@define@term#1{
   \expandafter\gdef\csname #1\endcsname##1{%
-    \expandafter\gdef\csname xd@#1\endcsname{##1}}
+    \expandafter\gdef\csname xdu@#1\endcsname{##1}}
   \csname #1\endcsname{}}
 %    \end{macrocode}
 % \end{macro}
@@ -990,21 +990,21 @@
 % \begin{macro}{\cdate}
 % \begin{macro}{\etitle}
 %    \begin{macrocode}
-\xd@define@term{subjectcode}
-\xd@define@term{catelognumber}
-\xd@define@term{classid}
-\xd@define@term{studentid}
-\xd@define@term{secretlevel}
-\xd@define@term{ctitle}
-\xd@define@term{cschool}
-\xd@define@term{cmajor}
-\xd@define@term{cfirstdiscipline}
-\xd@define@term{cseconddiscipline}
-\xd@define@term{cauthor}
-\xd@define@term{csupervisor}
-\xd@define@term{cassosupervisor}
-\xd@define@term{cdate}
-\xd@define@term{etitle}
+\xdu@define@term{subjectcode}
+\xdu@define@term{catelognumber}
+\xdu@define@term{classid}
+\xdu@define@term{studentid}
+\xdu@define@term{secretlevel}
+\xdu@define@term{ctitle}
+\xdu@define@term{cschool}
+\xdu@define@term{cmajor}
+\xdu@define@term{cfirstdiscipline}
+\xdu@define@term{cseconddiscipline}
+\xdu@define@term{cauthor}
+\xdu@define@term{csupervisor}
+\xdu@define@term{cassosupervisor}
+\xdu@define@term{cdate}
+\xdu@define@term{etitle}
 %</cls>
 %    \end{macrocode}
 % \end{macro}
@@ -1025,24 +1025,24 @@
 %
 %    \begin{macrocode}
 %<*cfg>
-\def\xd@subjectcode@prefix{代号}
-\def\xd@catelognumber@prefix{分类号}
-\def\xd@classid@prefix{班级}
-\def\xd@studentid@prefix{学号}
-\def\xd@secretlevel@prefix{密级}
-\def\xd@ctitle@prefix{\ifxd@bachelor{题目}\else{题{\xiaowu(中、英文)}目}\fi}
-\def\xd@cschool@prefix{学院}
-\def\xd@cmajor@prefix{专业}
-\def\xd@cauthor@prefix{\ifxd@bachelor{学生姓名}\else{作者姓名}\fi}
-\def\xd@csupervisor@prefix{\ifxd@bachelor{导师姓名}%
+\def\xdu@subjectcode@prefix{代号}
+\def\xdu@catelognumber@prefix{分类号}
+\def\xdu@classid@prefix{班级}
+\def\xdu@studentid@prefix{学号}
+\def\xdu@secretlevel@prefix{密级}
+\def\xdu@ctitle@prefix{\ifxdu@bachelor{题目}\else{题{\xiaowu(中、英文)}目}\fi}
+\def\xdu@cschool@prefix{学院}
+\def\xdu@cmajor@prefix{专业}
+\def\xdu@cauthor@prefix{\ifxdu@bachelor{学生姓名}\else{作者姓名}\fi}
+\def\xdu@csupervisor@prefix{\ifxdu@bachelor{导师姓名}%
   \else{指导教师姓名、职务}\fi}
-\def\xd@cfirstdiscipline@prefix{学科门类}
-\def\xd@cseconddiscipline@prefix{学科、专业}
-\def\xd@cdate@prefix{提交论文日期}
-\def\xd@thesis@str{%
-  \ifxd@bachelor{本科毕业设计论文}\else%
-    \ifxd@master{硕士学位论文}\else%
-      \ifxd@doctor{博士学位论文}\fi%
+\def\xdu@cfirstdiscipline@prefix{学科门类}
+\def\xdu@cseconddiscipline@prefix{学科、专业}
+\def\xdu@cdate@prefix{提交论文日期}
+\def\xdu@thesis@str{%
+  \ifxdu@bachelor{本科毕业设计论文}\else%
+    \ifxdu@master{硕士学位论文}\else%
+      \ifxdu@doctor{博士学位论文}\fi%
   \fi\fi}
 %</cfg>
 %    \end{macrocode} 
@@ -1054,71 +1054,71 @@
 %
 %    \begin{macrocode}
 %<*cls>
-\ifxd@bachelor
-\def\xd@urule#1#2{\hskip2pt\underline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
+\ifxdu@bachelor
+\def\xdu@urule#1#2{\hskip2pt\underline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
 \else
-\def\xd@urule#1#2{\hskip2pt\dashuline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
+\def\xdu@urule#1#2{\hskip2pt\dashuline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
 \fi
-\def\xd@put@prefix#1#2{\makebox[#1][s]{#2}}
-\def\xd@titlepage{%
-  \ifxd@bachelor%
-    \xd@titlepage@bachelor%
+\def\xdu@put@prefix#1#2{\makebox[#1][s]{#2}}
+\def\xdu@titlepage{%
+  \ifxdu@bachelor%
+    \xdu@titlepage@bachelor%
   \else%
-    \xd@titlepage@graduate%
+    \xdu@titlepage@graduate%
   \fi}
-\newcommand{\xd@titlepage@bachelor}{
+\newcommand{\xdu@titlepage@bachelor}{
   \parbox[b]{0.9\linewidth}{%
     \xiaosi[1.5]\song\bf\ignorespaces\flushright%
-    \xd@put@prefix{3em}{\xd@classid@prefix}\enskip%
-    \xd@urule{32mm}{\xd@classid}\par%
-    \xd@put@prefix{3em}{\xd@studentid@prefix}\enskip%
-    \xd@urule{32mm}{\xd@studentid}}
+    \xdu@put@prefix{3em}{\xdu@classid@prefix}\enskip%
+    \xdu@urule{32mm}{\xdu@classid}\par%
+    \xdu@put@prefix{3em}{\xdu@studentid@prefix}\enskip%
+    \xdu@urule{32mm}{\xdu@studentid}}
   \begin{center}
-    \ifxd@print\vspace{132mm}\else\vspace{18mm}
-    \includegraphics[width=77mm]{xdbadge}\par
+    \ifxdu@print\vspace{132mm}\else\vspace{18mm}
+    \includegraphics[width=77mm]{xdubadge}\par
     \vspace{15mm}
-    \parbox[t]{\linewidth}{\chuhao\hei\centering\xd@thesis@str}\par
+    \parbox[t]{\linewidth}{\chuhao\hei\centering\xdu@thesis@str}\par
     \vspace{15mm}
     \includegraphics[width=44mm]{xdlogo}\par
     \vspace{18mm}\fi
     \begin{minipage}{122mm}
       \flushleft\xiaosan[2.5]\song%
-      \xd@put@prefix{25mm}{\bf\xd@ctitle@prefix}
-      \xd@urule{95mm}{}\par
-      \xd@put@prefix{25mm}{}\xd@urule{95mm}{}\par
-      \xd@put@prefix{25mm}{\bf\xd@cschool@prefix}
-      \xd@urule{95mm}{\xd@cschool}\par
-      \xd@put@prefix{25mm}{\bf\xd@cmajor@prefix}
-      \xd@urule{95mm}{\xd@cmajor}\par
-      \xd@put@prefix{25mm}{\bf\xd@cauthor@prefix}
-      \xd@urule{95mm}{\xd@cauthor}\par
-      \xd@put@prefix{25mm}{\bf\xd@csupervisor@prefix}
-      \xd@urule{95mm}{\xd@csupervisor}
+      \xdu@put@prefix{25mm}{\bf\xdu@ctitle@prefix}
+      \xdu@urule{95mm}{}\par
+      \xdu@put@prefix{25mm}{}\xdu@urule{95mm}{}\par
+      \xdu@put@prefix{25mm}{\bf\xdu@cschool@prefix}
+      \xdu@urule{95mm}{\xdu@cschool}\par
+      \xdu@put@prefix{25mm}{\bf\xdu@cmajor@prefix}
+      \xdu@urule{95mm}{\xdu@cmajor}\par
+      \xdu@put@prefix{25mm}{\bf\xdu@cauthor@prefix}
+      \xdu@urule{95mm}{\xdu@cauthor}\par
+      \xdu@put@prefix{25mm}{\bf\xdu@csupervisor@prefix}
+      \xdu@urule{95mm}{\xdu@csupervisor}
     \end{minipage}
     \vskip-87mm\hskip25mm
     \begin{minipage}{85mm}
-      \xiaosan[2.5]\song\centering\ignorespaces\xd@ctitle
+      \xiaosan[2.5]\song\centering\ignorespaces\xdu@ctitle
     \end{minipage}
   \end{center}
 }
-\newcommand{\xd@titlepage@graduate}{
+\newcommand{\xdu@titlepage@graduate}{
   \parbox[b]{0.9\linewidth}{
     \dawu\heiti\bfseries\ignorespaces\flushright
-    \xd@put@prefix{14mm}{\xd@subjectcode@prefix}%
-    \xd@urule{45mm}{\sf\bfseries\xd@subjectcode}%
+    \xdu@put@prefix{14mm}{\xdu@subjectcode@prefix}%
+    \xdu@urule{45mm}{\sf\bfseries\xdu@subjectcode}%
     \hspace{14mm}%
-    \xd@put@prefix{14mm}{\xd@studentid@prefix}%
-    \xd@urule{45mm}{\sf\bfseries\xd@studentid}\\[3mm]
-    \xd@put@prefix{14mm}{\xd@catelognumber@prefix}%
-    \xd@urule{45mm}{\sf\bfseries\xd@catelognumber}%
+    \xdu@put@prefix{14mm}{\xdu@studentid@prefix}%
+    \xdu@urule{45mm}{\sf\bfseries\xdu@studentid}\\[3mm]
+    \xdu@put@prefix{14mm}{\xdu@catelognumber@prefix}%
+    \xdu@urule{45mm}{\sf\bfseries\xdu@catelognumber}%
     \hspace{14mm}%
-    \xd@put@prefix{14mm}{\xd@secretlevel@prefix}%
-    \xd@urule{45mm}{\xd@secretlevel}}
-  \ifxd@print\vspace{135mm}\else\vspace{18mm}
+    \xdu@put@prefix{14mm}{\xdu@secretlevel@prefix}%
+    \xdu@urule{45mm}{\xdu@secretlevel}}
+  \ifxdu@print\vspace{135mm}\else\vspace{18mm}
   \begin{center}
-    \includegraphics[width=77mm]{xdbadgegr}\par
+    \includegraphics[width=77mm]{xdubadge-gr}\par
     \vspace{15mm}
-    \parbox[t]{\linewidth}{\chuhao\hei\centering\xd@thesis@str}\par
+    \parbox[t]{\linewidth}{\chuhao\hei\centering\xdu@thesis@str}\par
     \vspace{15mm}
     \includegraphics[width=44mm]{xdlogo}\par
     \vspace{18mm}
@@ -1127,28 +1127,28 @@
   \renewcommand{\baselinestretch}{1.5}
   \begin{flushleft}
     \bfseries\heiti\sihao%
-    \xd@put@prefix{32mm}{\xd@ctitle@prefix}%
-    \xd@urule{114mm}{}\par\vskip1pt%
-    \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par\vskip1pt%
-    \xd@put@prefix{32mm}{}\xd@urule{114mm}{}\par\vskip1pt%
-    \xd@put@prefix{32mm}{}\xd@urule{114mm}{}      
+    \xdu@put@prefix{32mm}{\xdu@ctitle@prefix}%
+    \xdu@urule{114mm}{}\par\vskip1pt%
+    \xdu@put@prefix{32mm}{}\xdu@urule{114mm}{}\par\vskip1pt%
+    \xdu@put@prefix{32mm}{}\xdu@urule{114mm}{}\par\vskip1pt%
+    \xdu@put@prefix{32mm}{}\xdu@urule{114mm}{}      
   \end{flushleft}
   \vskip3mm
-  \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cauthor@prefix}
-  \xd@urule{30mm}{\song\bf\sihao\xd@cauthor}
-  \xd@put@prefix{42mm}{\bfseries\heiti\sihao\xd@csupervisor@prefix}
-  \xd@urule{37mm}{\song\bf\sihao\xd@csupervisor}\par\vskip5pt\noindent
-  \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cfirstdiscipline@prefix}
-  \xd@urule{30mm}{\song\bf\sihao\xd@cfirstdiscipline}
-  \xd@put@prefix{23mm}{\bfseries\heiti\sihao\xd@cseconddiscipline@prefix}
-  \xd@urule{57mm}{\song\bf\sihao\xd@cseconddiscipline}\par\vskip5mm\noindent
-  \xd@put@prefix{32mm}{\bfseries\heiti\sihao\xd@cdate@prefix}
-  \xd@urule{114mm}{\song\bf\sihao\xd@cdate}
+  \xdu@put@prefix{32mm}{\bfseries\heiti\sihao\xdu@cauthor@prefix}
+  \xdu@urule{30mm}{\song\bf\sihao\xdu@cauthor}
+  \xdu@put@prefix{42mm}{\bfseries\heiti\sihao\xdu@csupervisor@prefix}
+  \xdu@urule{37mm}{\song\bf\sihao\xdu@csupervisor}\par\vskip5pt\noindent
+  \xdu@put@prefix{32mm}{\bfseries\heiti\sihao\xdu@cfirstdiscipline@prefix}
+  \xdu@urule{30mm}{\song\bf\sihao\xdu@cfirstdiscipline}
+  \xdu@put@prefix{23mm}{\bfseries\heiti\sihao\xdu@cseconddiscipline@prefix}
+  \xdu@urule{57mm}{\song\bf\sihao\xdu@cseconddiscipline}\par\vskip5mm\noindent
+  \xdu@put@prefix{32mm}{\bfseries\heiti\sihao\xdu@cdate@prefix}
+  \xdu@urule{114mm}{\song\bf\sihao\xdu@cdate}
   \noindent\vskip-77mm\hskip27mm
   \begin{minipage}{110mm}
     \centering\song\bf\sihao
-    \xd@ctitle\par
-    \xd@etitle
+    \xdu@ctitle\par
+    \xdu@etitle
   \end{minipage}
   \renewcommand{\baselinestretch}{1.2}
 }
@@ -1159,10 +1159,10 @@
 % \changes{v0.9.7}{2012/12/14}{增加研究论文作者简历页}
 %
 %<*cfg>
-\def\xd@authorbio@title{作者简介}
+\def\xdu@authorbio@title{作者简介}
 %</cfg>
 %
-% \begin{macro}{\xd@make@authorbio}
+% \begin{macro}{\xdu@make@authorbio}
 %    \begin{macrocode}
 %<*cls>
 \long\@xp\def\@xp\collect@@body\@xp#\@xp1\@xp\end\@xp#\@xp2\@xp{%
@@ -1171,31 +1171,31 @@
   \push@begins{#1}\begin{#2}}
 \long\@xp\def\@xp\addto@envbody\@xp#\@xp1\@xp{%
   \addto@envbody{#1}}
-\newcommand{\xd@@cauthorbio}[1]{\long\gdef\xd@cauthorbio{#1}}
-\newenvironment{cauthorbio}[1]{\long\gdef\xd@bio@photo{#1}%
-  \collect@body\xd@@cauthorbio}{}
-\newcommand{\xd@@eauthorbio}[1]{\long\gdef\xd@eauthorbio{#1}}
-\newenvironment{eauthorbio}{\collect@body\xd@@eauthorbio}{}
+\newcommand{\xdu@@cauthorbio}[1]{\long\gdef\xdu@cauthorbio{#1}}
+\newenvironment{cauthorbio}[1]{\long\gdef\xdu@bio@photo{#1}%
+  \collect@body\xdu@@cauthorbio}{}
+\newcommand{\xdu@@eauthorbio}[1]{\long\gdef\xdu@eauthorbio{#1}}
+\newenvironment{eauthorbio}{\collect@body\xdu@@eauthorbio}{}
 % 照片区域大小 IEEEtran格式
-\def\xd@bio@photowidth{1.00in}   % width of the biography photo area
-\def\xd@bio@photodepth{1.25in}   % depth (height) of the biography photo area
+\def\xdu@bio@photowidth{1.00in}   % width of the biography photo area
+\def\xdu@bio@photodepth{1.25in}   % depth (height) of the biography photo area
 % 为放置照片留出的空白区域大小
-\def\xd@bio@hangwidth{1.15in}    % width cleared for the biography photo area
-\def\xd@bio@hangdepth{1.25in}    % depth cleared for the biography photo area
+\def\xdu@bio@hangwidth{1.15in}    % width cleared for the biography photo area
+\def\xdu@bio@hangdepth{1.25in}    % depth cleared for the biography photo area
 \newdimen\@xdtmpdimenA
 \newdimen\@xdtmpdimenB
 \newcount\@xdtmpcountA
-\def\xd@make@authorbio{%
+\def\xdu@make@authorbio{%
   \begin{center}
-    \sanhao[2]\hei{\xd@authorbio@title}
+    \sanhao[2]\hei{\xdu@authorbio@title}
   \end{center}
   \vskip2ex%
-  \def\xd@temp@photobox{\mbox{%
-      \begin{minipage}[b][\xd@bio@photodepth][c]{\xd@bio@photowidth}%
-        \centering \xd@bio@photo%
+  \def\xdu@temp@photobox{\mbox{%
+      \begin{minipage}[b][\xdu@bio@photodepth][c]{\xdu@bio@photowidth}%
+        \centering \xdu@bio@photo%
       \end{minipage}}}
-  \settoheight{\@xdtmpdimenA}{\xd@temp@photobox}
-  \@xdtmpdimenB=\xd@bio@hangdepth%
+  \settoheight{\@xdtmpdimenA}{\xdu@temp@photobox}
+  \@xdtmpdimenB=\xdu@bio@hangdepth%
   % countA has the hang depth
   \@xdtmpcountA=\@xdtmpdimenB
   % calculates lines needed to produce the hang depth
@@ -1203,12 +1203,12 @@
   \advance\@xdtmpcountA by 1% ensure we overestimate
   % reference the top of the photo area to the top of a capital T
   \settoheight{\@xdtmpdimenB}{\mbox{T}}%
-  \noindent\makebox[0pt][l]{\hspace{-\xd@bio@hangwidth}%
+  \noindent\makebox[0pt][l]{\hspace{-\xdu@bio@hangwidth}%
     \raisebox{\@xdtmpdimenB}[0pt][0pt]{%
-      \raisebox{-\xd@bio@photodepth}[0pt][0pt]{\xd@temp@photobox}}}%
-  \hangindent\xd@bio@hangwidth%
+      \raisebox{-\xdu@bio@photodepth}[0pt][0pt]{\xdu@temp@photobox}}}%
+  \hangindent\xdu@bio@hangwidth%
   \hangafter-\@xdtmpcountA%
-  \indent\xd@cauthorbio\par
+  \indent\xdu@cauthorbio\par
   \ifnum \prevgraf <\@xdtmpcountA\relax% detect when the biography text is shorter than the photo
   \advance\@xdtmpcountA by -\prevgraf% calculate how many lines we need to pad
   \advance\@xdtmpcountA by -1\relax% we compensate for the fact that we indented an extra line
@@ -1216,7 +1216,7 @@
   \multiply\@xdtmpdimenA by \@xdtmpcountA%
   \noindent\rule{0pt}{\@xdtmpdimenA}% insert an invisible support strut
   \fi%
-  \xd@eauthorbio\par%
+  \xdu@eauthorbio\par%
 }
 %</cls>
 %    \end{macrocode}
@@ -1228,12 +1228,12 @@
 % \changes{v0.9.7}{2012/12/12}{增加各级学位论文诚信声明页}
 %
 %<*cfg>
-\def\xd@xidian@str{西安电子科技大学}
-\def\xd@declaration@title{%
-  \ifxd@bachelor{毕业设计（论文）诚信声明书}%
+\def\xdu@xidian@str{西安电子科技大学}
+\def\xdu@declaration@title{%
+  \ifxdu@bachelor{毕业设计（论文）诚信声明书}%
   \else{学位论文独创性（或创新性）声明}\fi}
-\def\xd@declaration@str{
-  \ifxd@bachelor{本人声明：本人所提交的毕业论文《\xd@ctitle》是本人在指导教师指导
+\def\xdu@declaration@str{
+  \ifxdu@bachelor{本人声明：本人所提交的毕业论文《\xdu@ctitle》是本人在指导教师指导
     下独立研究、写作的成果，论文中所引用他人的无论以何种方式发布的文字、研究成
     果， 均在论文中加以说明；有关教师、同学和其他人员对本文的写作、修订提出过并为
     我在论文中加以采纳的意见、建议，均已在我的致谢辞中加以说明并深致谢意。\par{}
@@ -1244,9 +1244,9 @@
     安电子科技大学或其它教育机构的学位或证书而使用过的材料。与我一同工作的同志对
     本研究所做的任何贡献均已在论文中做了明确的说明并表示了谢意。\par{}
     申请学位论文与资料若有不实之处，本人承担一切的法律责任。}\fi}
-\def\xd@authorization@title{\ifxd@bachelor{}%
+\def\xdu@authorization@title{\ifxdu@bachelor{}%
   \else{关于论文使用授权的说明}\fi}
-\def\xd@authorization@str{\ifxd@bachelor{}%
+\def\xdu@authorization@str{\ifxdu@bachelor{}%
   \else{本人完全了解西安电子科技大学有关保留和使用学位论文的规定，即：研究生在校
     攻读学位期间论文工作的知识产权单位属西安电子科技大学。学校有权保留送交论文的
     复印件，允许查阅和借阅论文；学校可以公布论文的全部或部分内容，可以允许采用影
@@ -1254,33 +1254,33 @@
     写的文章一律署名单位为西安电子科技大学。\par%
     （保密论文在解密后遵守此规定）\par%
     本学位论文属于保密，在\underline{\hskip2em}年解密后适用本授权书。}\fi}
-\def\xd@author@presig{\ifxd@bachelor{论文作者：}\else{本人签名：}\fi}
-\def\xd@supervisor@presig{\ifxd@bachelor{指导教师已阅：}\else{导师签名：}\fi}
-\def\xd@date@presig{日期}
+\def\xdu@author@presig{\ifxdu@bachelor{论文作者：}\else{本人签名：}\fi}
+\def\xdu@supervisor@presig{\ifxdu@bachelor{指导教师已阅：}\else{导师签名：}\fi}
+\def\xdu@date@presig{日期}
 %</cfg>
 %
-% \begin{macro}{\xd@make@declaration}
+% \begin{macro}{\xdu@make@declaration}
 %    \begin{macrocode}
 %<*cls>
-\def\xd@make@declaration{%
+\def\xdu@make@declaration{%
   \song\xiaosi[1.5]
   {\centering\bfseries\sanhao%
-    \xd@xidian@str\par\xd@declaration@title\par}
-  \vskip5pt\xd@declaration@str\vskip15mm
-  \xd@put@prefix{5em}{\xd@author@presig}\underline{\hskip30mm}\hskip25mm
-  \xd@put@prefix{2em}{\xd@date@presig}\underline{\hskip30mm}\par
+    \xdu@xidian@str\par\xdu@declaration@title\par}
+  \vskip5pt\xdu@declaration@str\vskip15mm
+  \xdu@put@prefix{5em}{\xdu@author@presig}\underline{\hskip30mm}\hskip25mm
+  \xdu@put@prefix{2em}{\xdu@date@presig}\underline{\hskip30mm}\par
   \vskip20mm
-  \ifxd@bachelor{}\else
+  \ifxdu@bachelor{}\else
   {\centering\bfseries\sanhao%
-    \xd@xidian@str\par\xd@authorization@title\par}
-  \vskip5pt\xd@authorization@str\par
+    \xdu@xidian@str\par\xdu@authorization@title\par}
+  \vskip5pt\xdu@authorization@str\par
   \vskip20mm
-  \xd@put@prefix{5em}{\xd@author@presig}\underline{\hskip30mm}\hskip25mm
-  \xd@put@prefix{5em}{\xd@supervisor@presig} \underline{\hskip30mm}\par
+  \xdu@put@prefix{5em}{\xdu@author@presig}\underline{\hskip30mm}\hskip25mm
+  \xdu@put@prefix{5em}{\xdu@supervisor@presig} \underline{\hskip30mm}\par
   \vskip10mm
-  \xd@put@prefix{4em}{\xd@date@presig}
+  \xdu@put@prefix{4em}{\xdu@date@presig}
   \underline{\hskip1em\hskip30mm}\hskip25mm
-  \xd@put@prefix{4em}{\xd@date@presig}
+  \xdu@put@prefix{4em}{\xdu@date@presig}
   \underline{\hskip1em\hskip30mm}
   \fi
 }
@@ -1293,21 +1293,21 @@
 %    \begin{macrocode}
 \newcommand{\makecover}{
   \begin{titlepage}
-    \xd@titlepage
+    \xdu@titlepage
   \end{titlepage}
-  \xd@clearpage
+  \xdu@clearpage
   \addtolength{\topmargin}{15pt}
-  \ifxd@doctor
-    \thispagestyle{xd@empty}
-    \xd@make@authorbio
-    \xd@clearpage
+  \ifxdu@doctor
+    \thispagestyle{xdu@empty}
+    \xdu@make@authorbio
+    \xdu@clearpage
   \fi
-  \thispagestyle{xd@empty}
-  \xd@make@declaration
-  \xd@clearpage
+  \thispagestyle{xdu@empty}
+  \xdu@make@declaration
+  \xdu@clearpage
   \addtolength{\topmargin}{-15pt}
   \setcounter{page}{1}
-  \xd@makeabstract
+  \xdu@makeabstract
 }
 %</cls>
 %    \end{macrocode}
@@ -1334,17 +1334,17 @@
 %    \begin{macrocode}
 %<*cls>
 \let\old@tabular\@tabular
-\def\xd@tabular{\wuhao\old@tabular}
-\DeclareCaptionLabelFormat{xd@cap}{{\wuhao#1\rmfamily#2}}
-\DeclareCaptionLabelSeparator{xd@sep}{\hspace{1em}}
-\DeclareCaptionFont{xd@capfont}{\wuhao}
-\captionsetup{labelformat=xd@cap,
-              labelsep=xd@sep,
-              font=xd@capfont,
+\def\xdu@tabular{\wuhao\old@tabular}
+\DeclareCaptionLabelFormat{xdu@cap}{{\wuhao#1\rmfamily#2}}
+\DeclareCaptionLabelSeparator{xdu@sep}{\hspace{1em}}
+\DeclareCaptionFont{xdu@capfont}{\wuhao}
+\captionsetup{labelformat=xdu@cap,
+              labelsep=xdu@sep,
+              font=xdu@capfont,
               justification=centering}
 \captionsetup[table]{position=top, belowskip={12bp-\intextsep}, aboveskip=3bp} 
 \captionsetup[figure]{position=bottom, belowskip={12bp-\intextsep}, aboveskip=3bp}
-\captionsetup[subfloat]{font=xd@capfont,captionskip=6bp,%
+\captionsetup[subfloat]{font=xdu@capfont,captionskip=6bp,%
                         nearskip=6bp,farskip=0bp,topadjust=0bp}
 \renewenvironment{table}{%
   \renewcommand* {\@floatboxreset}{%
@@ -1359,36 +1359,36 @@
 % \subsubsection{摘要格式}
 % \label{sec:abstractformat}
 %
-% \begin{macro}{\xd@makeabstract}
+% \begin{macro}{\xdu@makeabstract}
 % 中文摘要部分的标题为"摘要"，用黑体三号字。
 %    \begin{macrocode}
 %<*cls>
-\newcommand{\xd@@cabstract}[1]{\long\gdef\xd@cabstract{#1}}
-\newenvironment{cabstract}{\collect@body\xd@@cabstract}{}
-\newcommand{\xd@@eabstract}[1]{\long\gdef\xd@eabstract{#1}}
-\newenvironment{eabstract}{\collect@body\xd@@eabstract}{}
-\newcommand{\xd@@ckeywords}[1]{\long\gdef\xd@ckeywords{#1}}
-\newenvironment{ckeywords}{\collect@body\xd@@ckeywords}{}
-\newcommand{\xd@@ekeywords}[1]{\long\gdef\xd@ekeywords{#1}}
-\newenvironment{ekeywords}{\collect@body\xd@@ekeywords}{}
-\newcommand{\xd@makeabstract}{%
-  \xd@mkabstracttrue%
+\newcommand{\xdu@@cabstract}[1]{\long\gdef\xdu@cabstract{#1}}
+\newenvironment{cabstract}{\collect@body\xdu@@cabstract}{}
+\newcommand{\xdu@@eabstract}[1]{\long\gdef\xdu@eabstract{#1}}
+\newenvironment{eabstract}{\collect@body\xdu@@eabstract}{}
+\newcommand{\xdu@@ckeywords}[1]{\long\gdef\xdu@ckeywords{#1}}
+\newenvironment{ckeywords}{\collect@body\xdu@@ckeywords}{}
+\newcommand{\xdu@@ekeywords}[1]{\long\gdef\xdu@ekeywords{#1}}
+\newenvironment{ekeywords}{\collect@body\xdu@@ekeywords}{}
+\newcommand{\xdu@makeabstract}{%
+  \xdu@mkabstracttrue%
 % 摘要内容用小四号字书写，两端对齐，汉字用宋体，外文字用Times New Roman 体，标点
 % 符号一律用中文输入状态下的标点符号
   \chapter*{\cabstractname}%
-  \normalsize\par\xd@cabstract\vskip12bp%
+  \normalsize\par\xdu@cabstract\vskip12bp%
 % 关键词为悬挂缩进(本科、硕士、博士论文格式相同)
-  \setbox0=\hbox{\hei\xd@ckeywords@title\hspace{1em}}%
+  \setbox0=\hbox{\hei\xdu@ckeywords@title\hspace{1em}}%
   \noindent\hangindent\wd0\hangafter1
-  \box0{\hei\xd@ckeywords}%
+  \box0{\hei\xdu@ckeywords}%
 % 英文摘要部分的标题为“ABSTRACT”，用Times New Roman 体三号字。
   \chapter*{\bfseries\eabstractname}%
-  \normalsize\par\xd@eabstract\vskip12bp%
+  \normalsize\par\xdu@eabstract\vskip12bp%
 % 关键词为悬挂缩进(本科、硕士、博士论文格式相同)
   \setbox0=\hbox{\bfseries Keywords:\hspace{1em}}%
   \noindent\hangindent\wd0\hangafter1
-  \box0{\bfseries\xd@ekeywords}%
-  \xd@mkabstractfalse%
+  \box0{\bfseries\xdu@ekeywords}%
+  \xdu@mkabstractfalse%
 }
 %</cls>
 %    \end{macrocode}
@@ -1447,7 +1447,7 @@
 %
 %    \begin{macrocode}
 %<*cls>
-\newenvironment{acknowledgments}{\chapter*{\xd@ackname}}{}
+\newenvironment{acknowledgments}{\chapter*{\xdu@ackname}}{}
 %</cls>
 %    \end{macrocode}
 %
@@ -1456,16 +1456,16 @@
 %
 %    \begin{macrocode}
 %<*cls>
-\let\xd@appendix\appendix
+\let\xdu@appendix\appendix
 \renewenvironment{appendix}{
-  \xd@appendix
+  \xdu@appendix
   \gdef\@chapapp{\appendixname~\thechapter}
 }{}
 %</cls>
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-%<cls>\AtEndOfClass{\input{xdthesis.cfg}}%
+%<cls>\AtEndOfClass{\input{xduthesis.cfg}}%
 %    \end{macrocode}
 %
 % 把 CJK 环境放到合适的位置，以免导致其它宏包的命令位于 CJK 环境中而出现问题（比
@@ -1473,7 +1473,7 @@
 %    \begin{macrocode}
 %<*cls>
 \AtBeginDocument{\CJKindent}
-\AtEndOfClass{\sloppy\xd@item@space}
+\AtEndOfClass{\sloppy\xdu@item@space}
 %</cls>
 %    \end{macrocode}
 %

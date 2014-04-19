@@ -1,8 +1,8 @@
 # cls and cfg files generated for testing
-xdthesis.cls
-xdthesis.cfg
+xduthesis.cls
+xduthesis.cfg
 # documentation
-xdthesis.pdf
+xduthesis.pdf
 
 # latex generated fiels
 *.aux
@@ -26,4 +26,4 @@ auto/
 
 # Example directory
 examples/thesis-*.pdf
-examples/xd*.eps
+examples/xdu*.eps
