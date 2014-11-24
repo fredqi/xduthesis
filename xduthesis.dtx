@@ -24,7 +24,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xduthesis.dtx}[2014/04/19 0.9.9 Xidian University Thesis Template]
+\ProvidesFile{xduthesis.dtx}[2014/11/24 0.9.10 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
 \usepackage{metalogo}
@@ -1353,6 +1353,35 @@
 %</cls>
 %    \end{macrocode}
 % \end{macro}
+%
+%
+% \subsubsection{插图索引/表格索引}
+% \label{sec:floatlists}
+%
+% \changes{v0.9.10}{2014/11/24}{按照2014研究生论文版式增加插图与表格索引}
+%
+% \begin{macro}{listoffigures}
+% \begin{macro}{listoftables}
+%    \begin{macrocode}
+%<*cls>
+\def\xdu@starttoc#1{% #1: float type, prepend type name in \listof*** entry.
+  \let\oldnumberline\numberline
+  \def\numberline##1{\oldnumberline{\csname #1name\endcsname\hskip.2ex ##1}}
+  \@starttoc{\csname ext@#1\endcsname}
+  \let\numberline\oldnumberline}
+\def\xdu@listof#1{% #1: float type
+  \@ifstar
+    {\chapter*[]{\csname list#1name\endcsname}\xdu@starttoc{#1}}
+    {\chapter*{\csname list#1name\endcsname}\xdu@starttoc{#1}}}
+\renewcommand\listoffigures{\xdu@listof{figure}}
+\renewcommand*\l@figure{\@dottedtocline{1}{0em}{3em}}
+\renewcommand\listoftables{\xdu@listof{table}}
+\let\l@table\l@figure
+%<cls>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% 
 %
 % \subsubsection{参考文献}
 % \label{sec:ref}
