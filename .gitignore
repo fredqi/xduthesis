@@ -14,9 +14,14 @@ xduthesis.pdf
 *.idx
 *.ilg
 *.ind
+*.lof
 *.log
+*.lot
 *.out
 *.toc
+
+# packaging files
+*.tar.gz
 
 # Emacs generated files
 auto/
