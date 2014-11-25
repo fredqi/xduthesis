@@ -20,11 +20,11 @@
 %%
 %% \fi
 %
-% \CheckSum{1518}
+% \CheckSum{1630}
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xduthesis.dtx}[2014/11/24 0.9.10 Xidian University Thesis Template]
+\ProvidesFile{xduthesis.dtx}[2014/11/25 1.0.0 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{url}
 \usepackage{metalogo}
@@ -419,7 +419,7 @@
 \renewcommand\frontmatter{%
   \xdu@clearpage%
   \@mainmatterfalse
-  \ifxdu@doctor\pagenumbering{Roman}\else\pagenumbering{roman}\fi
+  \ifxdu@bachelor\pagenumbering{roman}\else\pagenumbering{Roman}\fi
   \pagestyle{xdu@front}}
 \renewcommand\mainmatter{%
   \xdu@clearpage
@@ -574,6 +574,7 @@
 % \subsubsection{页眉页脚}
 % \label{sec:headerfooter}
 %
+% \changes{v1.0.0}{2014/11/25}{2014版研究生学位论文页眉页脚格式}
 % \changes{v0.9.7}{2012/12/12}{增加博士学位论文页眉与页脚格式支持}
 % \changes{v0.9.8}{2012/12/18}{修正论文题目中换行破坏右侧页眉的问题}
 %
@@ -581,9 +582,6 @@
 % 须没有页眉页脚。code stolen from fancyhdr
 %
 %    \begin{macrocode}
-%<*cfg>
-\def\ps@xdu@pagefoot{西安电子科技大学博士学位论文}
-%</cfg>
 %<*cls>
 \def\xdu@clearpage{%
   \clearpage%
@@ -607,38 +605,44 @@
 % \item \texttt{xdu@headings}：页眉中显示页码
 % \end{itemize}
 %    \begin{macrocode}
+\ifxdu@bachelor%
+  \def\ps@xdu@header@rules{\vskip2pt\rule{\textwidth}{0.6pt}}
+\else
+  \def\ps@xdu@header@rules{
+    \vskip2pt\rule{\textwidth}{0.75pt}%
+    \vskip0.75pt\rule{\textwidth}{0.75pt}}
+\fi
+\def\ps@xdu@header@lefttext{%
+  \hbox to\textwidth{%
+    \hfil{\wuhao\noindent\leftmark}\hfil%
+    {\ifxdu@bachelor\xiaowu\thepage\hskip1pt\fi}}}
+\def\ps@xdu@header@righttext{%
+  \hbox to\textwidth{%
+    {\ifxdu@bachelor\xiaowu\thepage\hskip1pt\fi}%
+    \hfil{\let\\=\relax\wuhao\rightmark}\hfil}}
+\def\ps@xdu@footer@text{%
+  \ifxdu@bachelor\relax\else%
+  \hbox to\textwidth{\hfil{\wuhao\thepage}\hfil}\fi}
+% \def\ps@xdu@foot@doctor{\vbox{\vskip10pt\rule{\textwidth}{1mm}%
+%     \vskip1pt\rule{\textwidth}{0.75pt}\vskip1pt%
+%     \hbox to\textwidth{\hfil{\wuhao\ps@xdu@pagefoot}\hfil}}}
 \def\ps@xdu@empty{%
   \let\@oddhead\@empty%
   \let\@evenhead\@empty%
   \let\@oddfoot\@empty%
   \let\@evenfoot\@empty}
-\def\ps@xdu@foot@doctor{\vbox{\vskip10pt\rule{\textwidth}{1mm}%
-    \vskip1pt\rule{\textwidth}{0.75pt}\vskip1pt%
-    \hbox to\textwidth{\hfil{\xiaowu\ps@xdu@pagefoot}\hfil}}}
 \def\ps@xdu@front{%
-  \def\@oddhead{\vbox{\hbox to\textwidth{%
-        \hfil{\wuhao\noindent\leftmark}%
-        \hfil{\ifxdu@doctor\xiaowu\thepage\fi}\hskip1pt}%
-      \vskip2pt\ifxdu@doctor\rule{\textwidth}{1mm}\vskip1pt\fi%
-      \rule{\textwidth}{0.75pt}}}%
-  \def\@evenhead{\vbox{\hbox to\textwidth{%
-        \hskip1pt{\ifxdu@doctor\xiaowu\thepage\fi}%
-        \hfil{\let\\=\relax\wuhao\rightmark}\hfil}%
-      \vskip2pt\ifxdu@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
-      \rule{\textwidth}{0.75pt}}}%
-  \def\@oddfoot{\ifxdu@doctor\ps@xdu@foot@doctor\else\@empty\fi}%
-  \def\@evenfoot{\ifxdu@doctor\ps@xdu@foot@doctor\else\@empty\fi}}%
+  \def\@oddhead{\vbox{\ps@xdu@header@lefttext\ps@xdu@header@rules}}%
+  \def\@evenhead{\vbox{\ps@xdu@header@righttext\ps@xdu@header@rules}}%
+  \def\@oddfoot{\ps@xdu@footer@text}%
+  \def\@evenfoot{\ps@xdu@footer@text}%
+}
 \def\ps@xdu@headings{% 
-  \def\@oddhead{\vbox{\hbox to\textwidth{%
-        \hfil{\wuhao\noindent\leftmark}\hfil{\xiaowu\thepage}\hskip1pt}%
-      \vskip2pt\ifxdu@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
-      \rule{\textwidth}{0.75pt}}}%
-  \def\@evenhead{\vbox{\hbox to\textwidth{%
-        \hskip1pt{\xiaowu\thepage}\hfil{\let\\=\relax\wuhao\rightmark}\hfil}%
-      \vskip2pt\ifxdu@doctor\rule{\textwidth}{1mm}\vskip1bp\fi%
-      \rule{\textwidth}{0.75pt}}}%
-  \def\@oddfoot{\ifxdu@doctor\ps@xdu@foot@doctor\else\@empty\fi}%
-  \def\@evenfoot{\ifxdu@doctor\ps@xdu@foot@doctor\else\@empty\fi}}
+  \def\@oddhead{\vbox{\ps@xdu@header@lefttext\ps@xdu@header@rules}}%
+  \def\@evenhead{\vbox{\ps@xdu@header@righttext\ps@xdu@header@rules}}%
+  \def\@oddfoot{\ps@xdu@footer@text}%
+  \def\@evenfoot{\ps@xdu@footer@text}%
+}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -649,7 +653,7 @@
 %
 % 其实可以直接写到~\cs{chapter} 的定义里面。
 %    \begin{macrocode} 
-\ifxdu@english
+\ifxdu@bachelor\ifxdu@english
 \renewcommand{\chaptermark}[1]{%
   \ifodd\c@page%
     \markboth{#1}{\xdu@etitle}%
@@ -662,6 +666,13 @@
     \markboth{#1}{\xdu@ctitle}%
   \else%
     \markboth{\xdu@ctitle}{#1}%
+  \fi}
+\fi\else
+\renewcommand{\chaptermark}[1]{%
+  \ifodd\c@page%
+    \markboth{#1}{\xdu@xidian@str\xdu@thesis@str}%
+  \else%
+    \markboth{\xdu@xidian@str\xdu@thesis@str}{#1}%
   \fi}
 \fi
 \renewcommand{\sectionmark}[1]{}
@@ -1293,7 +1304,7 @@
 % \subsubsection{摘要格式}
 % \label{sec:abstractformat}
 %
-% \changes{v0.9.10}{2014/11/24}{按照2014研究生论文版式修改摘要模板}
+% \changes{v1.0.0}{2014/11/24}{按照2014研究生论文版式修改摘要模板}
 % \changes{v0.9.9}{2014/04/20}{Fixed fragile {e,c}abstract environments.}
 %
 % \begin{macro}{\xdu@makeabstract}
@@ -1358,7 +1369,7 @@
 % \subsubsection{插图索引/表格索引}
 % \label{sec:floatlists}
 %
-% \changes{v0.9.10}{2014/11/24}{按照2014研究生论文版式增加插图与表格索引}
+% \changes{v1.0.0}{2014/11/24}{按照2014研究生论文版式增加插图与表格索引}
 %
 % \begin{macro}{listoffigures}
 % \begin{macro}{listoftables}
