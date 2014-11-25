@@ -9,8 +9,8 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2014-04-19 21:10:56(+0400) [by Fred Qi]
-%%     Update #: 137
+%% Last-Updated: 2014-11-25 13:25:45(+0300) [by Fred Qi]
+%%     Update #: 142
 %% ----------------------------------------------------------------------
 \documentclass[doctor,print]{xduthesis}
 
@@ -38,14 +38,36 @@
 \cseconddiscipline{电路与系统} %专业
 \cdate{二〇一二年十一月} % 日期
 
-% 作者中英文简介
-\input{biography}
+% Deleted in 2014
+% % 作者中英文简介
+% \input{biography}
 
 % 中英文摘要声明
 \input{abstract}
 
 % 生成论文的封面、声明页、中英文摘要
 \makecover
+
+% 插图索引
+\listoffigures
+% 表格索引
+\listoftables
+
+\chapter*{符号对照表}
+
+\begin{tabular}{rl}
+  符号 & 符号名称 \\
+  E & XX符号\\
+\end{tabular}
+
+\chapter*{缩略语对照表}
+
+\begin{tabular}{cll}
+  缩略语 & 英文全称 & 中文对照\\
+  XXX & XXX & XXX \\
+  XXX  & XXX & XXX \\
+  XXX & XXX & XXX\\
+\end{tabular}
 
 % 论文目录
 \tableofcontents
@@ -68,11 +90,6 @@
 %% 论文后置部分
 %%%%%%%%%%%%%%%
 \backmatter
-
-%% 插图索引
-% \listoffigures
-%% 表格索引
-% \listoftables
 
 %% 参考文献
 \bibliographystyle{IEEEtran}

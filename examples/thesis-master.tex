@@ -9,8 +9,8 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2014-04-19 21:11:53(+0400) [by Fred Qi]
-%%     Update #: 55
+%% Last-Updated: 2014-11-25 14:10:40(+0300) [by Fred Qi]
+%%     Update #: 84
 %% ----------------------------------------------------------------------
 
 \documentclass[master,print]{xduthesis}
@@ -51,6 +51,29 @@
 % 生成论文的封面、声明页、中英文摘要
 \makecover
 
+
+% 插图索引
+\listoffigures
+% 表格索引
+\listoftables
+
+\chapter*{符号对照表}
+
+\begin{tabular}{rl}
+  符号 & 符号名称 \\
+  E & XX符号\\
+\end{tabular}
+
+\chapter*{缩略语对照表}
+
+\begin{tabular}{cll}
+  缩略语 & 英文全称 & 中文对照\\
+  XXX & XXX & XXX \\
+  XXX  & XXX & XXX \\
+  XXX & XXX & XXX\\
+\end{tabular}
+
+
 % 论文目录
 \tableofcontents
 
@@ -67,24 +90,19 @@
 \input{ch06-bibliography}
 \input{ch07-conclusions}
 
+% 附录，建议放在参考文献之后，致谢与成果部分之前
+\begin{appendix}
+  \input{appendix01}  
+\end{appendix}
+
 %%%%%%%%%%%%%%%
 %% 论文后置部分
 %%%%%%%%%%%%%%%
 \backmatter
 
-%% 插图索引
-% \listoffigures
-%% 表格索引
-% \listoftables
-
 % 参考文献
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,refs}
-
-% 附录，建议放在参考文献之后，致谢与成果部分之前
-% \begin{appendix}
-%   \input{appendix01}  
-% \end{appendix}
 
 \input{acknowledgments}
 
