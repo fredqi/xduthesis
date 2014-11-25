@@ -20,12 +20,13 @@
 %%
 %% \fi
 %
-% \CheckSum{1630}
+% \CheckSum{1631}
 %
 % \iffalse
 %<*driver>
 \ProvidesFile{xduthesis.dtx}[2014/11/25 1.0.0 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
+\usepackage{amssymb}
 \usepackage{url}
 \usepackage{metalogo}
 \usepackage{xeCJK}
@@ -123,7 +124,8 @@
 % \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and floats formats.}
 % \changes{v0.1}{2008/06/24}{The \XeLaTeX\ template for writing thesis of Xidian starts.}
 %
-% \def\xduthesis{\textsc{XDU}\-\textsc{Thesis}}
+% \def\xduthesis{\texttt{XDU}-\texttt{Thesis}}
+% \def\xduthesis{$\mathbb{XDU}$-$\mathcal{THESIS}$}
 % \def\pkg#1{\texttt{#1}}
 % \def\xdu{西安电子科技大学}
 %
@@ -152,7 +154,7 @@
 % \title{\xduthesis：\xdu{}学位论文模板\thanks{Xidian University \XeLaTeX{}
 %     Thesis Template.}}
 % \author{齐飞\\[5pt]
-%   \texttt{fred.qi@gmail.com}} \date{v\fileversion\ (\filedate)}
+%   \texttt{fred.qi@ieee.org}} \date{v\fileversion\ (\filedate)}
 % \maketitle\thispagestyle{empty}
 %
 % \begin{abstract}
@@ -205,6 +207,8 @@
 % 模板中的命令分为两类：一是格式控制，二是内容替换。格式控制如字体、字号、字距和
 % 行距。内容替换如姓名、院系、专业、致谢等等。其中内容替换命令居多，而且主要集中
 % 在封面上。首先来看格式控制命令。
+%
+%
 %
 % \subsubsection{基本控制命令}
 % \label{sec:basiccom}
@@ -261,9 +265,9 @@
 % 定义论文类型以及是否涉密
 %    \begin{macrocode}
 %<*cls>
-\hyphenation{XD-Thesis}
-\def\xduthesis{\textsc{Xduthesis}}
-\def\version{0.9.9}
+\hyphenation{XDU-Thesis}
+\def\xduthesis{$\mathbb{XDU}$-$\mathcal{THESIS}$}
+\def\version{1.0.0}
 \newif\ifxdu@bachelor\xdu@bachelorfalse
 \newif\ifxdu@master\xdu@masterfalse
 \newif\ifxdu@doctor\xdu@doctorfalse
@@ -1242,11 +1246,11 @@
   \end{titlepage}
   \xdu@clearpage
   \addtolength{\topmargin}{15pt}
-  \ifxdu@doctor
-    \thispagestyle{xdu@empty}%
-    \xdu@make@authorbio%
-    \xdu@clearpage%
-  \fi%
+  % \ifxdu@doctor
+  %   \thispagestyle{xdu@empty}%
+  %   \xdu@make@authorbio%
+  %   \xdu@clearpage%
+  % \fi%
   \thispagestyle{xdu@empty}
   \xdu@make@declaration
   \xdu@clearpage
