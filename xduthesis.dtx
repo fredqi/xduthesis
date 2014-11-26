@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1688}
+% \CheckSum{1724}
 %
 % \iffalse
 %<*driver>
@@ -613,8 +613,8 @@
   \def\ps@xdu@header@rules{\vskip2pt\rule{\textwidth}{0.6pt}}
 \else
   \def\ps@xdu@header@rules{
-    \vskip2pt\rule{\textwidth}{0.75pt}%
-    \vskip0.75pt\rule{\textwidth}{0.75pt}}
+    \vskip4pt\rule{\textwidth}{0.6pt}%
+    \vskip0.8pt\rule{\textwidth}{0.6pt}}
 \fi
 \def\ps@xdu@header@lefttext{%
   \hbox to\textwidth{%
@@ -1296,7 +1296,11 @@
 %<*cls>
 \let\old@tabular\@tabular
 \def\xdu@tabular{\wuhao\old@tabular}
+\ifxdu@english
+\DeclareCaptionLabelFormat{xdu@cap}{{\wuhao#1~\rmfamily#2}}
+\else
 \DeclareCaptionLabelFormat{xdu@cap}{{\wuhao#1\rmfamily#2}}
+\fi
 \DeclareCaptionLabelSeparator{xdu@sep}{\hspace{1em}}
 \DeclareCaptionFont{xdu@capfont}{\wuhao}
 \captionsetup{labelformat=xdu@cap,
@@ -1414,7 +1418,8 @@
   \fi}
 \def\xdu@starttoc#1{% #1: float type, prepend type name in \listof*** entry.
   \let\oldnumberline\numberline
-  \def\numberline##1{\oldnumberline{\csname #1name\endcsname\hskip.2ex ##1}}
+  \def\numberline##1{\oldnumberline{\csname #1name\endcsname%
+      \ifxdu@english~\else\hskip.2em\fi ##1}}
   \@starttoc{\csname ext@#1\endcsname}
   \let\numberline\oldnumberline}
 \def\xdu@listof#1{% #1: float type
@@ -1422,7 +1427,11 @@
     {\chapter*[]{\csname list#1name\endcsname}\xdu@starttoc{#1}}
     {\chapter*{\csname list#1name\endcsname}\xdu@starttoc{#1}}}
 \renewcommand\listoffigures{\xdu@listof{figure}}
-\renewcommand*\l@figure{\@dottedtocline{1}{0em}{3em}}
+\ifxdu@english
+\renewcommand*\l@figure{\@dottedtocline{1}{0em}{5em}}
+\else
+\renewcommand*\l@figure{\@dottedtocline{1}{0em}{3.2em}}
+\fi
 \renewcommand\listoftables{\xdu@listof{table}}
 \let\l@table\l@figure
 %<cls>
