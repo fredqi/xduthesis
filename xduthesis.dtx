@@ -20,11 +20,11 @@
 %%
 %% \fi
 %
-% \CheckSum{1736}
+% \CheckSum{1685}
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xduthesis.dtx}[2014/11/25 1.0.0 Xidian University Thesis Template]
+\ProvidesFile{xduthesis.dtx}[2014/11/26 1.0.0 Xidian University Thesis Template]
 \documentclass[10pt]{ltxdoc}
 \usepackage{amssymb}
 \usepackage{url}
@@ -939,6 +939,7 @@
 \xdu@define@term{cfirstdiscipline}
 \xdu@define@term{cseconddiscipline}
 \xdu@define@term{cauthor}
+\xdu@define@term{cdegree}
 \xdu@define@term{csupervisor}
 \xdu@define@term{cassosupervisor}
 \xdu@define@term{cdate}
@@ -975,10 +976,11 @@
 \def\xdu@cmajor@prefix{专业}
 \def\xdu@cauthor@prefix{\ifxdu@bachelor{学生姓名}\else{作者姓名}\fi}
 \def\xdu@csupervisor@prefix{\ifxdu@bachelor{导师姓名}%
-  \else{指导教师姓名、职务}\fi}
-\def\xdu@cfirstdiscipline@prefix{学科门类}
-\def\xdu@cseconddiscipline@prefix{学科、专业}
-\def\xdu@cdate@prefix{提交论文日期}
+  \else{导师姓名、职称}\fi}
+\def\xdu@cfirstdiscipline@prefix{一级学科}
+\def\xdu@cseconddiscipline@prefix{二级学科}
+\def\xdu@cdegree@prefix{申请学位类别}
+\def\xdu@cdate@prefix{提交学位论文日期}
 \def\xdu@thesis@str{%
   \ifxdu@bachelor{本科毕业设计论文}\else%
     \ifxdu@master{硕士学位论文}\else%
@@ -987,6 +989,7 @@
 %</cfg>
 %    \end{macrocode} 
 %
+% \changes{v1.0.0}{2014/11/26}{2014研究生论文封面}
 % \changes{v0.9.8}{2013/03/14}{修正研究生论文封面行距}
 % \changes{v0.9.6}{2012/06/27}{完成了本科毕业设计封面设计}
 % \changes{v0.9.7}{2012/12/12}{完成了研究生论文封面的设计}
@@ -994,11 +997,7 @@
 %
 %    \begin{macrocode}
 %<*cls>
-\ifxdu@bachelor
 \def\xdu@urule#1#2{\hskip2pt\underline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
-\else
-\def\xdu@urule#1#2{\hskip2pt\dashuline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
-\fi
 \def\xdu@put@prefix#1#2{\makebox[#1][s]{#2}}
 \def\xdu@titlepage{%
   \ifxdu@bachelor%
@@ -1042,55 +1041,37 @@
   \end{center}
 }
 \newcommand{\xdu@titlepage@graduate}{
-  \parbox[b]{0.9\linewidth}{
-    \dawu\heiti\bfseries\ignorespaces\flushright
-    \xdu@put@prefix{14mm}{\xdu@subjectcode@prefix}%
-    \xdu@urule{45mm}{\sf\bfseries\xdu@subjectcode}%
-    \hspace{14mm}%
-    \xdu@put@prefix{14mm}{\xdu@studentid@prefix}%
-    \xdu@urule{45mm}{\sf\bfseries\xdu@studentid}\\[3mm]
-    \xdu@put@prefix{14mm}{\xdu@catelognumber@prefix}%
-    \xdu@urule{45mm}{\sf\bfseries\xdu@catelognumber}%
-    \hspace{14mm}%
-    \xdu@put@prefix{14mm}{\xdu@secretlevel@prefix}%
-    \xdu@urule{45mm}{\xdu@secretlevel}}
-  \ifxdu@print\vspace{135mm}\else\vspace{18mm}
-  \begin{center}
-    \includegraphics[width=77mm]{xdubadge-gr}\par
-    \vspace{15mm}
-    \parbox[t]{\linewidth}{\chuhao\hei\centering\xdu@thesis@str}\par
-    \vspace{15mm}
-    \includegraphics[width=44mm]{xdlogo}\par
-    \vspace{18mm}
-  \end{center}
+  \ifxdu@print%
+    \parbox{\textwidth}{\vskip143mm}
+  \else%
+    \parbox{\textwidth}{\vskip35mm}
+    \begin{center}
+      \includegraphics[width=77mm]{xdubadge-gr}\par
+      \vskip15mm
+      \parbox[t]{\linewidth}{\chuhao\hei\centering\xdu@thesis@str}\par
+      \vskip15mm
+      \includegraphics[width=44mm]{xdlogo}\par
+    \end{center}
   \fi
-  \renewcommand{\baselinestretch}{1.5}
-  \begin{flushleft}
-    \bfseries\heiti\sihao%
-    \xdu@put@prefix{32mm}{\xdu@ctitle@prefix}%
-    \xdu@urule{114mm}{}\par\vskip1pt%
-    \xdu@put@prefix{32mm}{}\xdu@urule{114mm}{}\par\vskip1pt%
-    \xdu@put@prefix{32mm}{}\xdu@urule{114mm}{}\par\vskip1pt%
-    \xdu@put@prefix{32mm}{}\xdu@urule{114mm}{}      
-  \end{flushleft}
-  \vskip3mm
-  \xdu@put@prefix{32mm}{\bfseries\heiti\sihao\xdu@cauthor@prefix}
-  \xdu@urule{30mm}{\song\bf\sihao\xdu@cauthor}
-  \xdu@put@prefix{42mm}{\bfseries\heiti\sihao\xdu@csupervisor@prefix}
-  \xdu@urule{37mm}{\song\bf\sihao\xdu@csupervisor}\par\vskip5pt\noindent
-  \xdu@put@prefix{32mm}{\bfseries\heiti\sihao\xdu@cfirstdiscipline@prefix}
-  \xdu@urule{30mm}{\song\bf\sihao\xdu@cfirstdiscipline}
-  \xdu@put@prefix{23mm}{\bfseries\heiti\sihao\xdu@cseconddiscipline@prefix}
-  \xdu@urule{57mm}{\song\bf\sihao\xdu@cseconddiscipline}\par\vskip5mm\noindent
-  \xdu@put@prefix{32mm}{\bfseries\heiti\sihao\xdu@cdate@prefix}
-  \xdu@urule{114mm}{\song\bf\sihao\xdu@cdate}
-  \noindent\vskip-77mm\hskip27mm
-  \begin{minipage}{110mm}
-    \centering\song\bf\sihao
-    \xdu@ctitle\par
-    \xdu@etitle
+  \vskip44mm\noindent
+  \xdu@put@prefix{5em}{\heiti\sihao\bfseries\xdu@cauthor@prefix}
+  \xdu@urule{12em}{\song\sihao\bfseries\xdu@cauthor}
+  \xdu@put@prefix{8em}{\heiti\sihao\bfseries\xdu@csupervisor@prefix}
+  \xdu@urule{9em}{\song\sihao\bfseries\xdu@csupervisor}\par
+  \vskip3ex\noindent
+  \xdu@put@prefix{5em}{\heiti\sihao\bfseries\xdu@cfirstdiscipline@prefix}
+  \xdu@urule{12em}{\song\sihao\bfseries\xdu@cfirstdiscipline}
+  \xdu@put@prefix{5em}{\heiti\sihao\bfseries\xdu@cseconddiscipline@prefix}
+  \xdu@urule{12em}{\song\sihao\bfseries\xdu@cseconddiscipline}\par
+  \vskip3ex\noindent
+  \xdu@put@prefix{7em}{\heiti\sihao\bfseries\xdu@cdegree@prefix}
+  \xdu@urule{10em}{\song\sihao\bfseries\xdu@cdegree}
+  \xdu@put@prefix{9em}{\heiti\sihao\bfseries\xdu@cdate@prefix}
+  \xdu@urule{8em}{\song\sihao\bfseries\xdu@cdate}\par
+  \vskip-79mm\noindent
+  \begin{minipage}{\textwidth}
+    \centering\song\erhao\bfseries\xdu@ctitle\par
   \end{minipage}
-  \renewcommand{\baselinestretch}{1.2}
 }
 %</cls>
 %    \end{macrocode}
@@ -1264,11 +1245,6 @@
   \end{titlepage}
   \xdu@clearpage
   \addtolength{\topmargin}{15pt}
-  % \ifxdu@doctor
-  %   \thispagestyle{xdu@empty}%
-  %   \xdu@make@authorbio%
-  %   \xdu@clearpage%
-  % \fi%
   \thispagestyle{xdu@empty}
   \xdu@make@declaration
   \xdu@clearpage
