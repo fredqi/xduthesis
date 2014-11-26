@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1724}
+% \CheckSum{1736}
 %
 % \iffalse
 %<*driver>
@@ -555,23 +555,29 @@
 %    \begin{macrocode}
 %<*cls>
 \setlength{\textwidth}{\paperwidth}
-\setlength{\textheight}{\paperheight}
-\setlength\marginparwidth{0cm} 
-\setlength\marginparsep{0cm}
 \addtolength{\textwidth}{-6cm}
-\setlength{\oddsidemargin}{4cm-1in}
-\setlength{\evensidemargin}{2cm-1in}
-\setlength{\topmargin}{1.45cm-1in} 
+\setlength{\textheight}{\paperheight}
+\ifxdu@bachelor
+\addtolength{\textheight}{-4.5cm}
+\setlength{\topmargin}{1.45cm-1in}
 \setlength{\headheight}{20pt}
 \setlength{\headsep}{0.6cm}
-\setlength{\topskip}{0pt}
 \setlength{\footskip}{18pt}
-\setlength{\skip\footins}{15pt}
-\ifxdu@doctor
-\addtolength{\textheight}{-5.0cm}
 \else
-\addtolength{\textheight}{-4.5cm}
+\addtolength{\textheight}{-5.5cm}
+\setlength\voffset{3cm-1in}
+\setlength{\topmargin}{-5ex}
+\setlength{\headheight}{3ex}
+\setlength{\headsep}{1ex}
+\setlength{\footskip}{5ex}
+\addtolength{\textheight}{-3ex}
 \fi
+\setlength\marginparwidth{0cm} 
+\setlength\marginparsep{0cm}
+\setlength{\oddsidemargin}{4cm-1in}
+\setlength{\evensidemargin}{2cm-1in}
+% \setlength{\topskip}{0pt}
+% \setlength{\skip\footins}{15pt}
 %</cls>
 %    \end{macrocode}
 %
@@ -785,8 +791,8 @@
   \setlength{\xdu@chapter@before}{15mm}
   \setlength{\xdu@chapter@after}{4ex}
 \else
-  \setlength{\xdu@chapter@before}{5ex}
-  \setlength{\xdu@chapter@after}{4ex}
+  \setlength{\xdu@chapter@before}{12ex}
+  \setlength{\xdu@chapter@after}{6ex}
 \fi
 \renewcommand\chapter{%
   \xdu@clearpage%
