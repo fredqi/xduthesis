@@ -928,7 +928,7 @@
 % \begin{macro}{\cdate}
 % \begin{macro}{\etitle}
 %    \begin{macrocode}
-\xdu@define@term{subjectcode}
+\xdu@define@term{universitycode}
 \xdu@define@term{catelognumber}
 \xdu@define@term{classid}
 \xdu@define@term{studentid}
@@ -966,7 +966,7 @@
 %
 %    \begin{macrocode}
 %<*cfg>
-\def\xdu@subjectcode@prefix{代号}
+\def\xdu@universitycode@prefix{学校代码}
 \def\xdu@catelognumber@prefix{分类号}
 \def\xdu@classid@prefix{班级}
 \def\xdu@studentid@prefix{学号}
@@ -1073,6 +1073,64 @@
     \centering\song\erhao\bfseries\xdu@ctitle\par
   \end{minipage}
 }
+\newcommand{\xdu@cheadpage@bachelor}{}
+\newcommand{\xdu@eheadpage@bachelor}{}
+\newcommand{\xdu@cheadpage@graduate}{
+  \noindent
+  \parbox[b]{\textwidth}{
+    \song\wuhao\bfseries\ignorespaces\flushright
+    \xdu@put@prefix{4em}{\xdu@universitycode@prefix}%
+    \xdu@urule{8em}{\xdu@universitycode}%
+    \hfill{}%
+    \xdu@put@prefix{4em}{\xdu@studentid@prefix}%
+    \xdu@urule{8em}{\xdu@studentid}
+    \par\vskip1ex
+    \xdu@put@prefix{4em}{\xdu@catelognumber@prefix}%
+    \xdu@urule{8em}{\xdu@catelognumber}%
+    \hfill
+    \xdu@put@prefix{4em}{\xdu@secretlevel@prefix}%
+    \xdu@urule{8em}{\xdu@secretlevel}}
+  \vskip18mm\noindent
+  \begin{center}
+    \song\bfseries
+    \xiaoyi\xdu@xidian@str\par
+    \vskip18mm
+    \erhao\xdu@thesis@str\par
+  \end{center}
+  \vskip65mm
+  \begingroup\song\sihao[2]
+  \newlength\xdu@headpage@hangpos
+  \setlength\xdu@headpage@hangpos{0.5\textwidth-4em}
+  \noindent\hangindent\xdu@headpage@hangpos\\
+  \begingroup\bfseries\xdu@cauthor@prefix\endgroup{：}\xdu@cauthor\\
+  \begingroup\bfseries\xdu@cfirstdiscipline@prefix\endgroup{：}
+  \xdu@cfirstdiscipline\\
+  \begingroup\bfseries\xdu@cseconddiscipline@prefix\endgroup{：}
+  \xdu@cseconddiscipline\\
+  \begingroup\bfseries\xdu@cdegree@prefix\endgroup{：}\xdu@cdegree\\
+  \begingroup\bfseries\xdu@csupervisor@prefix\endgroup{：}\xdu@csupervisor\\
+  \begingroup\bfseries\xdu@cdate@prefix\endgroup{：}\xdu@cdate\par
+  \endgroup
+  \vskip-118mm\noindent
+  \begin{minipage}{\textwidth}
+    \centering\song\erhao\bfseries\xdu@ctitle\par
+  \end{minipage}
+}
+\newcommand{\xdu@eheadpage@graduate}{
+  \parbox[b]{\textwidth}{
+    \xdu@put@prefix{14mm}{\xdu@catelognumber@prefix}%
+    \xdu@urule{45mm}{\sf\bfseries\xdu@catelognumber}%
+    \hspace{14mm}%
+    \xdu@put@prefix{14mm}{\xdu@secretlevel@prefix}%
+    \xdu@urule{45mm}{\xdu@secretlevel}}
+}
+\ifxdu@bachelor
+  \let\xdu@cheadpage\xdu@cheadpage@bachelor
+  \let\xdu@eheadpage\xdu@eheadpage@bachelor
+\else
+  \let\xdu@cheadpage\xdu@cheadpage@graduate
+  \let\xdu@eheadpage\xdu@eheadpage@graduate
+\fi
 %</cls>
 %    \end{macrocode}
 %
@@ -1243,6 +1301,12 @@
   \begin{titlepage}
     \xdu@titlepage
   \end{titlepage}
+  \xdu@clearpage
+  \thispagestyle{xdu@empty}
+  \xdu@cheadpage
+  \xdu@clearpage
+  \thispagestyle{xdu@empty}
+  \xdu@eheadpage
   \xdu@clearpage
   \addtolength{\topmargin}{15pt}
   \thispagestyle{xdu@empty}
