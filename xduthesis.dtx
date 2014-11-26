@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1685}
+% \CheckSum{1873}
 %
 % \iffalse
 %<*driver>
@@ -934,16 +934,21 @@
 \xdu@define@term{studentid}
 \xdu@define@term{secretlevel}
 \xdu@define@term{ctitle}
+\xdu@define@term{etitle}
 \xdu@define@term{cschool}
 \xdu@define@term{cmajor}
 \xdu@define@term{cfirstdiscipline}
 \xdu@define@term{cseconddiscipline}
+\xdu@define@term{eseconddiscipline}
 \xdu@define@term{cauthor}
+\xdu@define@term{eauthor}
 \xdu@define@term{cdegree}
+\xdu@define@term{edegree}
 \xdu@define@term{csupervisor}
+\xdu@define@term{esupervisor}
 \xdu@define@term{cassosupervisor}
 \xdu@define@term{cdate}
-\xdu@define@term{etitle}
+\xdu@define@term{edate}
 \xdu@define@term{cthesistype}
 \xdu@define@term{ethesistype}
 %</cls>
@@ -1117,12 +1122,28 @@
   \end{minipage}
 }
 \newcommand{\xdu@eheadpage@graduate}{
-  \parbox[b]{\textwidth}{
-    \xdu@put@prefix{14mm}{\xdu@catelognumber@prefix}%
-    \xdu@urule{45mm}{\sf\bfseries\xdu@catelognumber}%
-    \hspace{14mm}%
-    \xdu@put@prefix{14mm}{\xdu@secretlevel@prefix}%
-    \xdu@urule{45mm}{\xdu@secretlevel}}
+  \noindent\parbox{\textwidth}{\vskip155mm}
+  \noindent
+  \begin{minipage}{1.0\linewidth}
+    \noindent\centering\sanhao[1.15]
+    A \ifxdu@doctor dissertation \else thesis \fi submitted to\\
+    XIDIAN UNIVERSITY\\
+    in partial fulfillment of the requirements\\
+    for the degree of \xdu@edegree\\
+    in \xdu@eseconddiscipline
+  \end{minipage}
+  \vskip25mm
+  \begin{minipage}{1.0\linewidth}
+    \noindent\centering\sanhao[1.15]
+    By\\
+    \xdu@eauthor\\
+    Supervisor: \xdu@esupervisor\\
+    \xdu@edate
+  \end{minipage}
+  \vskip-202mm\noindent
+  \begin{minipage}{\textwidth}
+    \noindent\centering\erhao\bfseries\xdu@etitle\par
+  \end{minipage}
 }
 \ifxdu@bachelor
   \let\xdu@cheadpage\xdu@cheadpage@bachelor
