@@ -9,8 +9,8 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2014-11-27 00:51:24(+0300) [by Fred Qi]
-%%     Update #: 147
+%% Last-Updated: 2014-11-27 13:14:06(+0300) [by Fred Qi]
+%%     Update #: 150
 %% ----------------------------------------------------------------------
 \documentclass[doctor,print]{xduthesis}
 
@@ -36,9 +36,10 @@
 \eauthor{Jinjian Wu}
 \csupervisor{石光明~教授} %指导老师
 \esupervisor{Prof. Guangming Shi}
-\cfirstdiscipline{工学} %学科
-\cseconddiscipline{电路与系统} %专业
-\eseconddiscipline{Circuits and Systems}
+
+\cfirstdiscipline{电子科学与技术}
+\efirstdiscipline{Electronic Science and Technology}
+\cseconddiscipline{电路与系统}
 \cdegree{工学博士}
 \edegree{Doctor}
 \cdate{2014年11月} % 日期
@@ -54,62 +55,62 @@
 % 生成论文的封面、声明页、中英文摘要
 \makecover
 
-% 插图索引
-\listoffigures
-% 表格索引
-\listoftables
+% % 插图索引
+% \listoffigures
+% % 表格索引
+% \listoftables
 
-\chapter*{符号对照表}
+% \chapter*{符号对照表}
 
-\begin{tabular}{rl}
-  符号 & 符号名称 \\
-  E & XX符号\\
-\end{tabular}
+% \begin{tabular}{rl}
+%   符号 & 符号名称 \\
+%   E & XX符号\\
+% \end{tabular}
 
-\chapter*{缩略语对照表}
+% \chapter*{缩略语对照表}
 
-\begin{tabular}{cll}
-  缩略语 & 英文全称 & 中文对照\\
-  XXX & XXX & XXX \\
-  XXX  & XXX & XXX \\
-  XXX & XXX & XXX\\
-\end{tabular}
+% \begin{tabular}{cll}
+%   缩略语 & 英文全称 & 中文对照\\
+%   XXX & XXX & XXX \\
+%   XXX  & XXX & XXX \\
+%   XXX & XXX & XXX\\
+% \end{tabular}
 
-% 论文目录
-\tableofcontents
+% % 论文目录
+% \tableofcontents
 
-%%%%%%%%%%%%%%%
-%% 论文正文
-%%%%%%%%%%%%%%%
-\mainmatter
+% %%%%%%%%%%%%%%%
+% %% 论文正文
+% %%%%%%%%%%%%%%%
+% \mainmatter
 
 
-\input{ch01-intro}
-\input{ch02-options}
-\input{ch03-frontmatter}
-\input{ch04-mainmatter}
-\input{ch05-backmatter}
-\input{ch06-bibliography}
-\input{ch07-conclusions}
+% \input{ch01-intro}
+% \input{ch02-options}
+% \input{ch03-frontmatter}
+% \input{ch04-mainmatter}
+% \input{ch05-backmatter}
+% \input{ch06-bibliography}
+% \input{ch07-conclusions}
 
-%%%%%%%%%%%%%%%
-%% 论文后置部分
-%%%%%%%%%%%%%%%
-\backmatter
+% %%%%%%%%%%%%%%%
+% %% 论文后置部分
+% %%%%%%%%%%%%%%%
+% \backmatter
 
-%% 参考文献
-\bibliographystyle{IEEEtran}
-\bibliography{IEEEabrv,refs}
+% %% 参考文献
+% \bibliographystyle{IEEEtran}
+% \bibliography{IEEEabrv,refs}
 
-%% 附录，建议放在参考文献之后，致谢与成果部分之前
-\begin{appendix}
-  \input{appendix01}  
-\end{appendix}
+% %% 附录，建议放在参考文献之后，致谢与成果部分之前
+% \begin{appendix}
+%   \input{appendix01}  
+% \end{appendix}
 
-%% 致谢
-\input{acknowledgments}
-%% 在学期间取得的成果
-\input{achievements}
+% %% 致谢
+% \input{acknowledgments}
+% %% 在学期间取得的成果
+% \input{achievements}
 
 
 \end{document}
