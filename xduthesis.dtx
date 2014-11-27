@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1968}
+% \CheckSum{1985}
 %
 % \iffalse
 %<*driver>
@@ -1155,21 +1155,23 @@
   \end{minipage}
 }
 \newcommand{\xdu@eheadpage@graduate}{
-  \noindent\parbox{\textwidth}{\vskip178mm}
+  \noindent\parbox{\textwidth}{%
+    \ifxdu@doctor\vskip155mm\else\vskip178mm\fi}
   \noindent
   \begin{minipage}{1.0\linewidth}
     \noindent\centering\sanhao[1.57]
     A \ifxdu@doctor dissertation \else thesis \fi submitted to\\
     XIDIAN UNIVERSITY\\
     in partial fulfillment of the requirements\\
-    for the degree of \xdu@edegree\\
-    in \xdu@efirstdiscipline
+    for the degree of \xdu@edegree%
+    \ifxdu@doctor\relax\else\\in \xdu@efirstdiscipline\fi
   \end{minipage}
-  \vskip18mm
+  \ifxdu@doctor\vskip27mm\else\vskip18mm\fi
   \begin{minipage}{1.0\linewidth}
     \noindent\centering\sanhao[1.57]
     By\\
     \xdu@eauthor\\
+    \ifxdu@doctor(\xdu@efirstdiscipline)\\\fi
     Supervisor: \xdu@esupervisor%
     \ifxdu@masterpro\hskip1em\xdu@ecosupervisor\fi\\
     \xdu@edate
