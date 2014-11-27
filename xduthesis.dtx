@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1873}
+% \CheckSum{1967}
 %
 % \iffalse
 %<*driver>
@@ -270,6 +270,7 @@
 \def\version{1.0.0}
 \newif\ifxdu@bachelor\xdu@bachelorfalse
 \newif\ifxdu@master\xdu@masterfalse
+\newif\ifxdu@masterpro\xdu@masterprofalse
 \newif\ifxdu@doctor\xdu@doctorfalse
 \newif\ifxdu@secret\xdu@secretfalse
 \newif\ifxdu@english\xdu@englishfalse
@@ -278,6 +279,7 @@
 \newif\ifxdu@msfonts\xdu@msfontsfalse
 \DeclareOption{bachelor}{\xdu@bachelortrue}
 \DeclareOption{master}{\xdu@mastertrue}
+\DeclareOption{masterpro}{\xdu@masterprotrue}
 \DeclareOption{doctor}{\xdu@doctortrue}
 \DeclareOption{secret}{\xdu@secrettrue}
 \DeclareOption{english}{\xdu@englishtrue}
@@ -285,11 +287,13 @@
 \DeclareOption{msfonts}{\xdu@msfontstrue}
 \DeclareOption{adobefonts}{\xdu@msfontsfalse}
 \AtEndOfClass{%
-  \ifxdu@bachelor\relax\else
-    \ifxdu@master\relax\else
-      \ifxdu@doctor\relax\else
-        \ClassError{xduthesis}%
-                   {Please specify a thesis option: bachelor, master or doctor.}{}
+  \ifxdu@doctor\relax\else
+    \ifxdu@bachelor\relax\else
+      \ifxdu@master\relax\else
+        \ifxdu@masterpro\relax\else
+          \ClassError{xduthesis}%
+          {Please specify a thesis option: bachelor, master, masterpro or doctor.}{}
+        \fi
       \fi
     \fi
   \fi}
@@ -921,11 +925,15 @@
 % \begin{macro}{\cschool}
 % \begin{macro}{\cmajor}
 % \begin{macro}{\cfirstdiscipline}
+% \begin{macro}{\efirstdiscipline}
 % \begin{macro}{\cseconddiscipline}
+% \begin{macro}{\eseconddiscipline}
 % \begin{macro}{\cauthor}
 % \begin{macro}{\csupervisor}
-% \begin{macro}{\cassocsupervisor}
+% \begin{macro}{\ccosupervisor}
+% \begin{macro}{\ecosupervisor}
 % \begin{macro}{\cdate}
+% \begin{macro}{\edate}
 % \begin{macro}{\etitle}
 %    \begin{macrocode}
 \xdu@define@term{universitycode}
@@ -938,6 +946,7 @@
 \xdu@define@term{cschool}
 \xdu@define@term{cmajor}
 \xdu@define@term{cfirstdiscipline}
+\xdu@define@term{efirstdiscipline}
 \xdu@define@term{cseconddiscipline}
 \xdu@define@term{eseconddiscipline}
 \xdu@define@term{cauthor}
@@ -946,7 +955,8 @@
 \xdu@define@term{edegree}
 \xdu@define@term{csupervisor}
 \xdu@define@term{esupervisor}
-\xdu@define@term{cassosupervisor}
+\xdu@define@term{ccosupervisor}
+\xdu@define@term{ecosupervisor}
 \xdu@define@term{cdate}
 \xdu@define@term{edate}
 \xdu@define@term{cthesistype}
@@ -968,7 +978,11 @@
 % \end{macro} 
 % \end{macro} 
 % \end{macro}
-%
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% 
 %    \begin{macrocode}
 %<*cfg>
 \def\xdu@universitycode@prefix{学校代码}
@@ -981,16 +995,19 @@
 \def\xdu@cmajor@prefix{专业}
 \def\xdu@cauthor@prefix{\ifxdu@bachelor{学生姓名}\else{作者姓名}\fi}
 \def\xdu@csupervisor@prefix{\ifxdu@bachelor{导师姓名}%
-  \else{导师姓名、职称}\fi}
-\def\xdu@cfirstdiscipline@prefix{一级学科}
+  \else\ifxdu@masterpro{学校导师姓名、职称}\else{导师姓名、职称}\fi\fi}
+\def\xdu@ccosupervisor@prefix{\ifxdu@masterpro{企业导师姓名、职称}\else\relax\fi}
+\def\xdu@cfirstdiscipline@prefix{\ifxdu@masterpro{领\hskip2em{}域}\else{一级学科}\fi}
 \def\xdu@cseconddiscipline@prefix{二级学科}
-\def\xdu@cdegree@prefix{申请学位类别}
-\def\xdu@cdate@prefix{提交学位论文日期}
+\def\xdu@cdegree@prefix{\ifxdu@masterpro{学位类别}\else{申请学位类别}\fi}
+\def\xdu@cdate@titlepage@prefix{提交学位论文日期}
+\def\xdu@cdate@prefix{提交日期}
 \def\xdu@thesis@str{%
   \ifxdu@bachelor{本科毕业设计论文}\else%
     \ifxdu@master{硕士学位论文}\else%
-      \ifxdu@doctor{博士学位论文}\fi%
-  \fi\fi}
+      \ifxdu@doctor{博士学位论文}\else%
+        \ifxdu@masterpro{硕士学位论文}\fi%
+  \fi\fi\fi}
 %</cfg>
 %    \end{macrocode} 
 %
@@ -1061,17 +1078,27 @@
   \vskip44mm\noindent
   \xdu@put@prefix{5em}{\heiti\sihao\bfseries\xdu@cauthor@prefix}
   \xdu@urule{12em}{\song\sihao\bfseries\xdu@cauthor}
+  \ifxdu@masterpro
+  \xdu@put@prefix{10.5em}{\heiti\sihao\bfseries\xdu@csupervisor@prefix}
+  \xdu@urule{6.5em}{\song\sihao\bfseries\xdu@csupervisor}\par
+  \else
   \xdu@put@prefix{8em}{\heiti\sihao\bfseries\xdu@csupervisor@prefix}
   \xdu@urule{9em}{\song\sihao\bfseries\xdu@csupervisor}\par
+  \fi
   \vskip3ex\noindent
   \xdu@put@prefix{5em}{\heiti\sihao\bfseries\xdu@cfirstdiscipline@prefix}
   \xdu@urule{12em}{\song\sihao\bfseries\xdu@cfirstdiscipline}
+  \ifxdu@masterpro
+  \xdu@put@prefix{10.5em}{\heiti\sihao\bfseries\xdu@ccosupervisor@prefix}
+  \xdu@urule{6.5em}{\song\sihao\bfseries\xdu@ccosupervisor}\par
+  \else
   \xdu@put@prefix{5em}{\heiti\sihao\bfseries\xdu@cseconddiscipline@prefix}
   \xdu@urule{12em}{\song\sihao\bfseries\xdu@cseconddiscipline}\par
+  \fi
   \vskip3ex\noindent
   \xdu@put@prefix{7em}{\heiti\sihao\bfseries\xdu@cdegree@prefix}
   \xdu@urule{10em}{\song\sihao\bfseries\xdu@cdegree}
-  \xdu@put@prefix{9em}{\heiti\sihao\bfseries\xdu@cdate@prefix}
+  \xdu@put@prefix{9em}{\heiti\sihao\bfseries\xdu@cdate@titlepage@prefix}
   \xdu@urule{8em}{\song\sihao\bfseries\xdu@cdate}\par
   \vskip-79mm\noindent
   \begin{minipage}{\textwidth}
@@ -1083,7 +1110,8 @@
 \newcommand{\xdu@cheadpage@graduate}{
   \noindent
   \parbox[b]{\textwidth}{
-    \song\wuhao\bfseries\ignorespaces\flushright
+    \vskip4ex
+    \song\wuhao\bfseries\ignorespaces\centering
     \xdu@put@prefix{4em}{\xdu@universitycode@prefix}%
     \xdu@urule{8em}{\xdu@universitycode}%
     \hfill{}%
@@ -1095,12 +1123,11 @@
     \hfill
     \xdu@put@prefix{4em}{\xdu@secretlevel@prefix}%
     \xdu@urule{8em}{\xdu@secretlevel}}
-  \vskip18mm\noindent
+  \vskip17mm\noindent
   \begin{center}
-    \song\bfseries
-    \xiaoyi\xdu@xidian@str\par
-    \vskip18mm
-    \erhao\xdu@thesis@str\par
+    \begingroup\hei\bfseries\yihao\xdu@xidian@str\par\endgroup
+    \vskip17mm
+    \begingroup\song\erhao\bfseries\xdu@thesis@str\par\endgroup
   \end{center}
   \vskip65mm
   \begingroup\song\sihao[2]
@@ -1110,37 +1137,44 @@
   \begingroup\bfseries\xdu@cauthor@prefix\endgroup{：}\xdu@cauthor\\
   \begingroup\bfseries\xdu@cfirstdiscipline@prefix\endgroup{：}
   \xdu@cfirstdiscipline\\
+  \ifxdu@masterpro
+  \begingroup\bfseries\xdu@cdegree@prefix\endgroup{：}\xdu@cdegree\\
+  \begingroup\bfseries\xdu@csupervisor@prefix\endgroup{：}\xdu@csupervisor\\
+  \begingroup\bfseries\xdu@ccosupervisor@prefix\endgroup{：}\xdu@ccosupervisor\\
+  \else
   \begingroup\bfseries\xdu@cseconddiscipline@prefix\endgroup{：}
   \xdu@cseconddiscipline\\
   \begingroup\bfseries\xdu@cdegree@prefix\endgroup{：}\xdu@cdegree\\
   \begingroup\bfseries\xdu@csupervisor@prefix\endgroup{：}\xdu@csupervisor\\
+  \fi
   \begingroup\bfseries\xdu@cdate@prefix\endgroup{：}\xdu@cdate\par
   \endgroup
-  \vskip-118mm\noindent
+  \vskip-110mm\noindent
   \begin{minipage}{\textwidth}
     \centering\song\erhao\bfseries\xdu@ctitle\par
   \end{minipage}
 }
 \newcommand{\xdu@eheadpage@graduate}{
-  \noindent\parbox{\textwidth}{\vskip155mm}
+  \noindent\parbox{\textwidth}{\vskip178mm}
   \noindent
   \begin{minipage}{1.0\linewidth}
-    \noindent\centering\sanhao[1.15]
+    \noindent\centering\sanhao[1.57]
     A \ifxdu@doctor dissertation \else thesis \fi submitted to\\
     XIDIAN UNIVERSITY\\
     in partial fulfillment of the requirements\\
     for the degree of \xdu@edegree\\
-    in \xdu@eseconddiscipline
+    in \xdu@efirstdiscipline
   \end{minipage}
-  \vskip25mm
+  \vskip18mm
   \begin{minipage}{1.0\linewidth}
-    \noindent\centering\sanhao[1.15]
+    \noindent\centering\sanhao[1.57]
     By\\
     \xdu@eauthor\\
-    Supervisor: \xdu@esupervisor\\
+    Supervisor: \xdu@esupervisor%
+    \ifxdu@masterpro\hskip1em\xdu@ecosupervisor\fi\\
     \xdu@edate
   \end{minipage}
-  \vskip-202mm\noindent
+  \vskip-225mm\noindent
   \begin{minipage}{\textwidth}
     \noindent\centering\erhao\bfseries\xdu@etitle\par
   \end{minipage}
@@ -1264,21 +1298,14 @@
     学位论文若有不实之处，本人承担一切法律责任。}
   \fi}
 \def\xdu@authorization@str{
-  \ifxdu@bachelor{}
-  \else\ifxdu@master{本人完全了解西安电子科技大学有关保留和使用学位论文的规定，即：
-    研究生在校攻读学位期间论文工作的知识产权单位属西安电子科技大学。学校有权保留
-    送交论文的复印件，允许查阅和借阅论文；学校可以公布论文的全部或部分内容，可以
-    允许采用影印、缩印或其它复制手段保存论文。同时本人保证，毕业后结合学位论文研
-    究成果再撰写的文章一律署名单位为西安电子科技大学。\par{}%
-    （保密的论文在解密后遵守此规定）\par{}%
-    本学位论文属于保密，在\underline{\hskip2em}年解密后适用本授权书。\par{}}
-  \else\ifxdu@doctor{本人完全了解西安电子科技大学有关保留和使用毕业论文的规定，即：
+  \ifxdu@bachelor\relax
+  \else{本人完全了解西安电子科技大学有关保留和使用学位论文的规定，即：
     研究生在校攻读学位期间论文工作的知识产权单位属于西安电子科技大学。学校有权保
     留送交论文的复印件，允许查阅、借阅论文；学校可以公布论文的全部或部分内容，允
     许采用影印、缩印或其它复制手段保存论文。同时本人保证，获得学位后结合学位论文
     研究成果撰写的文章，署名单位为西安电子科技大学。\par{}%
     保密的学位论文在\underline{\hskip2em}年解密后适用本授权书。}
-  \fi\fi\fi}
+  \fi}
 \def\xdu@author@presig{\ifxdu@bachelor{论文作者：}\else{本人签名：}\fi}
 \def\xdu@supervisor@presig{\ifxdu@bachelor{指导教师已阅：}%
   \else{导师签名：}\fi}
