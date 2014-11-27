@@ -10,8 +10,8 @@
 ## ----------------------------------------------------------------------
 ### CHANGE LOG
 ## ----------------------------------------------------------------------
-## Last-Updated: 2014-04-19 21:12:03(+0400) [by Fred Qi]
-##     Update #: 46
+## Last-Updated: 2014-11-27 13:41:00(+0300) [by Fred Qi]
+##     Update #: 47
 ## ----------------------------------------------------------------------
 
 pkg=xduthesis
@@ -45,6 +45,7 @@ cd ..
 [[ -f $zball ]] && rm $zball
 
 tar chzvf $zball $pkg.{pdf,dtx,ins} examples/$pkg.{cfg,cls} \
+	README.rst \
     examples/{thesis-*,biography,a*,ch*}.tex \
     examples/photo.png examples/refs.bib \
     examples/xd*.eps \
@@ -52,7 +53,7 @@ tar chzvf $zball $pkg.{pdf,dtx,ins} examples/$pkg.{cfg,cls} \
 
 [[ -f $rball ]] && rm $rball
 
-tar chzvf $rball $pkg.{cfg,cls} xd*.eps
+tar chzvf $rball README.rst $pkg.{cfg,cls} xd*.eps
 
 ## ----------------------------------------------------------------------
 ### END OF FILE 
