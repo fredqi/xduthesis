@@ -572,7 +572,7 @@
 \setlength\voffset{3cm-1in}
 \setlength{\topmargin}{-5ex}
 \setlength{\headheight}{3ex}
-\setlength{\headsep}{1ex}
+\setlength{\headsep}{2ex}
 \setlength{\footskip}{5ex}
 \addtolength{\textheight}{-3ex}
 \fi
@@ -710,7 +710,7 @@
 %
 % 段落之间的竖直距离
 %    \begin{macrocode}
-\setlength{\parskip}{0pt \@plus2pt \@minus0pt}
+\setlength{\parskip}{0pt \@plus0pt \@minus0pt}
 %    \end{macrocode}
 %
 % 调整默认列表环境间的距离，以符合中文习惯。
@@ -795,8 +795,8 @@
   \setlength{\xdu@chapter@before}{15mm}
   \setlength{\xdu@chapter@after}{4ex}
 \else
-  \setlength{\xdu@chapter@before}{12ex}
-  \setlength{\xdu@chapter@after}{6ex}
+  \setlength{\xdu@chapter@before}{7ex}
+  \setlength{\xdu@chapter@after}{5ex}
 \fi
 \renewcommand\chapter{%
   \xdu@clearpage%
@@ -855,7 +855,7 @@
   {\sihao[1.429]\filcenter}}
 \else
 \titleformat{\section}[block]{\xiaosan}{\thesection}{1ex}{}
-\titlespacing{\section}{0pt}{2ex}{\parskip}
+\titlespacing{\section}{0pt}{2ex}{2ex}
 \fi
 %    \end{macrocode}
 % \end{macro}
@@ -866,7 +866,7 @@
 % 采用宋体小四号（12pt）字居左书写。
 %    \begin{macrocode}
 \titleformat{\subsection}[block]{\sihao}{\thesubsection}{1ex}{}
-\titlespacing{\subsection}{\xdu@CJK@twochars}{\parskip}{\parskip}
+\titlespacing{\subsection}{\xdu@CJK@twochars}{2ex}{2ex}
 %</cls>
 %    \end{macrocode}
 % \end{macro}
@@ -1403,8 +1403,8 @@
               labelsep=xdu@sep,
               font=xdu@capfont,
               justification=centering}
-\captionsetup[table]{position=top, belowskip={12bp-\intextsep}, aboveskip=3bp} 
-\captionsetup[figure]{position=bottom, belowskip={12bp-\intextsep}, aboveskip=3bp}
+\captionsetup[table]{position=top, belowskip={1pc-\intextsep}, aboveskip=1pc} 
+\captionsetup[figure]{position=bottom, belowskip={1pc-\intextsep}, aboveskip=1pc}
 \captionsetup[subfloat]{font=xdu@capfont,captionskip=6bp,%
                         nearskip=6bp,farskip=0bp,topadjust=0bp}
 \renewenvironment{table}{%
