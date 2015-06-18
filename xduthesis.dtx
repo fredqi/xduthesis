@@ -20,7 +20,7 @@
 %%
 %% \fi
 %
-% \CheckSum{1985}
+% \CheckSum{1991}
 %
 % \iffalse
 %<*driver>
@@ -865,8 +865,13 @@
 % 节标题序号与标题名之间空一个汉字符（下同）。
 % 采用宋体小四号（12pt）字居左书写。
 %    \begin{macrocode}
+\ifxdu@bachelor
+\titleformat{\subsection}[block]{\xiaosi}{\thesubsection}{1ex}{}
+\titlespacing{\subsection}{0em}{2ex}{2ex}
+\else
 \titleformat{\subsection}[block]{\sihao}{\thesubsection}{1ex}{}
 \titlespacing{\subsection}{\xdu@CJK@twochars}{2ex}{2ex}
+\fi
 %</cls>
 %    \end{macrocode}
 % \end{macro}
