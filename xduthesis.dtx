@@ -1,38 +1,95 @@
-%% \iffalse
-%%  Local Variables:
-%%  mode: doctex
-%%  TeX-master: t
-%%  End:
-%% \fi
-%% \iffalse meta-comment
-%%
-%% Copyright (C) 2008-2014 by Fred Qi <fred.qi@gmail.com>
-%%
-%% This file may be distributed and/or modified under the
-%% conditions of the LaTeX Project Public License, either version 1.3a
-%% of this license or (at your option) any later version.
-%% The latest version of this license is in:
-%%
-%% http://www.latex-project.org/lppl.txt
-%%
-%% and version 1.3a or later is part of all distributions of LaTeX
-%% version 2004/10/01 or later.
-%%
-%% \fi
+% \iffalse meta-comment
+% vim: textwidth=75
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
+%<*internal>
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+---------:| ---------------------------------------------------------------
+xduthesis:| XeLaTeX template for writing Xidian University Thesis
+   Author:| Fei Qi
+   E-mail:| fred.qi@ieee.org
+  License:| Released under the LaTeX Project Public License v1.3c or later
+      See:| http://www.latex-project.org/lppl.txt
+
+\endpreamble
+\postamble
+
+Copyright (C) 2008-2015 by Fei Qi <fred.qi@ieee.org>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Fei Qi.
+
+This work consists of the file xduthesis.dtx and a Makefile.
+Running "make" generates the derived files README, xduthesis.pdf and xduthesis.cls.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/xelatex/xduthesis}
+\generate{
+  \file{\jobname.cls}{\from{\jobname.dtx}{class}}
+  \file{\jobname.cfg}{\from{\jobname.dtx}{config}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/xelatex/xduthesis}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+% \usedir{doc/xelatex/xduthesis}
+% \generate{
+%   \file{README.txt}{\from{\jobname.dtx}{readme}}
+% }
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
 %
-% \CheckSum{1991}
+% \CheckSum{1988}
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xduthesis.dtx}[2014/11/26 1.0.0 Xidian University Thesis Template]
-\documentclass[10pt]{ltxdoc}
+\ProvidesFile{xduthesis.dtx}[2015/09/11 1.0.0 Xidian University Thesis Template]
+%</driver>
+%<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<class>\ProvidesClass{xduthesis}
+%<config>\ProvidesFile{xduthesis.cfg}
+%<class|config>    [2015/09/11 1.0.0 Xidian University Thesis Template]
+%<*driver>
+\documentclass{ltxdoc}
 \usepackage{amssymb}
 \usepackage{url}
 \usepackage{metalogo}
-\usepackage{xeCJK}
 \usepackage[normalem]{ulem}
+\usepackage{xeCJK}
 \setCJKmainfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
 \usepackage{indentfirst}
+% \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
 \setlength{\parskip}{4pt plus1pt minus0pt}
 \setlength{\topsep}{0pt}
 \setlength{\partopsep}{0pt}
@@ -43,16 +100,10 @@
 \addtolength{\headsep}{0.3cm}
 \addtolength{\textheight}{2.3cm}
 \renewcommand{\baselinestretch}{1.3}
-% \DefineVerbatimEnvironment{example}{Verbatim}%
-%   {frame=single, framerule=0.3mm, rulecolor=\color{red!75!green!50!blue}, 
-%    fillcolor=\color{red!75!green!50!blue!15},framesep=2mm, baselinestretch=1.2,
-%    fontsize=\small, gobble=1}
-% \DefineVerbatimEnvironment{shell}{Verbatim}%
-%   {frame=single, framerule=0.3mm, rulecolor=\color{red!85!green!60}, 
-%    fillcolor=\color{red!85!green!10},framesep=2mm,fontsize=\small, gobble=1}
+
 \makeatletter
-\def\DescribeOption#1{\SpecialOptionIndex{#1}}
 \def\tableofcontents{\renewcommand{\baselinestretch}{1.0}\@starttoc{toc}}
+\def\DescribeOption#1{\SpecialOptionIndex{#1}}
 \def\DescribeMacro{\Describe@Macro}
 \def\Describe@Macro#1{\PrintDescribeMacro{#1}\SpecialUsageIndex{#1}}
 \def\PrintDescribeMacro#1{{\color{-red!75!green!50!blue!55}\MacroFont \string #1\hskip1em }}
@@ -80,36 +131,38 @@
       \fi
       ##1}}}
 \renewcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
-                                   {2.3ex \@plus.2ex}%
-                                   {\normalfont\Large\bfseries}}
+                              {-3.5ex \@plus -1ex \@minus -.2ex}%
+                              {2.3ex \@plus.2ex}%
+                              {\normalfont\Large\bfseries}}
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\large\bfseries}}
+                                  {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                  {1.5ex \@plus .2ex}%
+                                  {\normalfont\large\bfseries}}
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\normalsize\bfseries}}
+                                           {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                           {1.5ex \@plus .2ex}%
+                                           {\normalfont\normalsize\bfseries}}
 \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-                                    {3.25ex \@plus1ex \@minus.2ex}%
-                                    {-1em}%
-                                    {\normalfont\normalsize\bfseries}}
+                                           {3.25ex \@plus1ex \@minus.2ex}%
+                                           {-1em}%
+                                           {\normalfont\normalsize\bfseries}}
 \renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-                                       {3.25ex \@plus1ex \@minus .2ex}%
-                                       {-1em}%
-                                      {\normalfont\normalsize\bfseries}}
+                                                 {3.25ex \@plus1ex \@minus .2ex}%
+                                                 {-1em}%
+                                                 {\normalfont\normalsize\bfseries}}
 \makeatother
-\pagestyle{empty}
+
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
 \begin{document}
-\DocInput{xduthesis.dtx}
-\clearpage
+  \DocInput{\jobname.dtx}
+  \clearpage
 \end{document}
 %</driver>
 % \fi
+%
+% \pagestyle{empty}
 %
 % \GetFileInfo{xduthesis.dtx}
 % \MakeShortVerb{\|}
@@ -143,18 +196,17 @@
 % \DoNotIndex{\@@par,\DeclareOperation,\RequirePackage,\LoadClass}
 % \DoNotIndex{\AtBeginDocument,\AtEndDocument}
 %
-% \IndexPrologue{\section*{索引}%
-%    \addcontentsline{toc}{section}{索~~~~引}}
-% \GlossaryPrologue{\section*{修改记录}%
-%    \addcontentsline{toc}{section}{修改记录}}
+% \IndexPrologue{\section*{索~~~~引}}
+% \GlossaryPrologue{\section*{修改记录}}
 %
 % \renewcommand{\abstractname}{摘~~要}
 % \renewcommand{\contentsname}{目~~录}
 %
 % \title{\xduthesis：\xdu{}学位论文模板\thanks{Xidian University \XeLaTeX{}
 %     Thesis Template.}}
-% \author{齐飞\\[5pt]
-%   \texttt{fred.qi@ieee.org}} \date{v\fileversion\ (\filedate)}
+% \author{齐飞\\[5pt] \texttt{fred.qi@ieee.org}}
+% \date{v\fileversion\ (\filedate)}
+%
 % \maketitle\thispagestyle{empty}
 %
 % \begin{abstract}
@@ -250,12 +302,6 @@
 % \section{实现细节}
 %
 % \subsection{基本信息}
-%    \begin{macrocode}
-%<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<cls>\ProvidesClass{xduthesis}
-%<cfg>\ProvidesFile{xduthesis.cfg}
-%<cls|cfg>[2009/06/06 0.2 Xidian University Thesis Template]
-%    \end{macrocode}
 %
 % \subsection{定义选项}
 % \label{sec:defoption}
@@ -264,7 +310,7 @@
 % \changes{v0.9.4a}{2012/02/07}{Added option print.}
 % 定义论文类型以及是否涉密
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \hyphenation{XDU-Thesis}
 \def\xduthesis{$\mathbb{XDU}$-$\mathcal{THESIS}$}
 \def\version{1.0.0}
@@ -307,7 +353,7 @@
 \else
 \LoadClass[12pt, a4paper, openany]{book}
 \fi
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \subsection{装载宏包}
@@ -316,7 +362,7 @@
 % \changes{v0.9.4a}{2012/02/07}{Added package calc for paper layout setup.}
 % 设置页边距等引用宏包
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \RequirePackage{calc}
 %    \end{macrocode}
 % 参考文献引用宏包。
@@ -415,7 +461,7 @@
 % \changes{v0.9.3}{2011/04/20}{引用宏包顺序调整，以避免\texttt{nobreakspace}的问题}
 % \changes{v0.9.7}{2012/12/11}{\texttt{xeCJK}与\texttt{xltxtra}冲突导致标点出错}
 \RequirePackage{xunicode,metalogo}
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \subsection{主文档格式}
@@ -423,7 +469,7 @@
 % \subsubsection{Three matters}
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \renewcommand\frontmatter{%
   \xdu@clearpage%
   \@mainmatterfalse
@@ -437,7 +483,7 @@
 \renewcommand\backmatter{%
   \xdu@clearpage
   \@mainmattertrue}
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \subsubsection{字体}
@@ -471,7 +517,7 @@
 % \begin{macro}{\heiti}
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \newcommand{\song}{\CJKfamily{song}} % 宋体
 \def\songti{\song}
 \newcommand{\hei}{\CJKfamily{hei}} % 黑体
@@ -550,14 +596,14 @@
 %    \begin{macrocode}
 \renewcommand\normalsize{\@setfontsize\normalsize{12bp}{18bp}}
 \renewcommand\baselinestretch{1.2}
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \subsubsection{页面设置}
 % \label{sec:layout}
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \setlength{\textwidth}{\paperwidth}
 \addtolength{\textwidth}{-6cm}
 \setlength{\textheight}{\paperheight}
@@ -582,7 +628,7 @@
 \setlength{\evensidemargin}{2cm-1in}
 % \setlength{\topskip}{0pt}
 % \setlength{\skip\footins}{15pt}
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \subsubsection{页眉页脚}
@@ -596,7 +642,7 @@
 % 须没有页眉页脚。code stolen from fancyhdr
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \def\xdu@clearpage{%
   \clearpage%
   \if@openright%
@@ -690,7 +736,7 @@
   \fi}
 \fi
 \renewcommand{\sectionmark}[1]{}
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \changes{v0.9.1}{2009/06/15}{增加首行按照两个中文字符缩进}
@@ -699,7 +745,7 @@
 %
 % 用于中文段落缩进和正文版式
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \newlength\xdu@CJK@twochars
 \newcommand{\xdu@unicode}[2]{\char\numexpr#1*256+#2\relax}
 \def\xdu@CJK@space{\xdu@unicode{48}{7}}
@@ -723,7 +769,7 @@
   \let\endenumerate\endcompactenum
   \let\description\compactdesc
   \let\enddescription\endcompactdesc}
-%</cls>
+%</class>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -734,7 +780,7 @@
 % \changes{v0.2}{2009/06/06}{加入中文标题的定义}
 %
 %    \begin{macrocode}
-%<*cfg>
+%<*config>
 \ifxdu@english
 \renewcommand{\bibname}{References}
 \newcommand{\xdu@ackname}{Acknowledgments}
@@ -772,7 +818,7 @@
 \newcommand{\xdu@cthesistype@title}{论文类型：}
 \newcommand{\xdu@ekeywords@title}{Keywords:}
 \newcommand{\xdu@ethesistype@title}{Type of Dissertation:}
-%</cfg>
+%</config>
 %    \end{macrocode}
 
 % \subsubsection{章节标题}
@@ -788,7 +834,7 @@
 % \texttt{3ex}。
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \newlength{\xdu@chapter@before}
 \newlength{\xdu@chapter@after}
 \ifxdu@bachelor
@@ -872,7 +918,7 @@
 \titleformat{\subsection}[block]{\sihao}{\thesubsection}{1ex}{}
 \titlespacing{\subsection}{\xdu@CJK@twochars}{2ex}{2ex}
 \fi
-%</cls>
+%</class>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -884,7 +930,7 @@
 % \changes{v0.9.8}{2013/03/12}{修正目录点间距、PDF书签}
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \renewcommand{\tableofcontents}{%
   % \xdu@clearpage%
   % \phantomsection%
@@ -900,7 +946,7 @@
               {\titlerule*[\xdu@dot@space]{.}\bfseries\contentspage}
 \dottedcontents{section}[4em]{}{2.1em}{\xdu@dot@space}
 \dottedcontents{subsection}[6.8em]{}{2.7em}{\xdu@dot@space}
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \subsubsection{封面和封底}
@@ -913,7 +959,7 @@
 %
 % \begin{macro}{\xdu@define@term}
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \def\xdu@define@term#1{
   \expandafter\gdef\csname #1\endcsname##1{%
     \expandafter\gdef\csname xdu@#1\endcsname{##1}}
@@ -966,7 +1012,7 @@
 \xdu@define@term{edate}
 \xdu@define@term{cthesistype}
 \xdu@define@term{ethesistype}
-%</cls>
+%</class>
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -989,7 +1035,7 @@
 % \end{macro}
 % 
 %    \begin{macrocode}
-%<*cfg>
+%<*config>
 \def\xdu@universitycode@prefix{学校代码}
 \def\xdu@catelognumber@prefix{分类号}
 \def\xdu@classid@prefix{班级}
@@ -1013,7 +1059,7 @@
       \ifxdu@doctor{博士学位论文}\else%
         \ifxdu@masterpro{硕士学位论文}\fi%
   \fi\fi\fi}
-%</cfg>
+%</config>
 %    \end{macrocode} 
 %
 % \changes{v1.0.0}{2014/11/26}{2014研究生论文封面}
@@ -1023,7 +1069,7 @@
 % \changes{v0.9.7}{2012/12/13}{改进了封面论文题目显示机制，允许题目中使用换行}
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \def\xdu@urule#1#2{\hskip2pt\underline{\hb@xt@#1{\hss#2\hss}}\hskip3pt}
 \def\xdu@put@prefix#1#2{\makebox[#1][s]{#2}}
 \def\xdu@titlepage{%
@@ -1193,7 +1239,7 @@
   \let\xdu@cheadpage\xdu@cheadpage@graduate
   \let\xdu@eheadpage\xdu@eheadpage@graduate
 \fi
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 %
@@ -1201,18 +1247,18 @@
 % \changes{v0.9.7}{2012/12/14}{增加研究论文作者简介}
 %
 %    \begin{macrocode}
-%<*cfg>
+%<*config>
 \ifxdu@english
 \def\xdu@authorbio@title{Author Biography}
 \else
 \def\xdu@authorbio@title{作者简介}
 \fi
-%</cfg>
+%</config>
 %    \end{macrocode}
 %
 % \begin{macro}{\xdu@make@authorbio}
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \long\@xp\def\@xp\collect@@body\@xp#\@xp1\@xp\end\@xp#\@xp2\@xp{%
   \collect@@body{#1}\end{#2}}
 \long\@xp\def\@xp\push@begins\@xp#\@xp1\@xp\begin\@xp#\@xp2\@xp{%
@@ -1274,7 +1320,7 @@
   \fi%
   \ifxdu@english\relax\else\xdu@eauthorbio\par\fi%
 }
-%</cls>
+%</class>
 %    \end{macrocode}
 % \end{macro}
 % 
@@ -1283,7 +1329,7 @@
 %
 % \changes{v0.9.7}{2012/12/12}{增加各级学位论文诚信声明页}
 %
-%<*cfg>
+%<*config>
 \def\xdu@xidian@str{西安电子科技大学}
 \def\xdu@declaration@title{%
   \ifxdu@bachelor{毕业设计（论文）诚信声明书}%
@@ -1317,11 +1363,11 @@
 \def\xdu@supervisor@presig{\ifxdu@bachelor{指导教师已阅：}%
   \else{导师签名：}\fi}
 \def\xdu@date@presig{\ifxdu@bachelor{日期}\else{日　　期：}\fi}
-%</cfg>
+%</config>
 %
 % \begin{macro}{\xdu@make@declaration}
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \def\xdu@make@declaration{%
   \song\xiaosi[1.5]
   {\centering\bfseries\ifxdu@bachelor\sanhao\else\sihao[1.6]\fi%
@@ -1371,7 +1417,7 @@
   \setcounter{page}{1}
   \xdu@makeabstract
 }
-%</cls>
+%</class>
 %    \end{macrocode}
 % \end{macro}
 % 
@@ -1379,10 +1425,10 @@
 %\label{sec:maths}
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \renewcommand\theequation{\ifnum \c@chapter>\z@ \thechapter%
                           -\fi\@arabic\c@equation}
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \subsubsection{浮动对象以及表格}
@@ -1394,7 +1440,7 @@
 % \changes{v0.2}{2009/06/06}{增加\cs{subfloat}}
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \let\old@tabular\@tabular
 \def\xdu@tabular{\wuhao\old@tabular}
 \ifxdu@english
@@ -1419,7 +1465,7 @@
 }{%
   \end@float\normalsize
 }
-%</cls>
+%</class>
 %    \end{macrocode}
 
 % \subsubsection{摘要格式}
@@ -1431,7 +1477,7 @@
 % \begin{macro}{\xdu@makeabstract}
 % 中文摘要部分的标题为"摘要"，用宋体三号字加精力。
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \newcommand{\xdu@@cabstract}[1]{\long\gdef\xdu@cabstract{#1}}
 \newenvironment{cabstract}{\collect@body\xdu@@cabstract}{}
 \newcommand{\xdu@@eabstract}[1]{\long\gdef\xdu@eabstract{#1}}
@@ -1487,7 +1533,7 @@
   \fi
   \xdu@mkabstractfalse%
 }
-%</cls>
+%</class>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1500,7 +1546,7 @@
 % \begin{macro}{listoffigures}
 % \begin{macro}{listoftables}
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \def\@tocrmarg{2em}
 \def\@dotsep{1} % 目录点间的距离
 \def\@dottedtocline#1#2#3#4#5{%
@@ -1535,7 +1581,7 @@
 \fi
 \renewcommand\listoftables{\xdu@listof{table}}
 \let\l@table\l@figure
-%<cls>
+%<class>
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -1547,7 +1593,7 @@
 % \begin{macro}{\onlinecite}
 % 正文引用模式。依赖于\pkg{natbib}宏包，修改其中的命令。
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \bibpunct{[}{]}{,}{s}{}{,}
 \renewcommand\NAT@citesuper[3]{\ifNAT@swa
 \unskip\kern\p@\textsuperscript{\NAT@@open #1\NAT@@close}%
@@ -1585,7 +1631,7 @@
 {\def\@noitemerr
   {\@latex@warning{Empty `thebibliography' environment}}%
   \endlist}
-%</cls>
+%</class>
 %    \end{macrocode}
 % \end{environment}
 %
@@ -1593,39 +1639,39 @@
 % \label{sec:ack}
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \ifxdu@english
 \newenvironment{acknowledgments}{\chapter*{\bfseries\xdu@ackname}}{}
 \else
 \newenvironment{acknowledgments}{\chapter*{\xdu@ackname}}{}
 \fi
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \subsubsection{附录}
 % \label{sec:appendix}
 %
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \let\xdu@appendix\appendix
 \renewenvironment{appendix}{
   \xdu@appendix
   \gdef\@chapapp{\appendixname~\thechapter}
 }{}
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-%<cls>\AtEndOfClass{\input{xduthesis.cfg}}%
+%<class>\AtEndOfClass{\input{xduthesis.cfg}}%
 %    \end{macrocode}
 %
 % 把 CJK 环境放到合适的位置，以免导致其它宏包的命令位于 CJK 环境中而出现问题（比
 % 如 natbib 的``Multiple-defined labels''，同时自动开启 CJK。
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 \AtBeginDocument{\CJKindent}
 \AtEndOfClass{\sloppy\xdu@item@space}
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \Finale
