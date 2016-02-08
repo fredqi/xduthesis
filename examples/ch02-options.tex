@@ -9,8 +9,8 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2013-03-12 08:14:08(+0800) [by Fred Qi]
-%%     Update #: 20
+%% Last-Updated: 2015-05-14 20:48:32(+0300) [by Fred Qi]
+%%     Update #: 77
 %% ----------------------------------------------------------------------
 
 
@@ -18,21 +18,69 @@
           论文模板的功能选项}
 \label{cha:options}
 
-本章主要介绍论文模板的可用功能选项。
+本章介绍本论文模板提供的可用功能选项。在使用模板时，最先声明的是使用文档类与及选
+项，典型的形式如下：
+\begin{lstlisting}[emph={doctor,print}, emphstyle=\textbf]
+  \documentclass[doctor,print]{xduthesis}
+\end{lstlisting}
+其中使用逗号分割开的内容\texttt{doctor,print}为模板的调用选项。下面分别进行介绍。
 
 \section{学位选项}
 \label{sec:degree}
 
-\texttt{bachelor}
-\texttt{master}
-\texttt{doctor}
+学校对不同学位论文模板格式有不同的规定。为此提供学位选项使模板按照对应学位论文的
+格式要求进行排版。目前模板支持从本科到博士各个阶段的学位论文格式，提供了下述选
+项：
+
+\begin{description}
+\item [\texttt{bachelor}] 学士学位论文（即本科毕业设计论文）
+\item [\texttt{master}] 学术型硕士学位论文
+\item [\texttt{masterpro}] 专业型硕士学位论文
+\item [\texttt{doctor}] 博士学位论文
+\end{description}
 
 \section{打印选项}
 \label{sec:print}
 
-使用\texttt{print}选项后论文默认章节双开（即章的首页保持为奇数页）；为双面打印方
-便，还在需要的部分插入了空白页；论文中的超链接使用黑色，以便清晰打印。在电脑上保
-存与查看时，可以不选该选项。
+使用\texttt{print}选项后论文章节排版为单开（即章的首页保持为奇数页）；为双面打印
+方便，还在需要的部分插入了空白页；论文中的超链接使用黑色，以便清晰打印。在电脑上
+保存与查看时，可以不选该选项。
+
+该选项默认为关闭，此时章节排版连续，章节之间不会插入空白页；论文中的公式、图表及
+参考文献等引用会加入超链接，实现跳转；超链接使用彩色显示。这些设置非常便于在电脑
+上查看，建议在编辑阶段使用。当最终打印交付纸质版本时，
+请\textbf{务必}打开\texttt{print}选项，以便生成符合学校排版要求的论文。
+
+电子阅读的时代已经到来，\texttt{print}开关选项的设置是为了更多的使用电子文档的便
+利特性。因此后续的某些特性可能会导致与学校排版要求的不一致。请以打印选项开启的排
+版结果为准检查。
+
+
+\section{其他选项}
+\label{sec:others}
+
+
+\begin{description}
+\item [\texttt{english}] 此选项供使用英文撰写学位论文时使用。启用此选项后，论文
+  中除页眉页脚中的“西安电子科技大学某某学位论文”字样保持中文之外，其他部分均使用
+  英文。
+\item [\texttt{msfonts}] 如果操作系统中安装了微软公司的中文字体时，使用相应字体排版
+  论文。为确保论文能够正确排版，需要确认操作系统中安装了宋体(SimSun)、黑体
+  (SimHei)、以及楷体(Kaiti\_GB2312)等字体。进行确认时可以使用命令 \texttt{fc-list
+  :lang=zh-cn} 查看确认。此选项不能与 \texttt{adobefonts} 选项同时使用。
+\item [\texttt{adobefonts}] 如果操作系统中安装了 Adobe 公司的中文字体时，使用相
+  应字体排版论文。为了正确排版论文，需要安装宋体(Adobe Song Std)与黑体(Adobe
+  Heiti Std)两种字体。此选项与 \texttt{msfonts} 不可同时使用。此选项为默认使用的
+  字体选项。
+\item [\texttt{secret}] 是否为涉密论文，目前此选项对论文排版没有作用。只要使
+  用 \texttt{$\backslash$secretlevel} 命令设置了密级，论文封面的相应部分就会显示
+  密级。
+\end{description}
+% \DeclareOption{secret}{\xdu@secrettrue}
+% \DeclareOption{english}{\xdu@englishtrue}
+% \DeclareOption{print}{\xdu@printtrue}
+% \DeclareOption{msfonts}{\xdu@msfontstrue}
+% \DeclareOption{adobefonts}{\xdu@msfontsfalse}
 
 
 %% ----------------------------------------------------------------------

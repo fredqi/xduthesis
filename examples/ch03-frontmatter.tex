@@ -9,26 +9,68 @@
 %% ----------------------------------------------------------------------
 %%% CHANGE LOG
 %% ----------------------------------------------------------------------
-%% Last-Updated: 2013-03-12 08:16:15(+0800) [by Fred Qi]
-%%     Update #: 19
+%% Last-Updated: 2015-05-14 21:13:19(+0300) [by Fred Qi]
+%%     Update #: 52
 %% ----------------------------------------------------------------------
 
 
 \chapter{论文的前置部分}
 \label{cha:frontmatter}
 
-论文的前置部分包括如下内容：
+论文的前置部分是指~\LaTeX{}~文档中命令\texttt{$\backslash$mainmatter}之前的部分。
+研究生学位论文的前置部分包括如下内容：
 \begin{itemize}
-\item 论文封面
-\item 作者简介（研究生论文需要）
-\item 创新性声明与使用授权书
-\item 中文摘要
-\item 英文摘要
+\item 封面
+\item 题名页（中英文）
+\item 声明（学位论文创新性声明和使用授权说明）
+\item 摘要（中英文）
+\item 插图索引
+\item 表格索引
+\item 符号对照表
+\item 缩略语对照表
 \item 目录
 \end{itemize}
+关于这些内容的具体写作要求，请参考2014年版《西安电子科技大学研究生学位论文撰写要
+求》。为方便起见，本文档附录~\ref{cha:guidance-graduates}提供了该要求的内容。
 
-为实现这些功能，模板定义了一系列的命令与环境。
+{\color{red} \textbf{TODO}\\
+  增加本科学位论文前置部分内容的说明，补充本科毕业设计论文撰写要求。}
 
+论文前置部分多为表格式的内容，需要使用模板的同学提供相应的内容。为实现论文前置部
+分的正确排版，本模板定义了一系列的命令与环境。
+
+\section{需要填写的内容}
+\label{sec:db-commands}
+
+需要填写的内容
+
+\begin{description}
+\item [texttt{universitycode}] 学校代码
+\item [\texttt{catelognumber}] 分类号
+\item [\texttt{classid}] 班号
+\item [\texttt{studentid}] 学号
+\item [\texttt{secretlevel}] 密级
+\item [\texttt{ctitle}] 中文题目
+\item [\texttt{etitle}] 英文题目
+\item [\texttt{cschool}] 学院/系别
+\item [\texttt{cmajor}] 专业
+\item [\texttt{cfirstdiscipline}] 一级学科
+\item [\texttt{efirstdiscipline}] 一级学科英文
+\item [\texttt{cseconddiscipline}] 二级学科
+\item [\texttt{eseconddiscipline}] 二级学科英文
+\item [\texttt{cauthor}] 作者名
+\item [\texttt{eauthor}] 作者名英文（拼音）
+\item [\texttt{cdegree}] 学位
+\item [\texttt{edegree}] 学位英文
+\item [\texttt{csupervisor}] 导师姓名
+\item [\texttt{esupervisor}] 导师姓名英文（拼音）
+\item [\texttt{ccosupervisor}] 副导师/合作导师/企业导师姓名
+\item [\texttt{ecosupervisor}] 副导师/合作导师/企业导师姓名英文（拼音）
+\item [\texttt{cdate}] 论文提交日期
+\item [\texttt{edate}] 论文提交日期英文
+\item [\texttt{cthesistype}] 论文类型
+\item [\texttt{ethesistype}] 论文类型英文
+\end{description}
 
 \section{论文封面}
 \label{sec:cover}
