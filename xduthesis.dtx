@@ -1,5 +1,4 @@
 % \iffalse meta-comment
-% vim: textwidth=75
 % Local Variables:
 % mode: doctex
 % TeX-master: t
@@ -25,7 +24,7 @@ xduthesis:| XeLaTeX template for writing Xidian University Thesis
 \endpreamble
 \postamble
 
-Copyright (C) 2008-2015 by Fei Qi <fred.qi@ieee.org>
+Copyright (C) 2008-2016 by Fei Qi <fred.qi@ieee.org>
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License (LPPL), either
@@ -38,7 +37,7 @@ This work is "maintained" (as per LPPL maintenance status) by
 Fei Qi.
 
 This work consists of the file xduthesis.dtx and a Makefile.
-Running "make" generates the derived files README, xduthesis.pdf and xduthesis.cls.
+Running "make" generates the derived files xduthesis.pdf and xduthesis.cls.
 Running "make inst" installs the files in the user's TeX tree.
 Running "make install" installs the files in the local TeX tree.
 
@@ -59,7 +58,7 @@ Running "make install" installs the files in the local TeX tree.
 \nopreamble\nopostamble
 % \usedir{doc/xelatex/xduthesis}
 % \generate{
-%   \file{README.txt}{\from{\jobname.dtx}{readme}}
+%   \file{README.rst}{\from{\jobname.dtx}{readme}}
 % }
 \ifx\fmtname\nameofplainTeX
   \expandafter\endbatchfile
@@ -72,9 +71,7 @@ Running "make install" installs the files in the local TeX tree.
 % \CheckSum{1988}
 %
 % \iffalse
-%<*driver>
-\ProvidesFile{xduthesis.dtx}[2015/09/11 1.0.0 Xidian University Thesis Template]
-%</driver>
+%<driver>\ProvidesFile{xduthesis.dtx}[2015/09/11 1.0.0 Xidian University Thesis Template]
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{xduthesis}
 %<config>\ProvidesFile{xduthesis.cfg}
