@@ -118,3 +118,38 @@
 
 如果你使用这份模板为你节约了时间，希望你能够在学位论文的致谢部分提及。
 
+Introduction
+============
+
+This is a XeLaTeX template for writing thesises to apply academic degrees in
+Xidian University. The template is designed according to the official
+requirements on typesetting thesises. The template currently supports all levels
+of degrees from bachelor to docotor, including both academic master and
+professional master. But it is not guaranteed that you will pass the typesetting
+check and obtain your degree by using this template.
+
+Copyright
+=========
+
+| xduthesis: XeLaTeX template for writing Xidian University Thesis
+| Author: Fei Qi
+| E-mail: fred.qi@ieee.org
+| License: Released under the LaTeX Project Public License v1.3c or later
+| See: http://www.latex-project.org/lppl.txt
+
+Copyright (C) 2008-2016 by Fei Qi <fred.qi@ieee.org>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Fei Qi.
+
+This work consists of the file xduthesis.dtx and a Makefile.
+Running "make" generates the derived files xduthesis.pdf and xduthesis.cls.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.

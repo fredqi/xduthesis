@@ -71,7 +71,9 @@ Running "make install" installs the files in the local TeX tree.
 % \CheckSum{1988}
 %
 % \iffalse
-%<driver>\ProvidesFile{xduthesis.dtx}[2015/09/11 1.0.0 Xidian University Thesis Template]
+%<*driver>
+\ProvidesFile{xduthesis.dtx}[2015/09/11 1.0.0 Xidian University Thesis Template]
+%</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{xduthesis}
 %<config>\ProvidesFile{xduthesis.cfg}
@@ -208,8 +210,8 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \begin{abstract}
 %   本宏包旨在建立一个简单易用的、符合西安电子科技大学各级学位撰写格式要求的论文
-%   模板。目前已经完整支持从学士到硕士及博士学位论文的最新格式，包括学校2012年新
-%   增的研究生论文中作者简介页的支持。
+%   模板。目前已经完整支持从学士到硕士及博士学位论文的最新格式。目前研究生论文
+%   （硕士、博士学位论文）符合研究生院2014年发布的学位论文版式要求。
 % \end{abstract}
 %
 % \vskip2cm 
@@ -217,7 +219,8 @@ Running "make install" installs the files in the local TeX tree.
 % \begin{abstract}
 % \noindent
 % \begin{enumerate}
-% \item 本模板的发布遵守~\LaTeX{} Project Public License，使用前请认真阅读协议内容。
+% \item 本模板的发布遵守~\LaTeX{} Project Public License (v1.3c)
+% \footnote{\url{http://www.latex-project.org/lppl.txt}}，使用前请认真阅读协议内容。
 % \item 本模板为作者根据\xdu{}教务处颁布的《本科生毕业设计（论文）工作手册》、研
 %   究生院颁布的《西安电子科技大学研究生学位论文撰写标准》编写而成，旨在
 %   供\xdu{}毕业生撰写学位论文使用。
@@ -240,39 +243,32 @@ Running "make install" installs the files in the local TeX tree.
 % \clearpage
 % \pagenumbering{arabic}
 % \pagestyle{headings}
+%
 % \section{模板介绍}
 %
-% \section{安装}
-% \label{sec:installation}
+% 本模板为作者根据\xdu{}教务处颁布的《本科生毕业设计（论文）工作手册》以及研究生
+% 院颁布的《西安电子科技大学研究生学位论文撰写标准》编写而成，旨在供\xdu{}毕业生
+% 撰写学位论文使用。目前模板支持从学士到硕士、博士等三级学位论文的排版。
+% 
+% 模板在~\texttt{examples} 目录下提供了学士学位论
+% 文(\texttt{thesis-bachelor.tex})、硕士学位论文(\texttt{thesis-master.tex})、专
+% 业硕士学位论文(\texttt{thesis-masterpro.tex})以及博士学位论
+% 文(\texttt{thesis-doctor.tex})的使用示例。用户可以选择自己需要的样例，并在样例
+% 的基础上修改使用。这此论文样例的实际内容为模板的使用说明，建议在使用模板前认真
+% 阅读。为方便用户阅读，该说明按照博士学位论文版式进行了编译，并随模板一同发布(文
+% 件\texttt{thesis-doctor.pdf})。
 %
-% \subsection{下载}
-% \xduthesis{} 的主页是：  \url{https://github.com/fredqi/xduthesis}。
+% 模板在~\texttt{texlive} (\url{https://www.tug.org/texlive/}) 下进行了详细的测试，
+% 能够正常工作。对于其他~\XeLaTeX{}~的发布版本，由于没有进行完整测试，暂时无法确
+% 定模板的是否能够正常工作。
 %
-% \section{使用说明}
-% \label{sec:userguide}
+% \xduthesis{} 的主页是：\url{https://github.com/fredqi/xduthesis}。用户可以到该
+% 主页查看模板的开发进展、下载最新版本。如果在使用中遇到问题，请在页面
+% \url{https://github.com/fredqi/xduthesis/issues} 报告您所遇到的问题。希望在报
+% 告错误时能够提供测试代码，以便更快的定位和排查错误。
 %
-% \subsection{命令}
-% \label{sec:command}
-% 模板中的命令分为两类：一是格式控制，二是内容替换。格式控制如字体、字号、字距和
-% 行距。内容替换如姓名、院系、专业、致谢等等。其中内容替换命令居多，而且主要集中
-% 在封面上。首先来看格式控制命令。
-%
-%
-%
-% \subsubsection{基本控制命令}
-% \label{sec:basiccom}
-
-% \subsubsection{封面命令}
-% \label{sec:titlepage}
-% 下面是内容替换命令，其中以 |c| 开头的命令跟中文相关，|e| 开头则为对应的英文。
-% 这部分的命令数目比较多，但实际上都相当简单，套用即可。
-%
-% 大多数命令的使用方法都是： \cs{command}\marg{arg}，例外者将具体指出。这些命令都
-% 在示例文档的 data/cover.tex 中。
-%
-%\section{致谢}
-%\label{sec:thanks}
-%
+% \section*{致谢}
+% \label{sec:thanks}
 %
 % \changes{v0.9.8}{2012/12/26}{补充致谢信息}
 %
