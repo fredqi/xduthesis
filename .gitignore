@@ -22,6 +22,7 @@ xduthesis.pdf
 
 # packaging files
 *.tar.gz
+xduthesis*.zip
 
 # Emacs generated files
 auto/
