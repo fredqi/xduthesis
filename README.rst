@@ -121,10 +121,10 @@
 Introduction
 ============
 
-This is a XeLaTeX template for writing thesises to apply academic degrees in
+This is a XeLaTeX template for writing theses to apply academic degrees in
 Xidian University. The template is designed according to the official
-requirements on typesetting thesises. The template currently supports all levels
-of degrees from bachelor to docotor, including both academic master and
+requirements on typesetting theses. The template currently supports all levels
+of degrees from bachelor to doctor, including both academic master and
 professional master. But it is not guaranteed that you will pass the typesetting
 check and obtain your degree by using this template.
 
