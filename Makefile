@@ -36,25 +36,27 @@ install: all
 	sudo cp xdu{badge,badge-gr,logo}.eps $(LOCAL)/tex/xelatex/$(NAME)
 	sudo cp $(NAME).pdf $(LOCAL)/doc/xelatex/$(NAME)
 	sudo cp examples/thesis-doctor.pdf $(LOCAL)/doc/xelatex/$(NAME)
-zip: all
+zip: all README.md
 	mkdir -p $(TEMP)/{tex,source,doc}/xelatex/$(NAME)
 	cp $(NAME).dtx $(TEMP)/source/xelatex/$(NAME)
 	cp $(NAME).cls $(TEMP)/tex/xelatex/$(NAME)
 	cp $(NAME).cfg $(TEMP)/tex/xelatex/$(NAME)
 	cp xdu{badge,badge-gr,logo}.eps $(TEMP)/tex/xelatex/$(NAME)
 	cp $(NAME).pdf $(TEMP)/doc/xelatex/$(NAME)
+	cp README.md $(TEMP)/doc/xelatex/$(NAME)
 	cp examples/thesis-doctor.pdf $(TEMP)/doc/xelatex/$(NAME)
 	mkdir $(TEMP)/doc/xelatex/$(NAME)/examples
 	cp examples/*.tex $(TEMP)/doc/xelatex/$(NAME)/examples
 	cp examples/refs.bib $(TEMP)/doc/xelatex/$(NAME)/examples
 	cp examples/photo.png $(TEMP)/doc/xelatex/$(NAME)/examples
-	cd $(TEMP); zip -Drq $(TEMP)/$(NAME).tds.zip tex source doc
+	cd $(TEMP); zip -Drq $(PWD)/$(NAME).tds.zip tex source doc
 	mkdir -p $(TDIR)/examples
-	cp $(NAME).{pdf,dtx} README.rst $(TDIR)
+	cp $(NAME).{pdf,dtx} README.md $(TDIR)
 	cp xdu{badge,badge-gr,logo}.eps $(TDIR)
-	cp examples/thesis-doctor.pdf $(TDIR)
+	cp examples/thesis-doctor.pdf $(TDIR)/examples
 	cp examples/*.tex $(TDIR)/examples
 	cp examples/refs.bib $(TDIR)/examples
 	cp examples/photo.png $(TDIR)/examples
-	cd $(TEMP); zip -Drq $(PWD)/$(NAME)-$(VERS).zip $(NAME) $(NAME).tds.zip
+	$(RM) $(PWD)/$(NAME)-$(VERS).zip
+	cd $(TEMP); zip -Drq $(PWD)/$(NAME)-$(VERS).zip $(NAME)
 	$(RM) -r $(TEMP)
