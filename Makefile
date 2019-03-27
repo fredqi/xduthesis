@@ -25,7 +25,7 @@ inst: all
 	cp $(NAME).dtx $(UTREE)/source/xelatex/$(NAME)
 	cp $(NAME).cls $(UTREE)/tex/xelatex/$(NAME)
 	cp $(NAME).cfg $(UTREE)/tex/xelatex/$(NAME)
-	cp xdu{badge,badge-gr,logo}.eps $(UTREE)/tex/xelatex/$(NAME)
+	cp xdu{badge,badge-gr,logo}.pdf $(UTREE)/tex/xelatex/$(NAME)
 	cp $(NAME).pdf $(UTREE)/doc/xelatex/$(NAME)
 	cp examples/thesis-doctor.pdf $(UTREE)/doc/xelatex/$(NAME)
 install: all
@@ -33,7 +33,7 @@ install: all
 	sudo cp $(NAME).dtx $(LOCAL)/source/xelatex/$(NAME)
 	sudo cp $(NAME).cls $(LOCAL)/tex/xelatex/$(NAME)
 	sudo cp $(NAME).cfg $(LOCAL)/tex/xelatex/$(NAME)
-	sudo cp xdu{badge,badge-gr,logo}.eps $(LOCAL)/tex/xelatex/$(NAME)
+	sudo cp xdu{badge,badge-gr,logo}.pdf $(LOCAL)/tex/xelatex/$(NAME)
 	sudo cp $(NAME).pdf $(LOCAL)/doc/xelatex/$(NAME)
 	sudo cp examples/thesis-doctor.pdf $(LOCAL)/doc/xelatex/$(NAME)
 zip: all README.md
@@ -41,7 +41,7 @@ zip: all README.md
 	cp $(NAME).dtx $(TEMP)/source/xelatex/$(NAME)
 	cp $(NAME).cls $(TEMP)/tex/xelatex/$(NAME)
 	cp $(NAME).cfg $(TEMP)/tex/xelatex/$(NAME)
-	cp xdu{badge,badge-gr,logo}.eps $(TEMP)/tex/xelatex/$(NAME)
+	cp xdu{badge,badge-gr,logo}.pdf $(TEMP)/tex/xelatex/$(NAME)
 	cp $(NAME).pdf $(TEMP)/doc/xelatex/$(NAME)
 	cp README.md $(TEMP)/doc/xelatex/$(NAME)
 	cp examples/thesis-doctor.pdf $(TEMP)/doc/xelatex/$(NAME)
@@ -52,7 +52,7 @@ zip: all README.md
 	cd $(TEMP); zip -Drq $(PWD)/$(NAME).tds.zip tex source doc
 	mkdir -p $(TDIR)/examples
 	cp $(NAME).{pdf,dtx} README.md $(TDIR)
-	cp xdu{badge,badge-gr,logo}.eps $(TDIR)
+	cp xdu{badge,badge-gr,logo}.pdf $(TDIR)
 	cp examples/thesis-doctor.pdf $(TDIR)/examples
 	cp examples/*.tex $(TDIR)/examples
 	cp examples/refs.bib $(TDIR)/examples

@@ -33,3 +33,13 @@ auto/
 # Example directory
 examples/thesis-*.pdf
 examples/xdu*.eps
+
+# ignore
+*.hd
+*.ins
+
+
+# not ignore
+!xdulogo.pdf
+!xdubadge-gr.pdf
+!xdubadge.pdf
